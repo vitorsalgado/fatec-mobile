@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6275726F-2555-457A-8965-A037091FAD3D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fatec.Core</RootNamespace>
+    <AssemblyName>Fatec.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\default.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="Domain\Student\Day.cs" />
+    <Compile Include="Domain\Student\Exam.cs" />
+    <Compile Include="Domain\Student\Requirement.cs" />
+    <Compile Include="Domain\Student\Schedule.cs" />
+    <Compile Include="Domain\Student\Student.cs" />
+    <Compile Include="Domain\Student\Studies.cs" />
+    <Compile Include="Domain\Fatec\Course.cs" />
+    <Compile Include="Domain\Student\Discipline.cs" />
+    <Compile Include="Domain\Fatec\TeacherAbsence.cs" />
+    <Compile Include="Domain\Fatec\ClassReplacement.cs" />
+    <Compile Include="Domain\Message\Email.cs" />
+    <Compile Include="Domain\Message\EmailAccount.cs" />
+    <Compile Include="Domain\Message\EmailPriority.cs" />
+    <Compile Include="Domain\Student\Timetable.cs" />
+    <Compile Include="Domain\Student\TimetablePeriod.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Infrastructure\Web\EngineWrapper.cs" />
+    <Compile Include="Infrastructure\Exception\FatecException.cs" />
+    <Compile Include="Infrastructure\Web\FatecEngine.cs" />
+    <Compile Include="Infrastructure\Configuration\FatecMobileConfig.cs" />
+    <Compile Include="Infrastructure\Configuration\IConfigurationProvider.cs" />
+    <Compile Include="Domain\Site\Announcement.cs" />
+    <Compile Include="Domain\BaseEntity.cs" />
+    <Compile Include="Domain\AuditedEntity.cs" />
+    <Compile Include="Domain\Student\EnrolledDisciplines.cs" />
+    <Compile Include="Domain\Log\Log.cs" />
+    <Compile Include="Domain\Log\LogLevel.cs" />
+    <Compile Include="Domain\System\SysRole.cs" />
+    <Compile Include="Domain\System\SysUser.cs" />
+    <Compile Include="Infrastructure\Web\IEngine.cs" />
+    <Compile Include="Infrastructure\Task\TaskManager.cs" />
+    <Compile Include="Infrastructure\Web\FatecWorkContext.cs" />
+    <Compile Include="Repositories\IClassAssignmentRepository.cs" />
+    <Compile Include="Repositories\IAcademicDirectoryAnnouncementsRepository.cs" />
+    <Compile Include="Repositories\ICourseRepository.cs" />
+    <Compile Include="Repositories\ITraineeRepository.cs" />
+    <Compile Include="Repositories\IStudentRepository.cs" />
+    <Compile Include="Repositories\IFatecRepository.cs" />
+    <Compile Include="Repositories\IHomeAnnouncementsRepository.cs" />
+    <Compile Include="Repositories\ITIAnnouncementsRepository.cs" />
+    <Compile Include="Infrastructure\Caching\ICacheStrategy.cs" />
+    <Compile Include="Infrastructure\Task\ITask.cs" />
+    <Compile Include="Infrastructure\Web\IWorkContext.cs" />
+    <Compile Include="Services\IAnnouncementService.cs" />
+    <Compile Include="Infrastructure\Logger\ILogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IFatecService.cs" />
+    <Compile Include="Services\IEmailService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

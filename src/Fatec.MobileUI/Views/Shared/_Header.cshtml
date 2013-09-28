@@ -1,0 +1,17 @@
+﻿<header id="header" class="ui-bar-a ui-header">
+	<div class="wrap">
+		@if(Request.IsAuthenticated){
+			var username = DependencyResolver.Current.GetService<Fatec.Core.IWorkContext>().CurrentUser.Fullname;
+			<div class="username-line">
+				@using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "headerLogoutForm" })) {
+					@Html.AntiForgeryToken()
+					<a>Olá @username</a>
+					<a title="sair" href="javascript:void(0);" onclick="document.getElementById('headerLogoutForm').submit();"> | Sair</a>
+				}	
+			</div>
+		} else {
+			<div class="username-line">@Html.ActionLink("Olá. Faça seu login aqui.", "Login", "Account")</div>
+		}
+		<h1 class="current-page-info-line">@ViewBag.Highlight <span class="light-text">@ViewBag.AdditionalPageInfo</span></h1>
+	</div>
+</header>

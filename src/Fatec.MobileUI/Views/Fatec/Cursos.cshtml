@@ -1,0 +1,26 @@
+﻿@using Fatec.Core
+@model IEnumerable<Fatec.MobileUI.ViewModels.CourseModel>
+
+@{
+	ViewBag.Title = "Cursos";
+	ViewBag.Highlight = "cursos";
+	ViewBag.AdditionalPageInfo = " de graduação";
+}
+
+@Html.ValidationSummary()
+
+@foreach (var curso in Model)
+{
+	<div class="post">
+		<h1 class="post-title">
+			@Html.RouteLink(curso.Nome, "cursos-detalhe", new { id = curso.Id, nome = CommonHelper.ToSeoFriendly(curso.Nome) })
+		</h1>
+		<div class="post-meta">
+			<p>
+				<span class="post-date">@curso.NivelDeEnsino</span>
+				<span class="space">·</span>
+				<span class="post-owner">Duração: <span class="owner">@curso.DuracaoEmMeses (meses)</span></span>
+			</p>
+		</div>
+	</div>
+}

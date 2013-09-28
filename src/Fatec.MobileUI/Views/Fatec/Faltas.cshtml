@@ -1,0 +1,37 @@
+﻿@model List<Fatec.MobileUI.ViewModels.TeacherAbsenceModel>
+
+@{
+	ViewBag.Title = "Faltas";
+	ViewBag.Highlight = "faltas";
+	ViewBag.AdditionalPageInfo = " de professores";
+}
+
+@Html.ValidationSummary()
+
+@foreach (var item in Model)
+{
+	<div class="post">
+		<h1 class="post-title">
+			@item.Professor
+		</h1>
+		<h2 class="post-subtitle">
+			@item.Disciplina
+		</h2>
+		<div class="post-meta">
+			<p>
+				<span class="post-date">@item.Data.ToString("dd/MM/yyyy")</span>
+				<span class="space">·</span>
+				<span class="post-owner">Turno: <span class="owner">
+					@foreach(var turno in item.Turnos){
+						<span class="space">@turno</span>
+					}
+				</span></span>
+				<br />
+				<span class="post-date">Motivo<span class="space">·</span><span>@item.Motivo</span></span>
+			</p>
+		</div>
+		<div class="post-summary">
+			@item.Observacoes
+		</div>
+	</div>
+}

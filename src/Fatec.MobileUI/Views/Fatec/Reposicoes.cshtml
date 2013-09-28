@@ -1,0 +1,32 @@
+﻿@model List<Fatec.MobileUI.ViewModels.ClassReplacementModel>
+
+@{
+	ViewBag.Title = "Reposições";
+	ViewBag.Highlight = "reposições";
+	ViewBag.AdditionalPageInfo = " de aulas";
+}
+
+@Html.ValidationSummary()
+
+@foreach (var item in Model)
+{
+	<div class="post">
+		<h1 class="post-title">
+			@item.Disciplina
+		</h1>
+		<h2 class="post-subtitle">
+			@item.Professor
+		</h2>
+		<div class="post-meta">
+			<p>
+				<span class="post-date">@string.Format("{0} às {1}", @item.Data.ToString("dd/MM/yyyy"), @item.Data.ToString("HH:mm"))</span>
+				<span class="space">·</span>
+				<span class="post-owner">Turno: <span class="owner">
+					@foreach(var turno in item.Turnos){
+						<span class="space">@turno</span>
+					}
+				</span></span>
+			</p>
+		</div>
+	</div>
+}

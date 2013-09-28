@@ -1,0 +1,36 @@
+﻿@using Fatec.MobileUI;
+
+@{
+	var searchFormActionName = (string)ViewData["SearchFormActionName"];
+	var backButtonActionName = (string)ViewData["BackButtonActionName"];
+	var backButtonControllerName = (string)ViewData["BackButtonControllerName"];
+}
+
+<div id="search-container">
+	<div class="search-content">
+		<div class="search-box-container">
+			<form id="footerSearchForm" method="get" action="@Url.Action(searchFormActionName)">
+				<input type="text" id="search-box" name="q" />
+				<a href="javascript:void(0);" title="Pesquisar" onclick="document.getElementById('footerSearchForm').submit();"><i id="search-action" class="search-icon icon-search"></i></a>
+			</form>
+		</div>
+	</div>
+</div>
+
+<footer id="footer">
+	<div class="wrap-mobile">
+		<ul>
+			@if(string.IsNullOrEmpty(backButtonActionName) && string.IsNullOrEmpty(backButtonControllerName)) {
+				<li><a title="Voltar" href="/"><i class="icon-chevron-sign-left"></i></a></li>
+			} else if(!string.IsNullOrEmpty(backButtonActionName) && string.IsNullOrEmpty(backButtonControllerName)) {
+				<li><a title="Voltar" href="@Url.Action(backButtonActionName)"><i class="icon-chevron-sign-left"></i></a></li>				
+			} else {
+				<li><a title="Voltar" href="@Url.Action(backButtonActionName, backButtonControllerName)"><i class="icon-chevron-sign-left"></i></a></li>
+			}
+			<li><a title="Início" href="/"><i class="icon-home"></i></a></li>
+			<li><a id="show-search" title="Pesquisar" href="javascript:void(0);"><i class="icon-search"></i></a></li>
+			<li><a title="Menu" href="javascript:void(0);"><i class=" icon-list"></i></a></li>
+		</ul>
+	</div>
+</footer>
+

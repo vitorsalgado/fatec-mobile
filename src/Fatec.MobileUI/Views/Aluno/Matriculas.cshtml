@@ -1,0 +1,44 @@
+﻿@model List<Fatec.MobileUI.ViewModels.MatriculaModel>
+@{
+	ViewBag.Title = "Matrículas - FATEC PG - Mobile";
+	ViewBag.Highlight = "matrículas";
+	ViewBag.AdditionalPageInfo = " no semestre";
+}
+
+@Html.ValidationSummary()
+<div class="wrap">
+	@foreach (var matricula in Model) {
+		<div class="content-box">
+			<div class="entry-container post conceito conceito@matricula.Conceito">
+				<div class="entry-container-inner">
+					<h1 class="post-title-white">
+						<span>
+							@matricula.Disciplina
+						</span>
+					</h1>
+					<table class="grid-notas" id="tbBimestres">
+						<tr class="centeral bold">
+							<td colspan="2">1°Bim.</td>
+							<td colspan="2">2°Bim</td>
+						</tr>
+						<tr class="centeral bold">
+							<td>Nota</td>
+							<td>Faltas</td>
+							<td>Nota</td>
+							<td>Faltas</td>
+						</tr>
+						<tr class="centeral">
+							<td>@matricula.NotaPrimeiroBimestre.ToString("0.##")</td>
+							<td>@matricula.FaltasPrimeiroBimestre</td>
+							<td>@matricula.NotaSegundoBimestre.ToString("0.##")</td>
+							<td>@matricula.FaltasSegundoBimestre</td>
+						</tr>
+					</table>
+					<h1 class="entry-footer">
+						<span><b>Média</b></span><span class="large-space">·</span><span>@matricula.Media.ToString("0.##")</span>
+					</h1>
+				</div>
+			</div>
+		</div>
+ }
+</div>

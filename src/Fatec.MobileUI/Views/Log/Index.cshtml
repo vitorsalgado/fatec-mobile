@@ -1,0 +1,6 @@
+﻿@{
+    Layout = null;
+
+    string htmlLogPath = Server.MapPath("~/App_Data/fatec-mobile-log.html");
+    Response.WriteFile(htmlLogPath);
+}

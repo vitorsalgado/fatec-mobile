@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\Fatec.Test.csproj" total="1" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-08-25" time="02:33:08">
+  <environment nunit-version="2.6.2.12296" clr-version="2.0.50727.6407" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.6.2\bin" machine-name="VITOR-ULTRABOOK" user="Vitor" user-domain="VITOR-ULTRABOOK" />
+  <culture-info current-culture="pt-BR" current-uiculture="en-US" />
+  <test-suite type="Project" name="C:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\Fatec.Test.csproj" executed="True" result="Failure" success="False" time="1.631" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\bin\Debug\Fatec.Test.dll" executed="True" result="Failure" success="False" time="1.596" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Fatec" executed="True" result="Failure" success="False" time="1.595" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Test" executed="True" result="Failure" success="False" time="1.595" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Repository" executed="True" result="Failure" success="False" time="1.595" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="AlunoRepositoryTest" executed="True" result="Failure" success="False" time="1.593" asserts="0">
+                        <results>
+                          <test-case name="Fatec.Test.Repository.AlunoRepositoryTest.Retrieve_All_Aproveitamentos" executed="True" result="Failure" success="False" time="0.216" asserts="1">
+                            <failure>
+                              <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+                              <stack-trace><![CDATA[at Fatec.Test.Repository.AlunoRepositoryTest.Retrieve_All_Aproveitamentos() in c:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\Repository\AlunoRepositoryTest.cs:line 24
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

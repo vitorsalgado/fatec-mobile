@@ -1,0 +1,28 @@
+﻿@model List<Fatec.MobileUI.ViewModels.ExamModel>
+
+@{
+    ViewBag.Title = "Avaliacoes";
+	ViewBag.Highlight = "avaliacoes";
+	ViewBag.AdditionalPageInfo = " do aluno";
+}
+
+@Html.ValidationSummary()
+
+@foreach(var item in Model){
+	<div class="post">
+		<h1 class="post-title">
+			<span>@item.DisciplineName</span>
+		</h1>
+		<div class="post-meta">
+			<p>
+				<span class="post-owner"><strong>Professor</strong><span class="space">·</span><span class="owner">@item.TeacherName</span></span>
+				<br />
+				<span class="post-date"><strong>Turno</strong><span class="space">·</span>@item.Period</span>
+				<br />
+				<span class="post-owner"><strong>Data da P1</strong><span class="space">·</span><span class="owner">@item.FirstExamDate</span></span>
+				<br />
+				<span class="post-date"><strong>Data da P2</strong><span class="space">·</span><span class="owner">@item.SecondExamDate</span></span>
+			</p>
+		</div>
+	</div>
+}

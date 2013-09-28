@@ -1,0 +1,27 @@
+﻿.bg-color-orange {
+	background: #d44a26;
+}
+
+.bg-color-blue {
+	background-color:rgb(0, 80, 239);
+}
+
+.bg-color-yellow {
+	background-color:#ffd800;
+}
+
+.bg-color-green {
+	background-color:rgb(0, 138, 0);
+}
+
+.bg-color-red {
+	background-color:rgb(229, 20, 0);
+}
+
+.light-text {
+	color: #999999;
+}
+
+.blue-text-color {
+	color: #0096dd;
+}

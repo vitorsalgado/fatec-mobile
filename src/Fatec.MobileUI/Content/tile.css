@@ -1,0 +1,121 @@
+﻿.tile-section {
+	width: 100%;
+	height: auto;
+	position: relative;
+	overflow: auto;
+	margin: 0 auto;
+}
+
+.tile {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 5px;
+	color: #ffffff;
+	text-decoration: none;
+	overflow: hidden;
+}
+
+.tile-section .tile {
+	float: left;
+}
+
+.tile:hover {
+	outline: 2px #225a68 solid;
+}
+
+.huge-tile {
+	width: 310px;
+	height: 120px;
+}
+
+.large-tile {
+	width: 150px;
+	height: 150px;
+}
+
+.small-tile {
+	width: 70px;
+	height: 70px;
+	font-size: 85%;
+}
+
+.list-tile {
+	width: 80px;
+	height: 80px;
+	font-size: 40pt;
+}
+
+	.list-tile .list-tile-content {
+		padding-top: 3px;
+	}
+
+	.small-tile .small-tile-content,
+	.list-tile .list-tile-content,
+	.large-tile .large-tile-content,
+	.huge-tile .huge-tile-content {
+		margin: 0 auto;
+		text-align: center;
+		width: 100%;
+		position: relative;
+	}
+
+.small-tile .small-tile-content {
+	padding-top: 6px;
+}
+
+.large-tile .large-tile-content {
+	padding-top: 20px;
+}
+
+.huge-tile .huge-tile-content {
+	padding-top: 20px;
+}
+
+.tile a,
+.tile img,
+.tile .img {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.tile img,
+.tile .img {
+	padding-top: 5px;
+	padding-bottom: 4px;
+	font-family: FontAwesome;
+}
+
+.tile .padding-top-large {
+	padding-top: 10px;
+}
+
+.tile .large {
+	font-size: 40pt;
+}
+
+.tile .small {
+	font-size: 20pt;
+}
+
+.list-menu {
+	padding: 5px 15px;
+	font-size: 130%;
+	text-transform: lowercase;
+}
+
+	.list-menu,
+	.list-menu a {
+		font-size: 120%;
+		margin: 0;
+		color: #484848;
+		color: #ffffff;
+	}
+
+.menu-text {
+	display: block;
+	float: left;
+	padding: 30px 0;
+	clear: right;
+}

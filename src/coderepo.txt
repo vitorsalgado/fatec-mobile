@@ -1,0 +1,123 @@
+﻿			@if(Request.IsAuthenticated){
+				<li>
+					@using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "footerLogoutForm" })) {
+						@Html.AntiForgeryToken()
+						<a title="sair" href="javascript:void(0);" onclick="document.getElementById('footerLogoutForm').submit();"><i class="icon-signout"></i></a>
+					}	
+				</li>
+			} else {
+				<li><a title="Entrar" href="@Url.Action("Login", "Account")"><i class="icon-signin"></i></a></li>
+			}
+
+@*&#57631;*@
+&#57811;
+
+		public static string RemapInternationalCharToAscii(char c)
+		{
+			string s = c.ToString().ToLowerInvariant();
+			if ("àåáâäãåą".Contains(s))
+				return "a";
+			else if ("èéêëę".Contains(s))
+				return "e";
+			else if ("ìíîïı".Contains(s))
+				return "i";
+			else if ("òóôõöøőð".Contains(s))
+				return "o";
+			else if ("ùúûüŭů".Contains(s))
+				return "u";
+			else if ("çćčĉ".Contains(s))
+				return "c";
+			else if ("żźž".Contains(s))
+				return "z";
+			else if ("śşšŝ".Contains(s))
+				return "s";
+			else if ("ñń".Contains(s))
+				return "n";
+			else if ("ýÿ".Contains(s))
+				return "y";
+			else if ("ğĝ".Contains(s))
+				return "g";
+			else if (c == 'ř')
+				return "r";
+			else if (c == 'ł')
+				return "l";
+			else if (c == 'đ')
+				return "d";
+			else if (c == 'ß')
+				return "ss";
+			else if (c == 'Þ')
+				return "th";
+			else if (c == 'ĥ')
+				return "h";
+			else if (c == 'ĵ')
+				return "j";
+			else
+				return "";
+		}
+
+
+
+
+		//private ICollection<DisciplinaMatriculada> _disciplinasMatriculadas;
+		//public ICollection<DisciplinaMatriculada> DisciplinasMatriculadas
+		//{
+		//	get
+		//	{
+		//		if (_disciplinasMatriculadas != null)
+		//			return _disciplinasMatriculadas;
+		//		_disciplinasMatriculadas = _alunoRepository.GetDisciplinasMatriculadasByMatricula(Matricula);
+		//		return _disciplinasMatriculadas;
+		//	}
+		//}
+
+		//private ICollection<AproveitamentoDeEstudo> _aproveitamentosDeEstudo;
+		//public ICollection<AproveitamentoDeEstudo> AproveitamentosDeEstudo
+		//{
+		//	get 
+		//	{
+		//		if (_aproveitamentosDeEstudo != null)
+		//			return _aproveitamentosDeEstudo;
+		//		_aproveitamentosDeEstudo = _alunoRepository.GetAproveitamentosByMatricula(Matricula);
+		//		return _aproveitamentosDeEstudo;
+		//	}
+		//}
+
+	using Fatec.Core.Infrastructure.Caching;
+using System;
+
+namespace Fatec.Infrastructure.Caching
+{
+	public class NullCacheStrategy : ICacheStrategy
+	{
+		public T Get<T>(string key)
+		{
+			return default(T);
+		}
+
+		public T Get<T>(string key, Func<T> fetchFunction)
+		{
+			return Get(key, 0, fetchFunction);
+		}
+
+		public T Get<T>(string key, int cacheDuration, Func<T> fetchFunction)
+		{
+			if (String.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+			if (fetchFunction == null) throw new ArgumentNullException("fetchFunction");
+
+			return fetchFunction();
+		}
+
+		public void Add(string key, object data, int cacheDuration) { }
+
+		public bool Contains(string key)
+		{
+			return false;
+		}
+
+		public void Remove(string key) { }
+
+		public void RemoveByPattern(string pattern) { }
+
+		public void ClearAll() { }
+	}
+}

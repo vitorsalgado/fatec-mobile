@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\Fatec.Test.csproj</TopNode>
+  <SelectedNode>[0-1002]Fatec.Test.Repository.AlunoRepositoryTest.Retrieve_All_Aproveitamentos</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\Fatec.Test.csproj" Expanded="true" />
+    <Node UniqueName="[0-1003]C:\Users\Vitor\Documents\GitHub\fatecmobile\src\Fatec.Test\bin\Debug\Fatec.Test.dll" Expanded="true" />
+    <Node UniqueName="[0-1004]Fatec" Expanded="true" />
+    <Node UniqueName="[0-1005]Fatec.Test" Expanded="true" />
+    <Node UniqueName="[0-1006]Fatec.Test.Repository" Expanded="true" />
+    <Node UniqueName="[0-1001]Fatec.Test.Repository.AlunoRepositoryTest" Expanded="true" />
+  </Nodes>
+</VisualState>

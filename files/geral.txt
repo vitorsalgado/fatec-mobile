@@ -1,0 +1,123 @@
+﻿@font-face {
+	font-family: "Font Awesome";
+	src: url("~/Content/font/fontawesome-webfont.eot");
+	src: local("☺"), url("~/Content/font/fontawesome-webfont.woff") format("woff"), url("~/Content/font/fontawesome-webfont.otf") format("opentype"), url("~/Content/font/fontawesome-webfont.svg#fontawesome-webfont") format("svg");
+}
+
+.menu {
+	height: auto;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+	.menu .menu-item {
+		width: 33%;
+		min-height: 1px;
+		float: left;
+	}
+
+		.menu .menu-item a {
+			padding: 5px;
+			text-align: center;
+			margin: 0 auto;
+			color: #1b1b1b;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+			.menu .menu-item a:visited {
+				color: #1b1b1b;
+			}
+
+		.menu .menu-item,
+		.menu .menu-item img,
+		.menu .menu-item a {
+			display: block;
+		}
+
+			.menu .menu-item img {
+				padding: 0 3px 3px 3px;
+				margin: 0 auto;
+			}
+
+.nav-bar {
+	color: #333333;
+	float: left;
+	text-transform: uppercase;
+	font-size: 11px;
+	margin-left: 20px;
+}
+
+.nav {
+	display: block;
+}
+
+	.nav ul {
+		position: relative;
+		margin: 0 10px 0 0;
+		float: left;
+	}
+
+	.nav li {
+		float: left;
+	}
+
+	.nav li {
+		line-height: 18px;
+	}
+
+		.nav,
+		.nav li,
+		.nav li a {
+			display: block;
+		}
+
+			.nav li a {
+				float: none;
+				padding: 7px 10px;
+				text-decoration: none;
+				color: #ffffff;
+				transition: all 0.1s ease-in;
+				font-size: 13px;
+				font-weight: bold;
+			}
+
+				.nav li a img {
+					margin: -2px 0 0 0;
+				}
+
+				.nav li a:hover {
+					color: #ffffff;
+					text-decoration: none;
+				}
+
+
+		private static Func<XElement, DisciplinaMatriculada> Mapper = xElement =>
+		{
+			return new DisciplinaMatriculada()
+			{
+				Id = Convert.ToInt32(xElement.GetAttrValue("ows_ID")),
+				Title = xElement.GetAttrValue("ows_Title"),
+				NomeDisciplina = xElement.GetAttrValue("ows_Disciplina"),
+				Historico = xElement.GetAttrValue("ows_Hist_x00f3_rico"),
+				Matricula = xElement.GetAttrValue("ows_Matr_x00ed_cula"),
+				Turno = xElement.GetAttrValue("ows_Turno"),
+				NotaPrimeiroSemestre = Convert.ToDecimal(xElement.GetAttrValue("ows_Nota_x0020_1")),
+				NotaSegundoSemestre = Convert.ToDecimal(xElement.GetAttrValue("ows_Nota_x0020_2")),
+				FaltasPrimeiroSemestre = Convert.ToInt32(xElement.GetAttrValue("ows_Faltas_x0020__x0028_1_x00ba__x00")),
+				FaltasSegundoSemestre = Convert.ToInt32(xElement.GetAttrValue("ows_Faltas_x0020__x0028_2_x00ba__x00")),
+				PercentualDeFaltas = Convert.ToDecimal(xElement.GetAttrValue("ows_Faltas")),
+				NotaDeTrabalho = Convert.ToDecimal(xElement.GetAttrValue("ows_NP")),
+				Media = Convert.ToDecimal(xElement.GetAttrValue("ows_M_x00e9_dia")),
+				Conceito = xElement.GetAttrValue("ows_Conceito"),
+				CreatedOn = Convert.ToDateTime(xElement.GetAttrValue("ows_Created")),
+				CreatorId = Convert.ToInt32(xElement.GetAttrValue("ows_Author").Split(';')[0]),
+				CreatedBy = xElement.GetAttrValue("ows_Author").Split('#')[1].RemoveDomain()
+			};
+		};
+
+
+		/*background-color: #151515;
+	background: radial-gradient(ellipse at center,#eaeff2 0,rgba(212,221,228,0.5) 50%),linear-gradient(to bottom,#cae1f4 0,rgba(125,185,232,0) 100%);
+	background-image: url(/Content/Images/bg-noise.png);
+	background-color:rgba(212,221,228,0.5);*/
