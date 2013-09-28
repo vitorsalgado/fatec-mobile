@@ -1,7 +1,7 @@
 FATEC Website For Mobile Devices
 ================================
 
-Tecnologies
+Technologies
 -----------
 * C# / .NET Framework 4.5 / ASP.NET MVC 4;
 * Javascript with some jQuery;
