@@ -1,14 +1,15 @@
 ﻿using Fatec.Core;
-using Fatec.Core.DependencyResolver;
 using Fatec.Core.Domain;
 using Fatec.Core.Infrastructure.Configuration;
 using Fatec.Core.Infrastructure.Logger;
 using Fatec.Core.Services;
+using Fatec.Dependencies;
 using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace Fatec.MobileUI
 {
@@ -16,7 +17,7 @@ namespace Fatec.MobileUI
 	{
 		protected void Application_Start()
 		{
-			var dependencyResolver = DependencyResolutionManager.GetResolver();
+			var dependencyResolver = IoC.GetResolver();
 			DependencyResolver.SetResolver(dependencyResolver);
 
 			AreaRegistration.RegisterAllAreas();
@@ -52,14 +53,10 @@ namespace Fatec.MobileUI
 			logger.Log(new Log()
 			{
 				CreatedOn = DateTime.Now,
-				Exception = exception,
-				LogLevel = LogLevel.Error,
 				Message = "Application Exception",
 				Details = exception.ToString(),
-				ReferrerUrl = httpContext.Request.UrlReferrer == null ? string.Empty : httpContext.Request.UrlReferrer.PathAndQuery,
 				RawUrl = httpContext.Request == null ? string.Empty : httpContext.Request.RawUrl,
 				IpAddress = httpContext.Request.UserHostAddress,
-				User = workContext.CurrentUser
 			});
 		}
 

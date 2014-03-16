@@ -7,7 +7,7 @@ using System;
 
 namespace Fatec.Infrastructure.Logger
 {
-	public class NLogLogger : ILogger
+	public class NLogLogger : IFileSystemLogger
 	{
 		private static NLog.Logger _logger;
 		private static string _logConfigPath = string.Concat(AppDomain.CurrentDomain.BaseDirectory, "\\nlog.config");
@@ -32,12 +32,12 @@ namespace Fatec.Infrastructure.Logger
 
 		public void Warn(string warning)
 		{
-			_logger.Info(warning);
+			throw new NotImplementedException();
 		}
 
 		public void Debug(string debug)
 		{
-			_logger.Debug(debug);
+			throw new NotImplementedException();
 		}
 	}
 }

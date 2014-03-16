@@ -5,12 +5,13 @@ using Fatec.MobileUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Controllers
 {
-    public class EstagioController : Controller
-    {
+	public class EstagioController : Controller
+	{
 		private readonly IAnnouncementService _avisosService;
 		private const string BACK_BUTTON_ACTION_NAME = "BackButtonActionName";
 
@@ -21,10 +22,10 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction]
 		[SetPageInfoLabels("Oportunidades", "oportunidades", "de estágio")]
-		public ActionResult Noticias(string q)
+		public async Task<ActionResult> Noticias(string q)
 		{
 			var model = new List<AnnouncementsModel>();
-			var avisos = _avisosService.GetValidIntershipOpportunities();
+			var avisos = await Task.Run(() => _avisosService.GetValidIntershipOpportunities());
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -48,20 +49,22 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction("Noticias")]
 		[SetPageInfoLabels("Oportunidades", "oportunidade", "de estágio")]
-		public ActionResult Noticia(int id, string titulo)
+		public async Task<ActionResult> Noticia(int id, string titulo)
 		{
 			if (id <= 0)
 				RedirectToAction("Noticias");
 
 			var model = new AnnouncementsModel();
-			var aviso = _avisosService.GetInternshipOpportunityById(id);
+			var aviso = await Task.Run(() => _avisosService.GetInternshipOpportunityById(id));
 
-			if (titulo != CommonHelper.ToSeoFriendly(aviso.Title))
-				return RedirectToActionPermanent("Noticia", new { id = id, titulo = CommonHelper.ToSeoFriendly(aviso.Title) });
+			var seoFriendlyUrl = CommonHelper.ToSeoFriendly(aviso.Title);
+
+			if (!titulo.Equals(seoFriendlyUrl, StringComparison.InvariantCultureIgnoreCase))
+				return RedirectToActionPermanent("Noticia", new { id = id, titulo = seoFriendlyUrl });
 
 			model = aviso.ToModel();
 
 			return View(model);
 		}
-    }
+	}
 }

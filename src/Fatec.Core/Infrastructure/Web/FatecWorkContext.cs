@@ -1,5 +1,4 @@
-﻿using Fatec.Core;
-using Fatec.Core.Domain;
+﻿using Fatec.Core.Domain;
 using Fatec.Core.Services;
 using System.Web;
 
@@ -9,7 +8,7 @@ namespace Fatec.Core.Infrastructure
 	{
 		private readonly IAuthenticationService _authenticationService;
 		private HttpContextBase _httpContext;
-		private SysUser _contextUser;
+		private FatecIdentity _contextUser;
 
 		public FatecWorkContext(HttpContextBase httpContext, IAuthenticationService authenticationService)
 		{
@@ -22,7 +21,7 @@ namespace Fatec.Core.Infrastructure
 			get { return _httpContext.User.Identity.Name; }
 		}
 
-		public SysUser CurrentUser
+		public FatecIdentity CurrentUser
 		{
 			get { return (_contextUser ?? (_contextUser = _authenticationService.GetAuthenticatedUser())); }
 		}

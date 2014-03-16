@@ -1,6 +1,6 @@
 ﻿namespace Fatec.Core.Domain
 {
-	public class EnrolledDiscipline : AuditedEntity
+	public class EnrolledDiscipline : AbstractAuditedEntity
 	{
 		public string Registry { get; set; }
 		public string Horary { get; set; }
@@ -16,14 +16,8 @@
 		public decimal PartialGrade { get; set; }
 		public decimal Grade { get; set; }
 		public string Concept { get; set; }
-
 		public int DisciplineId { get; set; }
 
-		private Discipline _discipline;
-		public Discipline Discipline 
-		{
-			get { return _discipline ?? (_discipline = new Discipline(DisciplineId)); }
-			set { _discipline = value; } 
-		}
+		public Discipline Discipline { get; set; }
 	}
 }

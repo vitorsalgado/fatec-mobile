@@ -1,5 +1,4 @@
-﻿using Fatec.Core.Infrastructure.Logger;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Xml;
 
@@ -7,8 +6,6 @@ namespace Fatec.Core.Infrastructure.Configuration
 {
 	public class FatecMobileConfig : IConfigurationSectionHandler
 	{
-		private static readonly ILogger _logger = EngineWrapper.Current.Resolve<ILogger>();
-
 		#region Properties
 
 		public Uri SharepointDefaultUrl { get; private set; }
@@ -70,10 +67,7 @@ namespace Fatec.Core.Infrastructure.Configuration
 			var developerNode = section.SelectSingleNode("Developer");
 
 			if (developerNode == null)
-			{
-				_logger.Warn("Developer node not defined.");
-				return;
-			}
+				throw new FatecException("Developer informations configuration section was not defined!");
 
 			if (developerNode.Attributes["Email"] != null)
 			{
@@ -88,10 +82,7 @@ namespace Fatec.Core.Infrastructure.Configuration
 			var cacheNode = section.SelectSingleNode("Cache");
 
 			if (cacheNode == null)
-			{
-				_logger.Warn("Cache node not defined.");
-				return;
-			}
+				throw new FatecException("Cache configuration section was not defined!");
 
 			if (cacheNode.Attributes["DefaultExpirationTime"] != null)
 			{
@@ -106,10 +97,7 @@ namespace Fatec.Core.Infrastructure.Configuration
 			var domainNode = section.SelectSingleNode("Domain");
 
 			if (domainNode == null)
-			{
-				_logger.Warn("Domain node not defined.");
-				return;
-			}
+				throw new FatecException("Domain configuration section was not defined!");
 
 			if (domainNode.Attributes["Name"] != null)
 			{
@@ -138,10 +126,7 @@ namespace Fatec.Core.Infrastructure.Configuration
 			var sharePointNode = section.SelectSingleNode("Sharepoint");
 
 			if (sharePointNode == null)
-			{
-				_logger.Warn("Sharepoint node not defined.");
-				return;
-			}
+				throw new FatecException("Sharepoint configuration section was not defined!");
 
 			if (sharePointNode.Attributes["DefaultUrl"] != null)
 			{
@@ -177,10 +162,7 @@ namespace Fatec.Core.Infrastructure.Configuration
 			var emailNode = section.SelectSingleNode("Email");
 
 			if (emailNode == null)
-			{
-				_logger.Warn("Email node not defined.");
-				return;
-			}
+				throw new FatecException("Email configuration section was not defined!");
 
 			if (emailNode.Attributes["DisplayName"] != null)
 			{

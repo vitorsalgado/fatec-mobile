@@ -5,8 +5,8 @@ namespace Fatec.Core.Services
 {
 	public interface IAuthenticationService
 	{
-		SysUser GetAuthenticatedUser();
-		void SignIn(SysUser user, bool createPersistentCookie);
+		FatecIdentity GetAuthenticatedUser();
+		void SignIn(FatecIdentity user, bool persistent);
 		void SignOut();
 	}
 }

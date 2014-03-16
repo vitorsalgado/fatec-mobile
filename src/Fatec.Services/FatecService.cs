@@ -11,14 +11,14 @@ namespace Fatec.Services
 	{
 		private readonly ICourseRepository _cursoRepository;
 		private readonly IFatecRepository _fatecRepository;
-		private readonly ICacheStrategy _cacheStrategy;
+		private readonly ICacheManager _cacheStrategy;
 
 		private const string CACHE_CURSO_BY_ID = "fatec.curso.id-{0}";
 		private const string CACHE_CURSOS = "fatec.cursos.all";
 
 		private const int CACHE_DURATION = int.MaxValue;
 
-		public FatecService(ICourseRepository cursoRepository, IFatecRepository fatecRepository, ICacheStrategy cacheStrategy)
+		public FatecService(ICourseRepository cursoRepository, IFatecRepository fatecRepository, ICacheManager cacheStrategy)
 		{
 			_cursoRepository = cursoRepository;
 			_fatecRepository = fatecRepository;

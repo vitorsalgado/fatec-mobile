@@ -2,7 +2,7 @@
 
 namespace Fatec.Core.Domain
 {
-	public class Requirement : AuditedEntity
+	public class Requirement : AbstractAuditedEntity
 	{
 		public string Description { get; set; }
 		public string Category { get; set; }

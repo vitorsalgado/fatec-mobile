@@ -2,6 +2,7 @@
 using Fatec.Core.Services;
 using Fatec.MobileUI.Filters;
 using Fatec.MobileUI.ViewModels;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Controllers
@@ -29,16 +30,18 @@ namespace Fatec.MobileUI.Controllers
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
 		[BackButtonAction("Index", "Home")]
-		public ActionResult Login(LoginModel model, string returnUrl)
+		public async Task<ActionResult> Login(LoginModel model, string returnUrl)
 		{
 			if (ModelState.IsValid)// && _userService.ValidateUser(model.Username, model.Password))
 			{
 				//var user = _userService.GetUserByUsername(model.Username);
-				var user = new SysUser();
-				user.Username = model.Username.ToUpper();
-				user.Fullname = "Vitor Hugo Salgado";
+				var user = new FatecIdentity(
+					model.Username.ToUpper(),
+					"Vitor Hugo Salgado",
+					"vsalgadopb@gmail.com",
+					(new string[]{ "Aluno FATEC" }));
 
-				_authenticationService.SignIn(user, model.Remember);
+				await Task.Run(() => _authenticationService.SignIn(user, model.Remember));
 
 				if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
 					return Redirect(returnUrl);
@@ -47,14 +50,15 @@ namespace Fatec.MobileUI.Controllers
 			}
 
 			ModelState.AddModelError("", "O usuário ou senha informados estão incorretos.");
+
 			return View(model);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Logout()
+		public async Task<ActionResult> Logout()
 		{
-			_authenticationService.SignOut();
+			await Task.Run(() => _authenticationService.SignOut());
 			return RedirectToAction("Index", "Home");
 		}
     }

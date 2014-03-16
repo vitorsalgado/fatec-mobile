@@ -10,14 +10,14 @@ namespace Fatec.Services
 	public class FormsAuthenticationService : IAuthenticationService
 	{
 		private readonly HttpContextBase _httpContext;
-		private SysUser _cachedUser = null;
+		private FatecIdentity _cachedUser = null;
 
 		public FormsAuthenticationService(HttpContextBase httpContext)
 		{
 			_httpContext = httpContext;
 		}
 
-		public SysUser GetAuthenticatedUser()
+		public FatecIdentity GetAuthenticatedUser()
 		{
 			if (_cachedUser != null)
 				return _cachedUser;
@@ -27,31 +27,30 @@ namespace Fatec.Services
 
 			var formsIdentity = (FormsIdentity)_httpContext.User.Identity;
 			string[] userdata = formsIdentity.Ticket.UserData.Split(';');
-			
-			var user = new SysUser();
-			user.Username = formsIdentity.Ticket.Name;
-			user.Fullname = userdata[0];
-			user.Email = userdata[1];
-			foreach(var role in userdata[2].Split('|'))
-				user.SysRoles.Add(new SysRole() { Name = role });
+
+			string login = formsIdentity.Ticket.Name;
+			string fullname = userdata[0];
+			string email = userdata[1];
+			string[] roles = userdata[2].Split('|');
+
+			var user = new FatecIdentity(login, fullname, email, roles);
 
 			_cachedUser = user;
 			
 			return _cachedUser;
 		}
 
-		public void SignIn(SysUser user, bool createPersistentCookie)
+		public void SignIn(FatecIdentity user, bool createPersistentCookie)
 		{
 			if (user == null) throw new ArgumentNullException("user");
 
 			var now = DateTime.UtcNow.ToLocalTime();
-			var roles = string.Join("|", user.SysRoles.Select(x => x.Name));
+			var roles = string.Join("|", user.Roles.ToArray());
 			string userData = string.Format("{0};{1};{2}", user.Fullname, user.Email, roles);
-			user.Username = user.Username.ToUpper();
 
 			var ticket = new FormsAuthenticationTicket(
 				1,
-				user.Username,
+				user.Login,
 				now,
 				now.Add(FormsAuthentication.Timeout),
 				createPersistentCookie,
@@ -62,10 +61,13 @@ namespace Fatec.Services
 			var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
 
 			cookie.HttpOnly = true;
+
 			if (ticket.IsPersistent)
 				cookie.Expires = ticket.Expiration;
+
 			cookie.Secure = FormsAuthentication.RequireSSL;
 			cookie.Path = FormsAuthentication.FormsCookiePath;
+
 			if (FormsAuthentication.CookieDomain != null)
 				cookie.Domain = FormsAuthentication.CookieDomain;
 

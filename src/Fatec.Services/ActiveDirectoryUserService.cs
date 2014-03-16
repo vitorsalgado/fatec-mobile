@@ -24,7 +24,7 @@ namespace Fatec.Services
 			get { return new DirectoryEntry(LDAP_SCHEME + _configurationProvider.DomainName, _configurationProvider.DomainAdminUsername, _configurationProvider.DomainAdminPassword); }
 		}
 
-		public SysUser GetByUsername(string username)
+		public FatecIdentity GetByUsername(string username)
 		{
 			using (DirectoryEntry directoryEntry = AdminDirectoryEntry)
 			{
@@ -33,20 +33,32 @@ namespace Fatec.Services
 					search.PropertiesToLoad.AddRange(DefaultSearchProperties);
 					search.Filter = "(sAMAccountName=" + username + ")";
 					var result = search.FindOne();
-					SysUser user = null;
-					if (result != null)
-						user = Map(result);
-					this.GetRolesByUsername(user.Username)
-						.ToList()
-						.ForEach(x => user.SysRoles.Add(x));
+
+					string login = string.Empty;
+					string fullName = string.Empty;
+					string email = string.Empty;
+					string[] roles;
+
+					if (result.Properties["samAccountName"].Count > 0)
+						login = result.Properties["samAccountName"][0].ToString();
+					if (result.Properties["name"].Count > 0)
+						fullName = result.Properties["name"][0].ToString();
+					if (result.Properties["mail"].Count > 0)
+						email = result.Properties["mail"][0].ToString();
+
+					roles = this.GetRolesByUsername(login).ToArray();
+
+					FatecIdentity user =
+						new FatecIdentity(login, fullName, email, roles);
+
 					return user;
 				}
 			}
 		}
 
-		private ICollection<SysRole> GetRolesByUsername(string username)
+		private ICollection<string> GetRolesByUsername(string username)
 		{
-			ICollection<SysRole> groupCollection = new List<SysRole>();
+			ICollection<string> groupCollection = new List<string>();
 
 			using (var directoryEntry = AdminDirectoryEntry)
 			{
@@ -63,10 +75,11 @@ namespace Fatec.Services
 						dn = (String)result.Properties["memberOf"][propertyCounter];
 						equalsIndex = dn.IndexOf("=", 1);
 						commaIndex = dn.IndexOf(",", 1);
+
 						if (-1 == equalsIndex)
 							return null;
-						SysRole group = new SysRole();
-						group.Name = dn.Substring((equalsIndex + 1), (commaIndex - equalsIndex) - 1);
+
+						string group = dn.Substring((equalsIndex + 1), (commaIndex - equalsIndex) - 1);
 						groupCollection.Add(group);
 					}
 				}
@@ -78,7 +91,7 @@ namespace Fatec.Services
 		public bool ValidateUser(string username, string password)
 		{
 			bool authenticated = false;
-			DirectoryEntry entry = null; 
+			DirectoryEntry entry = null;
 
 			try
 			{
@@ -92,25 +105,11 @@ namespace Fatec.Services
 			}
 			finally
 			{
-				if(entry != null)
+				if (entry != null)
 					entry.Close();
 			}
 
 			return authenticated;
-		}
-
-		private static SysUser Map(SearchResult searchResult)
-		{
-			SysUser user = new SysUser();
-
-			if (searchResult.Properties["samAccountName"].Count > 0)
-				user.Username = searchResult.Properties["samAccountName"][0].ToString();
-			if (searchResult.Properties["name"].Count > 0)
-				user.Fullname = searchResult.Properties["name"][0].ToString();
-			if (searchResult.Properties["mail"].Count > 0)
-				user.Email = searchResult.Properties["mail"][0].ToString();
-
-			return user;
 		}
 
 		private static DirectorySearcher CreateSearcher(DirectoryEntry directoryEntry)

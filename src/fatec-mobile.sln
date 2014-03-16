@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. UI", "1. UI", "{503AB548-9B25-497D-AAB2-B126FF50E674}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Libraries", "2. Libraries", "{B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}"
@@ -9,28 +11,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.MobileUI", "Fatec.Mob
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Core", "Fatec.Core\Fatec.Core.csproj", "{6275726F-2555-457A-8965-A037091FAD3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Core.DependencyResolver", "Fatec.Core.DependencyResolver\Fatec.Core.DependencyResolver.csproj", "{C92C2FB9-3315-417A-9C7D-FA8273CF8D91}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Services", "Fatec.Services\Fatec.Services.csproj", "{57933FC0-417B-4B84-AE9A-81C92AF508D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Infrastructure", "Fatec.Infrastructure\Fatec.Infrastructure.csproj", "{2B1CE2BE-C781-424D-B594-2F2C87008635}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Files", "4. Files", "{EE3A53D0-40AD-4088-AA36-0F18BB840640}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Files", "5. Files", "{EE3A53D0-40AD-4088-AA36-0F18BB840640}"
 	ProjectSection(SolutionItems) = preProject
 		..\.deployment = ..\.deployment
-		coderepo.txt = coderepo.txt
 		default.ruleset = default.ruleset
-		..\files\geral.txt = ..\files\geral.txt
-		Fatec.Core\Services\IStudentService.cs = Fatec.Core\Services\IStudentService.cs
 		..\README.md = ..\README.md
-		Fatec.Services\StudentService.cs = Fatec.Services\StudentService.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Repository", "Fatec.Repository\Fatec.Repository.csproj", "{28D0D037-4527-4219-A5D2-831E5740E8A2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Tests", "3. Tests", "{265D08BC-05BD-4050-B711-C6882744E9C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Tests", "4. Tests", "{265D08BC-05BD-4050-B711-C6882744E9C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Test", "Fatec.Test\Fatec.Test.csproj", "{B004A0F5-05A7-41B5-8D2F-EFA04999F83F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Dependencies", "Fatec.Dependencies\Fatec.Dependencies.csproj", "{82A5BFD0-8E11-4C4D-99D3-C16E9CB6D87A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Repositories.SharePoint", "Fatec.Repositories.SharePoint\Fatec.Repositories.SharePoint.csproj", "{9CE4B0B4-33A5-4662-B473-C6F1D0AD915D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fatec.Repositories.MySql", "Fatec.Repositories.MySql\Fatec.Repositories.MySql.csproj", "{8B9D40EB-83C4-41E5-AFB9-28FFCDE9D0FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DAE87CB1-BED7-48FC-B613-104E82879215}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +54,6 @@ Global
 		{6275726F-2555-457A-8965-A037091FAD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6275726F-2555-457A-8965-A037091FAD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6275726F-2555-457A-8965-A037091FAD3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C92C2FB9-3315-417A-9C7D-FA8273CF8D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C92C2FB9-3315-417A-9C7D-FA8273CF8D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C92C2FB9-3315-417A-9C7D-FA8273CF8D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C92C2FB9-3315-417A-9C7D-FA8273CF8D91}.Release|Any CPU.Build.0 = Release|Any CPU
 		{57933FC0-417B-4B84-AE9A-81C92AF508D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57933FC0-417B-4B84-AE9A-81C92AF508D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57933FC0-417B-4B84-AE9A-81C92AF508D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,14 +62,22 @@ Global
 		{2B1CE2BE-C781-424D-B594-2F2C87008635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B1CE2BE-C781-424D-B594-2F2C87008635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B1CE2BE-C781-424D-B594-2F2C87008635}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28D0D037-4527-4219-A5D2-831E5740E8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28D0D037-4527-4219-A5D2-831E5740E8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28D0D037-4527-4219-A5D2-831E5740E8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D0D037-4527-4219-A5D2-831E5740E8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B004A0F5-05A7-41B5-8D2F-EFA04999F83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B004A0F5-05A7-41B5-8D2F-EFA04999F83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B004A0F5-05A7-41B5-8D2F-EFA04999F83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B004A0F5-05A7-41B5-8D2F-EFA04999F83F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82A5BFD0-8E11-4C4D-99D3-C16E9CB6D87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82A5BFD0-8E11-4C4D-99D3-C16E9CB6D87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82A5BFD0-8E11-4C4D-99D3-C16E9CB6D87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82A5BFD0-8E11-4C4D-99D3-C16E9CB6D87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CE4B0B4-33A5-4662-B473-C6F1D0AD915D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CE4B0B4-33A5-4662-B473-C6F1D0AD915D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CE4B0B4-33A5-4662-B473-C6F1D0AD915D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CE4B0B4-33A5-4662-B473-C6F1D0AD915D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B9D40EB-83C4-41E5-AFB9-28FFCDE9D0FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B9D40EB-83C4-41E5-AFB9-28FFCDE9D0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B9D40EB-83C4-41E5-AFB9-28FFCDE9D0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B9D40EB-83C4-41E5-AFB9-28FFCDE9D0FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,10 +85,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3832BB7C-ED15-47D7-BAD7-D0773E9FCCB3} = {503AB548-9B25-497D-AAB2-B126FF50E674}
 		{6275726F-2555-457A-8965-A037091FAD3D} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
-		{C92C2FB9-3315-417A-9C7D-FA8273CF8D91} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
 		{57933FC0-417B-4B84-AE9A-81C92AF508D0} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
 		{2B1CE2BE-C781-424D-B594-2F2C87008635} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
-		{28D0D037-4527-4219-A5D2-831E5740E8A2} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
+		{82A5BFD0-8E11-4C4D-99D3-C16E9CB6D87A} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
+		{9CE4B0B4-33A5-4662-B473-C6F1D0AD915D} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
+		{8B9D40EB-83C4-41E5-AFB9-28FFCDE9D0FD} = {B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}
 		{B004A0F5-05A7-41B5-8D2F-EFA04999F83F} = {265D08BC-05BD-4050-B711-C6882744E9C8}
 	EndGlobalSection
 EndGlobal

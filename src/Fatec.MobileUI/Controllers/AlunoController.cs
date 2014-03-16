@@ -1,22 +1,27 @@
 ﻿using Fatec.Core;
-using Fatec.Core.Domain;
+using Fatec.Core.Services;
 using Fatec.MobileUI.Filters;
 using Fatec.MobileUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Controllers
 {
-    public class AlunoController : Controller
+	public class AlunoController : Controller
 	{
 		private readonly IWorkContext _workContext;
+		private readonly IStudentService _studentService;
+
 		private const string BACK_BUTTON_ACTION_NAME = "BackButtonActionName";
 
-		public AlunoController(IWorkContext workContext)
+		public AlunoController(
+			IWorkContext workContext, IStudentService studentService)
 		{
 			_workContext = workContext;
+			_studentService = studentService;
 		}
 
 		public ActionResult Index()
@@ -26,11 +31,11 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction]
 		[BackButtonAction("Index", "Aluno")]
-        public ActionResult Matriculas(string q)
-        {
+		public async Task<ActionResult> Matriculas(string q)
+		{
 			string enrollment = _workContext.CurrentUsername;
 			var model = new List<MatriculaModel>();
-			var matriculas = new Student(enrollment).EnrolledDisciplines;
+			var matriculas = await Task.Run(() => _studentService.GetEnrolledDisciplinesByEnrollment(enrollment));
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -49,15 +54,15 @@ namespace Fatec.MobileUI.Controllers
 
 			matriculas.ToList().ForEach(x => model.Add(x.ToModel()));
 
-            return View(model);
-        }
+			return View(model);
+		}
 
 		[BackButtonAction("Index", "Aluno")]
-		public ActionResult Aproveitamentos()
+		public async Task<ActionResult> Aproveitamentos()
 		{
 			string enrollment = _workContext.CurrentUsername;
 			var model = new List<StudiesAdvanceModel>();
-			var aproveitamentos = new Student(enrollment).StudiesAdvances;
+			var aproveitamentos = await Task.Run(() => _studentService.GetStudiesAdvanceByEnrollment(enrollment));
 
 			if (aproveitamentos.Count == 0)
 			{
@@ -80,10 +85,10 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction]
 		[BackButtonAction("Index", "Aluno")]
-		public ActionResult Avaliacoes(string q)
+		public async Task<ActionResult> Avaliacoes(string q)
 		{
 			var model = new List<ExamModel>();
-			var exams = new Student(_workContext.CurrentUsername).Exams;
+			var exams = await Task.Run(() => _studentService.GetExamsByEnrollment(_workContext.CurrentUsername));
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -115,10 +120,10 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction]
 		[BackButtonAction("Index", "Aluno")]
-		public ActionResult Requerimentos(string q)
+		public async Task<ActionResult> Requerimentos(string q)
 		{
 			var model = new List<RequirementModel>();
-			var requirements = new Student(_workContext.CurrentUsername).Requirements;
+			var requirements = await Task.Run(() => _studentService.GetRequirements(_workContext.CurrentUsername));
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -148,5 +153,5 @@ namespace Fatec.MobileUI.Controllers
 
 			return View(model);
 		}
-    }
+	}
 }

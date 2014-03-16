@@ -25,7 +25,7 @@ namespace Fatec.Services
 		private readonly IFatecRepository _avisosFatecRepository;
 		private readonly ITIAnnouncementsRepository _avisosDepartamentoDeInformaticaRepository;
 
-		private readonly ICacheStrategy _cacheStrategy;
+		private readonly ICacheManager _cacheStrategy;
 
 		public AnnouncementsServiceFacade(
 			IHomeAnnouncementsRepository avisoHomeRepository,
@@ -33,7 +33,7 @@ namespace Fatec.Services
 			ITraineeRepository oportunidadesDeEstagioRepository,
 			IFatecRepository avisosFatecRepository,
 			ITIAnnouncementsRepository avisosDepartamentoDeInformatica,
-			ICacheStrategy cacheStrategy)
+			ICacheManager cacheStrategy)
 		{
 			_avisosHomeRepository = avisoHomeRepository;
 			_avisosDiretorioAcademicoRepository = avisosDiretorioAcademicoRepository;
