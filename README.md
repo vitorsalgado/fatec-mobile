@@ -1,4 +1,10 @@
-fatecmobile
-===========
+FATEC Website For Mobile Devices
+================================
 
-fatecmobile
+Technologies
+-----------
+* C# / .NET Framework 4.5 / ASP.NET MVC 4;
+* Javascript with some jQuery;
+* CSS 3 / HTML5;
+* Autofac for Dependency Resolution;
+* Integration with SharePoint 2007 lists by Webservices;
