@@ -5,64 +5,84 @@
 	ViewBag.AdditionalPageInfo = "Praia Grande";
 }
 
-<div class="tile-section">
-	<div class="tile large-tile bg-color-blue">
-		<div class="large-tile-content">
-			<a href="@Url.Action("Index", "Fatec")" title="FATEC Praia Grande"><span class="img large"><i class="icon-globe"></i></span>FATEC</a>
-		</div>
-	</div>
-    <div class="tile small-tile bg-color-blue">
-        <div class="small-tile-content">
-            <a href="@Url.Action("Noticias")" title="Avisos e notícias do ceeteps praia grande"><span class="img small"><i class="icon-tag"></i></span>Notícias</a>
+<div class="menu-container">
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Index", "Fatec")" title="FATEC Praia Grande">
+                <i class="fa-globe"></i>
+                <span class="img large">FATEC Praia Grande</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
         </div>
     </div>
-    <div class="tile small-tile bg-color-green">
-        <div class="small-tile-content">
-            <a href="@Url.Action("Sobre", "Fatec")" title="Sobre"><span class="img small"><i class="icon-info-sign"></i></span>Consultas</a>
+
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Noticias")" title="Avisos e notícias do ceeteps praia grande">
+                <i class="fa-tag"></i>
+                <span class="img large">Principais Notícias</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
         </div>
     </div>
-    <div class="tile small-tile bg-color-blue">
-        <div class="small-tile-content">
-            <a href="@Url.Action("Noticias", "DA")" title="Diretório Acadêmico"><span class="img small"><i class="icon-group"></i></span>D.A.</a>
+
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Index", "Aluno")" title="Área do aluno">
+                <i class="fa-user"></i>
+                <span class="img large">Área do Aluno</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
         </div>
     </div>
-	<div class="tile small-tile bg-color-blue">
-		<div class="small-tile-content">
-			<a href="@Url.Action("Social")" title="Fique ligado com a FATEC nas redes sociais"><span class="img small"><i class="icon-thumbs-up-alt"></i></span>Social</a>
-		</div>
-	</div>
-</div>
-<div class="tile-section">
-	<div class="tile large-tile bg-color-blue">
-		<div class="large-tile-content">
-			<a href="@Url.Action("Index", "Aluno")" title="Área do aluno"><span class="img large"><i class="icon-user"></i></span>Área do Aluno</a>
-		</div>
-	</div>
-	<div class="tile small-tile bg-color-red">
-		<div class="small-tile-content">
-			<a href="@Url.Action("Provas", "Aluno")" title="Avaliações"><span class="img small"><i class="icon-smile"></i></span>Avaliações</a>
-		</div>
-	</div>
-	<div class="tile small-tile bg-color-green">
-		<div class="small-tile-content">
-			<a href="@Url.Action("Noticias", "Estagio")" title="Oportunidades de estágio"><span class="img small"><i class="icon-briefcase"></i></span>Estágios</a>
-		</div>
-	</div>
-	<div class="tile small-tile bg-color-yellow">
-		<div class="small-tile-content">
-			<a href="@Url.Action("Sobre", "Fatec")" title="Horários"><span class="img small"><i class="icon-calendar"></i></span>Horários</a>
-		</div>
-	</div>
-	<div class="tile small-tile bg-color-blue">
-		<div class="small-tile-content">
-			<a href="/"><span class="img small"><i class="icon-code"></i></span>Mais</a>
-		</div>
-	</div>
-</div>
-<div class="tile-section">
-    <div class="tile large-tile bg-color-blue">
-        <div class="large-tile-content">
-            <a href="@Url.Action("Matriculas", "Aluno")" title="Matrículas"><span class="img large"><i class="icon-th"></i></span>Matrículas</a>
+
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Matriculas", "Aluno")" title="Matrículas">
+                <i class="fa-th"></i>
+                <span class="img large">Matrículas</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Provas", "Aluno")" title="Avaliações">
+                <i class="fa-smile-o"></i>
+                <span class="img large">Avaliações</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Sobre", "Fatec")" title="Horários">
+                <i class="fa-calendar"></i>
+                <span class="img large">Horários</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div>
+            <a href="@Url.Action("Noticias", "Estagio")" title="Oportunidades de estágio">
+                <i class="fa-briefcase"></i>
+                <span class="img large">Estágios</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div>
+            <a href="/">
+                <i class="fa-code"></i>
+                <span class="img large">Sobre o site</span>
+                <div class="border-detail bg-color-light-red"></div>
+            </a>
         </div>
     </div>
 </div>

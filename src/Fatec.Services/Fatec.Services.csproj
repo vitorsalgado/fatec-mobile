@@ -47,7 +47,6 @@
     <Compile Include="ActiveDirectoryUserService.cs" />
     <Compile Include="DisciplineService.cs" />
     <Compile Include="FatecService.cs" />
-    <Compile Include="EmailService.cs" />
     <Compile Include="FormsAuthenticationService.cs" />
     <Compile Include="AnnouncementsServiceFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,7 +58,6 @@
     <Compile Include="StudentService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

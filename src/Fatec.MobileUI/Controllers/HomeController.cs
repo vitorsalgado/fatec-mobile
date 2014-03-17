@@ -10,7 +10,6 @@ using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Controllers
 {
-	[AllowAnonymous]
 	public class HomeController : Controller
 	{
 		private readonly IAnnouncementService _avisosService;
@@ -66,7 +65,7 @@ namespace Fatec.MobileUI.Controllers
 			var model = new AnnouncementsModel();
 			var aviso = await Task.Run(() => _avisosService.GetHomeAnnouncementById(id));
 
-			var seoFriendlyUrl = CommonHelper.ToSeoFriendly(aviso.Title);
+			var seoFriendlyUrl = WebHelper.ToSeoFriendly(aviso.Title);
 
 			if (!titulo.Equals(seoFriendlyUrl, StringComparison.InvariantCultureIgnoreCase))
 				return RedirectToActionPermanent("Noticia", new { id = id, titulo = seoFriendlyUrl });

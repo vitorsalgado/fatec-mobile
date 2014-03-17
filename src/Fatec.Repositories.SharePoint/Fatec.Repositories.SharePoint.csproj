@@ -47,7 +47,7 @@
     <Compile Include="BaseAnnouncementsRepository.cs" />
     <Compile Include="ClassAssignmentRepository.cs" />
     <Compile Include="Core\ISPDbContext.cs" />
-    <Compile Include="Core\SPDb.cs" />
+    <Compile Include="Core\SPDbContext.cs" />
     <Compile Include="Core\SPExtensions.cs" />
     <Compile Include="CourseRepository.cs" />
     <Compile Include="Dtos\ClassAssignmentDto.cs" />
@@ -65,7 +65,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Proxies\StudentProxy.cs" />
     <Compile Include="StudentRepository.cs" />
     <Compile Include="TIAnnouncementsRepository.cs" />
     <Compile Include="TraineeRepository.cs" />

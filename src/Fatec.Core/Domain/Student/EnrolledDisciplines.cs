@@ -17,7 +17,6 @@
 		public decimal Grade { get; set; }
 		public string Concept { get; set; }
 		public int DisciplineId { get; set; }
-
 		public Discipline Discipline { get; set; }
 	}
 }

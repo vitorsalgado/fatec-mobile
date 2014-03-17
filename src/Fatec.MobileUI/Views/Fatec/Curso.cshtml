@@ -4,27 +4,32 @@
 @Html.ValidationSummary()
 
 <div class="post">
-	<h1 class="post-title">
-		<span>@Model.Nome</span>
-	</h1>
-	<div class="post-meta">
-		<p>
-			<span class="post-date"><strong>@Model.NivelDeEnsino</strong></span>
-			<br /><br />
-			<span class="post-owner"><strong>Duração</strong><span class="space">·</span><span class="owner">@Model.DuracaoEmMeses Meses</span></span>
-			<br />
-			<span class="post-date"><strong>Carga Horário</strong><span class="space">·</span>@Model.CargaHorario Horas</span>
-			<br />
-			<span class="post-owner"><strong>Turnos</strong><span class="space">·</span><span class="owner">
-				@foreach(var turno in Model.Turnos){
-					<span class="space">@turno</span>
-				}
-			</span></span>
-		</p>
-	</div>
-	<div class="post-summary">
-		<h2 class="post-subtitle">Perfil Profissional</h2>
-		@Html.Raw(Model.PerfilDeEnsino)
-	</div>
+    <div class="inner-post">
+        <h1 class="post-title post-title-red">
+            <span>@Model.Nome</span>
+        </h1>
+        <div class="post-meta">
+            <p>
+                <span class="post-date"><strong>@Model.NivelDeEnsino</strong></span>
+                <br /><br />
+                <span class="post-owner"><strong>Duração</strong><span class="space">·</span><span class="owner">@Model.DuracaoEmMeses Meses</span></span>
+                <br />
+                <span class="post-date"><strong>Carga Horário</strong><span class="space">·</span>@Model.CargaHorario Horas</span>
+                <br />
+                <span class="post-owner">
+                    <strong>Turnos</strong><span class="space">·</span><span class="owner">
+                        @foreach (var turno in Model.Turnos)
+                        {
+                            <span class="space">@turno</span>
+                        }
+                    </span>
+                </span>
+            </p>
+        </div>
+        <div class="post-summary">
+            <h2 class="post-subtitle">Perfil Profissional</h2>
+            @Html.Raw(Model.PerfilDeEnsino)
+        </div>
+    </div>
 </div>
 

@@ -108,6 +108,10 @@
       <Project>{6275726f-2555-457a-8965-a037091fad3d}</Project>
       <Name>Fatec.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fatec.Dependencies\Fatec.Dependencies.csproj">
+      <Project>{82a5bfd0-8e11-4c4d-99d3-c16e9cb6d87a}</Project>
+      <Name>Fatec.Dependencies</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

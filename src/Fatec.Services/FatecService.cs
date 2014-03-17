@@ -13,21 +13,31 @@ namespace Fatec.Services
 		private readonly IFatecRepository _fatecRepository;
 		private readonly ICacheManager _cacheStrategy;
 
-		private const string CACHE_CURSO_BY_ID = "fatec.curso.id-{0}";
-		private const string CACHE_CURSOS = "fatec.cursos.all";
+		private readonly IDisciplineService _disciplineService;
 
-		private const int CACHE_DURATION = int.MaxValue;
+		private const string CACHE_CURSO_BY_ID = "fatec.domain.curso.id-{0}";
+		private const string CACHE_CURSOS = "fatec.domain.cursoss";
+		private const string CACHE_PROFESSORES = "fatec.domain.professores";
+		private const string CACHE_CLASS_REPLACEMENT = "fatec.domain.atribuicoes";
 
-		public FatecService(ICourseRepository cursoRepository, IFatecRepository fatecRepository, ICacheManager cacheStrategy)
+		private const int CACHE_LONG_DURATION = int.MaxValue;
+		private const int CACHE_MIN_DURATION = 10;
+
+		public FatecService(
+			ICourseRepository cursoRepository,
+			IFatecRepository fatecRepository,
+			ICacheManager cacheStrategy,
+			IDisciplineService disciplineService)
 		{
 			_cursoRepository = cursoRepository;
 			_fatecRepository = fatecRepository;
 			_cacheStrategy = cacheStrategy;
+			_disciplineService = disciplineService;
 		}
 
 		public ICollection<Course> GetActivesCourses()
 		{
-			return _cacheStrategy.Get(CACHE_CURSOS, CACHE_DURATION, () =>
+			return _cacheStrategy.Get(CACHE_CURSOS, CACHE_LONG_DURATION, () =>
 			{
 				return _cursoRepository.GetAllActive();
 			});
@@ -38,7 +48,7 @@ namespace Fatec.Services
 			if (id <= 0) throw new ArgumentOutOfRangeException("id", id, "Parameter \"id\" must be greather or equal than zero.");
 
 			var cacheKey = string.Format(CACHE_CURSO_BY_ID, id);
-			return _cacheStrategy.Get(cacheKey, CACHE_DURATION, () =>
+			return _cacheStrategy.Get(cacheKey, CACHE_LONG_DURATION, () =>
 			{
 				var curso = _cursoRepository.GetById(id);
 				return curso;
@@ -47,12 +57,31 @@ namespace Fatec.Services
 
 		public ICollection<TeacherAbsence> GetTeachersAbsences()
 		{
-			return _fatecRepository.GetTeacherAbsences();
+			var key = string.Format(CACHE_PROFESSORES);
+
+			var abscenses = _cacheStrategy.Get(key, CACHE_MIN_DURATION, () =>
+			{
+				return _fatecRepository.GetTeacherAbsences();
+			});
+
+			foreach (var abscense in abscenses)
+				abscense.Discipline = _disciplineService.GetById(abscense.DisciplineId);
+
+			return abscenses;
 		}
 
 		public ICollection<ClassReplacement> GetClassReplacements()
 		{
-			return _fatecRepository.GetVigentClassReplacements();
+			var classReplacements = _cacheStrategy.Get(
+				CACHE_CLASS_REPLACEMENT, 90, () =>
+				{
+					return _fatecRepository.GetVigentClassReplacements();
+				});
+
+			foreach (var replacement in classReplacements)
+				replacement.Discipline = _disciplineService.GetById(replacement.DisciplineId);
+
+			return classReplacements;
 		}
 	}
 }

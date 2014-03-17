@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Fatec.Dependencies;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,8 +14,8 @@ namespace Fatec.Test
 				new HttpResponse(new StreamWriter(new MemoryStream()))
 			);
 
-			//var resolver = IoC.GetResolver();
-			//DependencyResolver.SetResolver(resolver);
+			var resolver = IoC.GetResolver();
+			DependencyResolver.SetResolver(resolver);
 		}
 
 		public static T Resolve<T>()

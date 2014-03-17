@@ -7,9 +7,7 @@
 		public string Period { get; set; }
 		public string Situation { get; set; }
 		public string TeacherDecision { get; set; }
-
 		public int DisciplineId { get; set; }
-
 		public Discipline Discipline { get; set; }
 	}
 }

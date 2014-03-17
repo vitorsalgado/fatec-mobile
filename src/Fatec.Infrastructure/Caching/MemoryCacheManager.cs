@@ -14,6 +14,8 @@ namespace Fatec.Infrastructure.Caching
 
 		public MemoryCacheManager(IConfigurationProvider configurationProvider)
 		{
+			if (configurationProvider == null) throw new ArgumentNullException("configurationProvider");
+
 			_configurationProvider = configurationProvider;
 			_defaultCacheTime = _configurationProvider.DefaultCacheExpirationTime;
 		}

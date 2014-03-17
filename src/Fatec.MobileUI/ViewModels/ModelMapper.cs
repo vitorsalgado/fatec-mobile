@@ -51,7 +51,7 @@ namespace Fatec.MobileUI.ViewModels
 			return new TeacherAbsenceModel()
 			{
 				Data = entity.Date,
-				Disciplina = entity.Discipline.Acronym,
+				Disciplina = entity.Discipline.Name,
 				Motivo = entity.Reason,
 				Observacoes = entity.Observations,
 				Professor = entity.TeacherName ?? "<SEM NOME>",

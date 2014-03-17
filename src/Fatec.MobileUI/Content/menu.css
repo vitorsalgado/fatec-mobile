@@ -1,0 +1,51 @@
+﻿.menu-container {
+	margin: 10px 0 0 0;
+}
+
+.menu {
+	width: 100%;
+	box-shadow: 0 1px 1px #7a7a7a;
+	background: #fff;
+	margin: 10px 0;
+}
+
+	.menu a {
+		color: #4d4e53;
+		width: 100%;
+		display: block;
+		height: auto;
+		font-size: 16px;
+		overflow: auto;
+	}
+
+	.menu span {
+		display: block;
+		float: left;
+		margin: 3px 0 0 0;
+	}
+
+	.menu i {
+		font-family: FontAwesome;
+		display: block;
+		float: left;
+		font-size: 20pt;
+		margin-right: 10px;
+	}
+
+	.menu > div {
+		position: relative;
+		overflow: hidden;
+		height: auto;
+		padding: 9px 5px;
+	}
+
+	.menu .border-detail {
+		width: 11px;
+		display: block;
+		position: absolute;
+		height: 100%;
+		float: right;
+		right: 0;
+		top: 0;
+		box-shadow: 0 0 1px #7a7a7a;
+	}

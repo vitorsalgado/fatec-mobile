@@ -2,29 +2,34 @@
 
 @{
     ViewBag.Title = "Requerimentos";
-	ViewBag.Highlight = "requerimentos";
-	ViewBag.AdditionalPageInfo = "on-line";
+    ViewBag.Highlight = "requerimentos";
+    ViewBag.AdditionalPageInfo = "on-line";
 }
 
 @Html.ValidationSummary()
 
-@foreach(var item in Model){
-	<div class="post">
-		<h1 class="post-title">
-			<span>PROTOCOLO: @item.Id</span>
-		</h1>
-		<h1 class="post-subtitle">@item.Description</h1>
-		<div class="post-meta">
-			<p>
-				<span class="post-owner"><strong>Categoria</strong><span class="space">·</span><span class="owner">@item.Category</span></span>
-				<br />
-				<span class="post-date"><strong>Data de Conclusão</strong><span class="space">·</span>@item.EndDate.ToString("dd/MM/yyyy")</span>
-				<br />
-				<span class="post-owner"><strong>Resultado</strong><span class="space">·</span><span class="owner">@item.Result</span></span>
-			</p>
-		</div>
-		<div class="post-summary">
-			@Html.Raw(item.Comments)
-		</div>
-	</div>
+@foreach (var item in Model)
+{
+    <div class="post">
+        <div class="inner-post">
+            <div class="post-title-black">
+                <h1 class="post-title">
+                    <span>PROTOCOLO: @item.Id</span>
+                </h1>
+                <h1 class="post-subtitle">@item.Description</h1>
+                <div class="post-meta">
+                    <p>
+                        <span class="post-owner"><strong>Categoria</strong><span class="space">·</span><span class="owner">@item.Category</span></span>
+                        <br />
+                        <span class="post-date"><strong>Data de Conclusão</strong><span class="space">·</span>@item.EndDate.ToString("dd/MM/yyyy")</span>
+                        <br />
+                        <span class="post-owner"><strong>Resultado</strong><span class="space">·</span><span class="owner">@item.Result</span></span>
+                    </p>
+                </div>
+                <div class="post-summary">
+                    @Html.Raw(item.Comments)
+                </div>
+            </div>
+        </div>
+    </div>
 }

@@ -21,15 +21,14 @@
 	<div class="wrap-mobile">
 		<ul>
 			@if(string.IsNullOrEmpty(backButtonActionName) && string.IsNullOrEmpty(backButtonControllerName)) {
-				<li><a title="Voltar" href="/"><i class="icon-chevron-sign-left"></i></a></li>
+				<li><a title="Voltar" href="/"><i class="fa-chevron-left"></i></a></li>
 			} else if(!string.IsNullOrEmpty(backButtonActionName) && string.IsNullOrEmpty(backButtonControllerName)) {
-				<li><a title="Voltar" href="@Url.Action(backButtonActionName)"><i class="icon-chevron-sign-left"></i></a></li>				
+				<li><a title="Voltar" href="@Url.Action(backButtonActionName)"><i class="fa-chevron-left"></i></a></li>				
 			} else {
-				<li><a title="Voltar" href="@Url.Action(backButtonActionName, backButtonControllerName)"><i class="icon-chevron-sign-left"></i></a></li>
+				<li><a title="Voltar" href="@Url.Action(backButtonActionName, backButtonControllerName)"><i class="fa-chevron-left"></i></a></li>
 			}
-			<li><a title="Início" href="/"><i class="icon-home"></i></a></li>
-			<li><a id="show-search" title="Pesquisar" href="javascript:void(0);"><i class="icon-search"></i></a></li>
-			<li><a title="Menu" href="javascript:void(0);"><i class=" icon-list"></i></a></li>
+			<li><a title="Início" href="/"><i class="fa-home"></i></a></li>
+			<li><a id="show-search" title="Pesquisar" href="javascript:void(0);"><i class="fa-search"></i></a></li>
 		</ul>
 	</div>
 </footer>

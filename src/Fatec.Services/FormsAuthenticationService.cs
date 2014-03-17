@@ -50,7 +50,7 @@ namespace Fatec.Services
 
 			var ticket = new FormsAuthenticationTicket(
 				1,
-				user.Login,
+				user.Name,
 				now,
 				now.Add(FormsAuthentication.Timeout),
 				createPersistentCookie,

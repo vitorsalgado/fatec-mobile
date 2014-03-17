@@ -4,32 +4,33 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Login - FATEC PG - Mobile</title>
-	@Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css")
 </head>
 <body>
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post)){
-	@Html.AntiForgeryToken()
-	<div class="wrap">
-		<div id="login" class="content-wrapper">
-			<ul>
-				<li>
-					@Html.LabelFor(m => m.Username)
-					@Html.TextBoxFor(m => m.Username, new { @placeholder = "sua matrícula" })
-				</li>
-				<li>
-					@Html.LabelFor(m => m.Password)
-					@Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "sua senha da rede FATEC" })
-				</li>
-				<li>
-					<span class="remember-me">Mantenha-me conectado</span> @Html.CheckBoxFor(x => x.Remember) 
-				</li>
-				<li>
-					<input id="btnLogin" class="app-btn-red flt-r" type="submit" name="Login" value="Entrar" />
-				</li>
-			</ul>
-		</div>
-	</div>
-	@Html.ValidationSummary()
-}
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="wrap">
+            <div id="login" class="content-wrapper">
+                <ul>
+                    <li>
+                        @Html.LabelFor(m => m.Username)
+                        @Html.TextBoxFor(m => m.Username, new { @placeholder = "sua matrícula" })
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Password)
+                        @Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "sua senha da rede FATEC" })
+                    </li>
+                    <li>
+                        <span class="remember-me">Mantenha-me conectado</span> @Html.CheckBoxFor(x => x.Remember)
+                    </li>
+                    <li>
+                        <input id="btnLogin" class="app-btn-red flt-r" type="submit" name="Login" value="Entrar" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @Html.ValidationSummary()
+    }
 </body>
 </html>

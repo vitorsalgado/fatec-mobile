@@ -1,6 +1,5 @@
 ﻿using Fatec.Core.Domain;
 using Fatec.Core.Repositories;
-using Fatec.Repositories.Dtos;
 using Fatec.Repositories.Mapping;
 using System;
 using System.Collections.Generic;

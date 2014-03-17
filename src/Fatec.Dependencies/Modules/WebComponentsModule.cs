@@ -13,6 +13,8 @@ namespace Fatec.Dependencies.Modules
 	{
 		protected override void Load(ContainerBuilder builder)
 		{
+			if (builder == null) throw new ArgumentNullException("builder");
+
 			builder.Register(c => new HttpContextWrapper(HttpContext.Current) as HttpContextBase).As<HttpContextBase>().InstancePerHttpRequest();
 			builder.RegisterControllers(GetAssemblies());
 			builder.RegisterType<FatecWorkContext>().As<IWorkContext>().InstancePerHttpRequest();

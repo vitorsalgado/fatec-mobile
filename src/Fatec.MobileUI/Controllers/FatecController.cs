@@ -5,6 +5,7 @@ using Fatec.MobileUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Controllers
@@ -30,10 +31,10 @@ namespace Fatec.MobileUI.Controllers
 
 		[AllowAnonymous]
 		[BackButtonAction("Index", "Fatec")]
-		public ActionResult Cursos()
+		public async Task<ActionResult> Cursos()
 		{
 			var model = new List<CourseModel>();
-			var cursos = _fatecServices.GetActivesCourses();
+			var cursos = await Task.Run(() => _fatecServices.GetActivesCourses());
 
 			foreach (var curso in cursos)
 				model.Add(curso.ToModel());
@@ -43,13 +44,13 @@ namespace Fatec.MobileUI.Controllers
 
 		[AllowAnonymous]
 		[BackButtonAction("Cursos", "Fatec")]
-		public ActionResult Curso(int id, string nome)
+		public async Task<ActionResult> Curso(int id, string nome)
 		{
 			var model = new CourseModel();
-			var curso = _fatecServices.GetCourseById(id);
+			var curso = await Task.Run(() => _fatecServices.GetCourseById(id));
 
-			if (nome != CommonHelper.ToSeoFriendly(curso.Name))
-				return RedirectToActionPermanent("Noticia", new { id = id, titulo = CommonHelper.ToSeoFriendly(curso.Name) });
+			if (nome != WebHelper.ToSeoFriendly(curso.Name))
+				return RedirectToActionPermanent("Noticia", new { id = id, titulo = WebHelper.ToSeoFriendly(curso.Name) });
 
 			return View(curso.ToModel());
 		}
@@ -57,10 +58,10 @@ namespace Fatec.MobileUI.Controllers
 		[SetSearchFormAction]
 		[BackButtonAction("Index", "Fatec")]
 		[SetPageInfoLabels("Notícias", "notícias", " da fatec praia grande")]
-		public ActionResult Noticias(string q)
+		public async Task<ActionResult> Noticias(string q)
 		{
 			var model = new List<AnnouncementsModel>();
-			var avisos = _avisosService.GetFatecValidAnnouncements();
+			var avisos = await Task.Run(() => _avisosService.GetFatecValidAnnouncements());
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -85,12 +86,12 @@ namespace Fatec.MobileUI.Controllers
 		[SetSearchFormAction("Noticias")]
 		[BackButtonAction("Noticias", "Fatec")]
 		[SetPageInfoLabels("Notícias", "notícia", " da fatec praia grande")]
-		public ActionResult Noticia(int id, string titulo)
+		public async Task<ActionResult> Noticia(int id, string titulo)
 		{
 			var model = new AnnouncementsModel();
-			var aviso = _avisosService.GetFatecAnnouncementById(id);
+			var aviso = await Task.Run(() => _avisosService.GetFatecAnnouncementById(id));
 
-			var seoFriendlyUrl = CommonHelper.ToSeoFriendly(aviso.Title);
+			var seoFriendlyUrl = WebHelper.ToSeoFriendly(aviso.Title);
 
 			if (!titulo.Equals(seoFriendlyUrl, StringComparison.InvariantCultureIgnoreCase))
 				return RedirectToActionPermanent("Noticia", new { id = id, titulo = seoFriendlyUrl });
@@ -108,10 +109,10 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction]
 		[BackButtonAction("Index", "Fatec")]
-		public ActionResult Faltas(string q)
+		public async Task<ActionResult> Faltas(string q)
 		{
 			var model = new List<TeacherAbsenceModel>();
-			var faltas = _fatecServices.GetTeachersAbsences();
+			var faltas = await Task.Run(() => _fatecServices.GetTeachersAbsences());
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -136,10 +137,10 @@ namespace Fatec.MobileUI.Controllers
 
 		[SetSearchFormAction]
 		[BackButtonAction("Index", "Fatec")]
-		public ActionResult Reposicoes(string q)
+		public async Task<ActionResult> Reposicoes(string q)
 		{
 			var model = new List<ClassReplacementModel>();
-			var replacements = _fatecServices.GetClassReplacements();
+			var replacements = await Task.Run(() => _fatecServices.GetClassReplacements());
 
 			if (!string.IsNullOrEmpty(q))
 			{

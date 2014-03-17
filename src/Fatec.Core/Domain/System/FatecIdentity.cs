@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Security.Principal;
 
 namespace Fatec.Core.Domain
 {
-	public class FatecIdentity
+	public class FatecIdentity : IIdentity
 	{
+		private bool _isAuthenticated;
 		private string[] _roles;
-		public string Login { get; private set; }
+		public string Name { get; private set; }
 		public string Fullname { get; private set; }
 		public string Email { get; private set; }
 
@@ -15,28 +16,24 @@ namespace Fatec.Core.Domain
 			if (string.IsNullOrEmpty(login)) throw new ArgumentNullException("login");
 			if (string.IsNullOrEmpty(fullName)) throw new ArgumentNullException("fullName");
 			
-			Login = login;
+			Name = login;
 			Fullname = fullName;
 			Email = email;
-			_roles = new string[roles.Length];
-			roles.CopyTo(_roles, 0);
-			Array.Sort(_roles);
+
+			_roles = roles;
+			_isAuthenticated = true;
 		}
 
-		public bool IsInRole(string role)
+		public string AuthenticationType
 		{
-			return Array.BinarySearch(_roles, role) >= 0;
+			get { return "custom"; }
 		}
 
-		public bool IsInAllRoles(params string[] roles)
+		public bool IsAuthenticated
 		{
-			foreach (string searchrole in roles)
-				if (Array.BinarySearch(_roles, searchrole) < 0)
-					return false;
-
-			return true;
+			get { return _isAuthenticated; }
 		}
 
-		public ICollection<string> Roles { get { return _roles; } }
+		public string[] Roles { get { return _roles; } }
 	}
 }

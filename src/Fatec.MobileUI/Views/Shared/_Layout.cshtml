@@ -2,25 +2,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width; user-scalable=no" />
-	<title>@ViewBag.Title FATEC Praia Grande - Mobile</title>
-	<link rel="apple-touch-icon" href="/i-icon.png" />
-	<link rel="icon" type="image/png" href="/favicon.png" />
-	@Styles.Render("~/Content/css")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width; user-scalable=no" />
+    <title>@ViewBag.Title FATEC Praia Grande - Mobile</title>
+    <link rel="apple-touch-icon" href="/i-icon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    @Styles.Render("~/Content/css")
 </head>
 <body>
-	<div class="page">
-		<div class="page-container">
-			@Html.Partial("_Header")
-			<div id="container" class="container wrap">
-				<div class="content-wrapper">
-					@RenderBody()
-				</div>
-			</div>
-			@Html.Partial("_Footer")
-		</div>
-	</div>
+    <div class="page">
+        <div class="page-container">
+            @Html.Partial("_Header")
+            <div id="container" class="container wrap">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+            </div>
+            @Html.Partial("_Footer")
+        </div>
+    </div>
 </body>
 @Scripts.Render("~/bundles/core")
 @RenderSection("scripts", false)

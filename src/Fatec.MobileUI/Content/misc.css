@@ -18,6 +18,10 @@
 	background-color:rgb(229, 20, 0);
 }
 
+.bg-color-light-red{
+	background-color:#C13832;
+}
+
 .light-text {
 	color: #999999;
 }

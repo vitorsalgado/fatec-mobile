@@ -16,6 +16,7 @@ namespace Fatec.Services
 
 		public ActiveDirectoryUserService(IConfigurationProvider configurationProvider)
 		{
+			if (configurationProvider == null) throw new ArgumentNullException("configurationProvider");
 			_configurationProvider = configurationProvider;
 		}
 
@@ -26,6 +27,8 @@ namespace Fatec.Services
 
 		public FatecIdentity GetByUsername(string username)
 		{
+			if (string.IsNullOrEmpty(username)) throw new ArgumentException("username");
+
 			using (DirectoryEntry directoryEntry = AdminDirectoryEntry)
 			{
 				using (DirectorySearcher search = CreateSearcher(directoryEntry))
@@ -90,6 +93,8 @@ namespace Fatec.Services
 
 		public bool ValidateUser(string username, string password)
 		{
+			if (string.IsNullOrEmpty(username)) throw new ArgumentException("username");
+
 			bool authenticated = false;
 			DirectoryEntry entry = null;
 

@@ -1,19 +1,23 @@
 ﻿@model Fatec.MobileUI.ViewModels.AnnouncementsModel
 <div class="post">
-	@Html.ValidationSummary()
-	<h1 class="post-title">
-		<span>@Model.Titulo</span>
-	</h1>
-	<div class="post-meta">
-		<p>
-			<span class="post-date">Em: <span class="date">@Model.CriadoEm</span>
-			</span>
-			<span class="space">·</span>
-			<span class="post-owner">Por: <span class="owner">@Model.CriadoPor</span>
-			</span>
-		</p>
-	</div>
-	<div class="post-summary">
-		@Html.Raw(Model.Corpo)
-	</div>
+    <div class="inner-post">
+        @Html.ValidationSummary()
+        <h1 class="post-title post-title-red">
+            <span>@Model.Titulo</span>
+        </h1>
+        <div class="post-meta">
+            <p>
+                <span class="post-date">
+                    Em: <span class="date">@Model.CriadoEm</span>
+                </span>
+                <span class="space">·</span>
+                <span class="post-owner">
+                    Por: <span class="owner">@Model.CriadoPor</span>
+                </span>
+            </p>
+        </div>
+        <div class="post-summary">
+            @Html.Raw(Model.Corpo)
+        </div>
+    </div>
 </div>

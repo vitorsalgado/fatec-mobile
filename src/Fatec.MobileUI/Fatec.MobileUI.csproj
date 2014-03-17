@@ -46,7 +46,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entities.6.8.3.0\lib\net45\mysql.data.entity.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -115,9 +129,9 @@
     <Compile Include="Infrastructure\Configuration\FilterConfig.cs" />
     <Compile Include="Infrastructure\Configuration\RouteConfig.cs" />
     <Compile Include="Infrastructure\Filters\BackButtonActionAttribute.cs" />
-    <Compile Include="Infrastructure\Filters\FatecAuthenticationFilterAttribute.cs" />
     <Compile Include="Infrastructure\Filters\SetPageInfoLabelsAttribute.cs" />
     <Compile Include="Infrastructure\Filters\SetSearchFormActionAttribute.cs" />
+    <Compile Include="Infrastructure\Tasks\CacheTask.cs" />
     <Compile Include="Infrastructure\Web\UrlBuilder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
@@ -146,7 +160,7 @@
   <ItemGroup>
     <Content Include="Content\content.css" />
     <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\bg-gradient-sand.png" />
     <Content Include="Content\images\bg-noise.png" />
     <Content Include="Content\images\bg-sand.png" />
@@ -156,17 +170,18 @@
     <Content Include="Content\images\header-background.png" />
     <Content Include="Content\images\linkedin.png" />
     <Content Include="Content\images\twitter.png" />
+    <Content Include="Content\menu.css" />
     <Content Include="Content\misc.css" />
     <Content Include="Content\base.css" />
     <Content Include="Content\images\white-texture.jpg" />
     <Content Include="Content\tile.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="App_Data\fatec-mobile-log.html" />
-    <Content Include="Content\font\fontawesome-webfont.eot" />
-    <Content Include="Content\font\fontawesome-webfont.ttf" />
-    <Content Include="Content\font\fontawesome-webfont.woff" />
-    <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="Scripts\core.js" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -237,11 +252,6 @@
       <Project>{82a5bfd0-8e11-4c4d-99d3-c16e9cb6d87a}</Project>
       <Name>Fatec.Dependencies</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="nlog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

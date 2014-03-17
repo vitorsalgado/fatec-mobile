@@ -1,6 +1,5 @@
 ﻿using Fatec.Core.Domain;
 using Fatec.Repositories.Dtos;
-using Fatec.Repositories.Proxies;
 using System;
 using System.Xml.Linq;
 
@@ -28,7 +27,7 @@ namespace Fatec.Repositories.Mapping
 
 		internal static Func<XElement, Student> Map = xElement =>
 		{
-			var result = new StudentProxy();
+			var result = new Student();
 
 			result.Enrollment = xElement.GetAttrValue<string>("ows_Title");
 			result.BirthDate = xElement.GetAttrValue<DateTime>("ows_Data_x0020_de_x0020_Nascimento");
@@ -47,7 +46,9 @@ namespace Fatec.Repositories.Mapping
 		{
 			var result = new EnrolledDiscipline();
 
-			result.DisciplineId = Convert.ToInt32(xElement.GetAttrValue<string>("ows_Disciplina").Split(';')[0]);
+			var disciplineSplit = xElement.GetAttrValue<string>("ows_Disciplina").Split(new char[] { ';', '#' });
+			result.DisciplineId = Convert.ToInt32(disciplineSplit[0]);
+
 			result.History = xElement.GetAttrValue<string>("ows_Hist_x00f3_rico");
 			result.Registry = xElement.GetAttrValue<string>("ows_Matr_x00ed_cula");
 			result.Period = xElement.GetAttrValue<string>("ows_Turno");
@@ -73,7 +74,6 @@ namespace Fatec.Repositories.Mapping
 			exam.FirstExamDate = xElement.GetAttrValue<DateTime>("ows_Data_x0020_P1");
 			exam.SecondExamDate = xElement.GetAttrValue<DateTime>("ows_Data_x0020_da_x0020_P2");
 			exam.Period = xElement.GetAttrValue<string>("ows_Turno");
-			exam.DisciplineId = Convert.ToInt32(xElement.GetAttrValue<string>("ows_Disciplina").Split(';')[0]);
 
 			FillDefaultFields(exam, xElement);
 
@@ -104,7 +104,6 @@ namespace Fatec.Repositories.Mapping
 			classAssigment.ClassRoom = xElement.GetAttrValue<string>("ows_Sala_x0020_de_x0020_Aula");
 			classAssigment.Period = xElement.GetAttrValue<string>("ows_Turno");
 			classAssigment.Semester = xElement.GetAttrValue<string>("ows_Semestre");
-			classAssigment.DisciplineId = Convert.ToInt32(xElement.GetAttrValue<string>("ows_Disciplina").Split(';')[0]);
 
 			return classAssigment;
 		};

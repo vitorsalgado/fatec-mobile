@@ -54,6 +54,7 @@ namespace Fatec.Core.Infrastructure.Configuration
 			BuildDomainSection(section, config);
 			BuildCacheSection(section, config);
 			BuildDeveloperSection(section, config);
+			BuildEmailSection(section, config);
 
 			return config;
 		}
@@ -181,6 +182,13 @@ namespace Fatec.Core.Infrastructure.Configuration
 			if (emailNode.Attributes["Username"] != null)
 			{
 				var attribute = emailNode.Attributes["Username"];
+				if (attribute != null)
+					config.EmailUsername = attribute.Value;
+			}
+
+			if (emailNode.Attributes["Password"] != null)
+			{
+				var attribute = emailNode.Attributes["Password"];
 				if (attribute != null)
 					config.EmailPassword = attribute.Value;
 			}

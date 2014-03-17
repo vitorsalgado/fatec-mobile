@@ -1,41 +1,57 @@
 ﻿.post {
 	width: 100%;
 	padding: 2px 0 8px;
-	margin: 0 0 15px 0;
+	margin: 10px 0 10px 0;
+	box-shadow: 0 1px 1px #7a7a7a;
+	background: #fff;
+
 }
 
-	.post .post-title, 
+	.post .inner-post {
+		padding: 3px 10px;
+	}
+
+	.post .post-title,
 	.post .post-title-white {
 		font-size: 120%;
+		border-bottom:1px dotted #cccccc;
 	}
 
 	.post .post-title,
 	.post .post-subtitle,
 	.post .post-title-white {
 		margin: 0;
-		padding: 3px 0;
+		padding: 5px 0;
 	}
 
 	.post .post-subtitle {
 		font-size: 105%;
-		color: rgb(27, 161, 226);
+		color: #484848;
 	}
 
 	.post .post-title a,
 	.post .post-title span {
-		color: rgb(27, 161, 226);
 		display: block;
 	}
 
 	.post .post-title-white a,
 	.post .post-title-white span {
-		color:#ffffff;
-		display:block;
+		color: #ffffff;
+		display: block;
 	}
+
+.post-title-red {
+	color: #C13832;
+}
+
+.post-title-black a {
+	color: #4d4e53;
+}
 
 .post-summary,
 .post-summary p {
 	padding: 5px 0;
+	color: #4d4e53;
 	margin: 0;
 }
 
@@ -45,12 +61,12 @@
 	overflow: auto;
 	font-style: italic;
 	padding: 2px 0;
-	color: #ffffff;
+	color: rgb(27, 161, 226);
 	font-size: 90%;
 }
 
 .post-text {
-	color: #484848;
+	color: #4d4e53;
 	display: block;
 	margin: 0 3px 0 0;
 }

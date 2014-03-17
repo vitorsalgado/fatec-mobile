@@ -6,18 +6,22 @@
 
 @foreach (var aviso in Model)
 {
-	<div class="post">
-		<h1 class="post-title">
-			@Html.RouteLink(aviso.Titulo, "noticias-detalhe", new { id = aviso.Id, titulo = CommonHelper.ToSeoFriendly(aviso.Titulo) })
-		</h1>
-		<div class="post-meta">
-			<p>
-				<span class="post-date">Em: <span class="date">@aviso.CriadoEm</span>
-				</span>
-				<span class="space">·</span>
-				<span class="post-owner">Por: <span class="owner">@aviso.CriadoPor</span>
-				</span>
-			</p>
-		</div>
-	</div>
+    <div class="post">
+        <div class="inner-post">
+            <h1 class="post-title post-title-black">
+                @Html.RouteLink(aviso.Titulo, "noticias-detalhe", new { id = aviso.Id, titulo = WebHelper.ToSeoFriendly(aviso.Titulo) })
+            </h1>
+            <div class="post-meta">
+                <p>
+                    <span class="post-date">
+                        Em: <span class="date">@aviso.CriadoEm</span>
+                    </span>
+                    <span class="space">·</span>
+                    <span class="post-owner">
+                        Por: <span class="owner">@aviso.CriadoPor</span>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
 }

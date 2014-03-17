@@ -16,6 +16,7 @@ namespace Fatec.MobileUI
 				.Include("~/Content/base.css")
 				.Include("~/Content/tile.css")
 				.Include("~/Content/content.css")
+				.Include("~/Content/menu.css")
 				.Include("~/Content/misc.css")
 			);
 		}

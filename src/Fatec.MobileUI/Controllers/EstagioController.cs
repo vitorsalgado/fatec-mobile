@@ -57,7 +57,7 @@ namespace Fatec.MobileUI.Controllers
 			var model = new AnnouncementsModel();
 			var aviso = await Task.Run(() => _avisosService.GetInternshipOpportunityById(id));
 
-			var seoFriendlyUrl = CommonHelper.ToSeoFriendly(aviso.Title);
+			var seoFriendlyUrl = WebHelper.ToSeoFriendly(aviso.Title);
 
 			if (!titulo.Equals(seoFriendlyUrl, StringComparison.InvariantCultureIgnoreCase))
 				return RedirectToActionPermanent("Noticia", new { id = id, titulo = seoFriendlyUrl });

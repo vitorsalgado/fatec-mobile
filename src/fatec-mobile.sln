@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. UI", "1. UI", "{503AB548-9B25-497D-AAB2-B126FF50E674}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Applications", "1. Applications", "{503AB548-9B25-497D-AAB2-B126FF50E674}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Libraries", "2. Libraries", "{B2FE42FE-FF0E-49D7-ABDF-8CB77DC81FCA}"
 EndProject
@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Files", "5. Files", "{EE
 		..\.deployment = ..\.deployment
 		default.ruleset = default.ruleset
 		..\README.md = ..\README.md
+		..\files\test_data.txt = ..\files\test_data.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Tests", "4. Tests", "{265D08BC-05BD-4050-B711-C6882744E9C8}"

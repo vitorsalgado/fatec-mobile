@@ -1,5 +1,6 @@
 ﻿using Fatec.Core.Domain;
 using Fatec.Core.Services;
+using System;
 using System.Web;
 
 namespace Fatec.Core.Infrastructure
@@ -12,6 +13,9 @@ namespace Fatec.Core.Infrastructure
 
 		public FatecWorkContext(HttpContextBase httpContext, IAuthenticationService authenticationService)
 		{
+			if (httpContext == null) throw new ArgumentNullException("httpContext");
+			if (authenticationService == null) throw new ArgumentNullException("authenticationService");
+
 			_httpContext = httpContext;
 			_authenticationService = authenticationService;
 		}

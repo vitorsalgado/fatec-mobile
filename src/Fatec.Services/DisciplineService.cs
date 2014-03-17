@@ -2,6 +2,7 @@
 using Fatec.Core.Infrastructure.Caching;
 using Fatec.Core.Repositories;
 using Fatec.Core.Services;
+using System.Collections.Generic;
 
 namespace Fatec.Services
 {
@@ -10,8 +11,15 @@ namespace Fatec.Services
 		private readonly IClassAssignmentRepository _classAssignmentRepository;
 		private readonly ICacheManager _cacheStrategy;
 
-		private const string CACHE_DISCIPLINE_BY_ID = "fatec.discipline.id-{0}";
+		private const string CACHE_DISCIPLINE_BY_ID = "fatec.domain.disciplina-{0}";
 		private const int CACHE_EXPIRATION_TIME = 2440;
+
+		public DisciplineService(
+			IClassAssignmentRepository classAssignmentRepository, ICacheManager cacheManager)
+		{
+			_classAssignmentRepository = classAssignmentRepository;
+			_cacheStrategy = cacheManager;
+		}
 
 		public Discipline GetById(int id)
 		{
@@ -21,6 +29,11 @@ namespace Fatec.Services
 			{
 				return _classAssignmentRepository.GetDisciplineById(id);
 			});
+		}
+
+		public ICollection<Discipline> GetAllDisciplines()
+		{
+			return _classAssignmentRepository.GetAllDisciplines();
 		}
 	}
 }

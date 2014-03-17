@@ -32,11 +32,11 @@ namespace Fatec.MobileUI.Controllers
 		[BackButtonAction("Index", "Home")]
 		public async Task<ActionResult> Login(LoginModel model, string returnUrl)
 		{
-			if (ModelState.IsValid)// && _userService.ValidateUser(model.Username, model.Password))
-			{
+			//if (ModelState.IsValid)// && _userService.ValidateUser(model.Username, model.Password))
+			//{
 				//var user = _userService.GetUserByUsername(model.Username);
 				var user = new FatecIdentity(
-					model.Username.ToUpper(),
+					"1290371313006",
 					"Vitor Hugo Salgado",
 					"vsalgadopb@gmail.com",
 					(new string[]{ "Aluno FATEC" }));
@@ -47,7 +47,7 @@ namespace Fatec.MobileUI.Controllers
 					return Redirect(returnUrl);
 				else
 					return RedirectToAction("Index", "Home", null);
-			}
+			//}
 
 			ModelState.AddModelError("", "O usuário ou senha informados estão incorretos.");
 
@@ -56,9 +56,9 @@ namespace Fatec.MobileUI.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Logout()
+		public ActionResult Logout()
 		{
-			await Task.Run(() => _authenticationService.SignOut());
+			_authenticationService.SignOut();
 			return RedirectToAction("Index", "Home");
 		}
     }

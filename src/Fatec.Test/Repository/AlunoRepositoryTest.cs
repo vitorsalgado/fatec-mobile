@@ -28,7 +28,7 @@ namespace Fatec.Test.Repository
 		[Test]
 		public void Obter_Aluno_Por_Matricula_Valida()
 		{
-			string matricula = "F0713376";
+			string matricula = "1290371413034";
 
 			var aluno = _alunoRepository.GetByEnrollment(matricula);
 
@@ -49,7 +49,7 @@ namespace Fatec.Test.Repository
 		[Test]
 		public void Obter_Disciplinas_De_Um_Aluno_Valido_Deve_Retornar_Ao_Menos_1_Disciplina()
 		{
-			string matricula = "F0713376";
+			string matricula = "1290371313006";
 
 			var disciplinasDoAluno = _alunoRepository.GetEnrolledDisciplinesByEnrollment(matricula);
 
