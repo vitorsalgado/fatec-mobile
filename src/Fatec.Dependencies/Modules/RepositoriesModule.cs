@@ -22,9 +22,9 @@ namespace Fatec.Dependencies.Modules
 		{
 			builder.RegisterType<StudentRepository>().As<IStudentRepository>().InstancePerHttpRequest();
 			builder.RegisterType<FatecRepository>().As<IFatecRepository>().InstancePerHttpRequest();
-			builder.RegisterType<WarehouseRepository>().As<IWarehouseRepository>().InstancePerHttpRequest();
 			builder.RegisterType<CourseRepository>().As<ICourseRepository>().InstancePerHttpRequest();
 			builder.RegisterType<DisciplineRepository>().As<IDisciplineRepository>().InstancePerHttpRequest();
+			builder.RegisterType<NewsRepository>().As<INewsRepository>().InstancePerHttpRequest();
 			builder.RegisterType<SPDbContext>().As<ISPDbContext>().InstancePerHttpRequest();
 		}
 

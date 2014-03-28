@@ -1,15 +1,22 @@
 ﻿@using Fatec.MobileUI;
 
 @{
-	var searchFormActionName = (string)ViewData["SearchFormActionName"];
+	var SearchActionName = (string)ViewData["SearchActionName"];
 	var backButtonActionName = (string)ViewData["BackButtonActionName"];
 	var backButtonControllerName = (string)ViewData["BackButtonControllerName"];
+
+	string footerItemsClassname = "three-items";
+
+	if (string.IsNullOrEmpty(SearchActionName)){
+		footerItemsClassname = "two-items";
+	}
+	
 }
 
 <div id="search-container">
 	<div class="search-content">
 		<div class="search-box-container">
-			<form id="footerSearchForm" method="get" action="@Url.Action(searchFormActionName)">
+			<form id="footerSearchForm" method="get" action="@Url.Action(SearchActionName)">
 				<input type="text" id="search-box" name="q" />
 				<a href="javascript:void(0);" title="Pesquisar" onclick="document.getElementById('footerSearchForm').submit();"><i id="search-action" class="search-icon icon-search"></i></a>
 			</form>
@@ -21,14 +28,16 @@
 	<div class="wrap-mobile">
 		<ul>
 			@if(string.IsNullOrEmpty(backButtonActionName) && string.IsNullOrEmpty(backButtonControllerName)) {
-				<li><a title="Voltar" href="/"><i class="fa-chevron-left"></i></a></li>
+				<li class="@footerItemsClassname"><a title="Voltar" href="/"><i class="fa-chevron-left"></i></a></li>
 			} else if(!string.IsNullOrEmpty(backButtonActionName) && string.IsNullOrEmpty(backButtonControllerName)) {
-				<li><a title="Voltar" href="@Url.Action(backButtonActionName)"><i class="fa-chevron-left"></i></a></li>				
+				<li class="@footerItemsClassname"><a title="Voltar" href="@Url.Action(backButtonActionName)"><i class="fa-chevron-left"></i></a></li>				
 			} else {
-				<li><a title="Voltar" href="@Url.Action(backButtonActionName, backButtonControllerName)"><i class="fa-chevron-left"></i></a></li>
+				<li class="@footerItemsClassname"><a title="Voltar" href="@Url.Action(backButtonActionName, backButtonControllerName)"><i class="fa-chevron-left"></i></a></li>
 			}
-			<li><a title="Início" href="/"><i class="fa-home"></i></a></li>
-			<li><a id="show-search" title="Pesquisar" href="javascript:void(0);"><i class="fa-search"></i></a></li>
+			<li class="@footerItemsClassname"><a title="Início" href="/"><i class="fa-home"></i></a></li>
+			@if(!string.IsNullOrEmpty(SearchActionName)) {
+				<li class="@footerItemsClassname"><a id="show-search" title="Pesquisar" href="javascript:void(0);"><i class="fa-search"></i></a></li>
+			}
 		</ul>
 	</div>
 </footer>

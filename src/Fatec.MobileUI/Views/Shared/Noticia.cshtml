@@ -3,21 +3,21 @@
     <div class="inner-post">
         @Html.ValidationSummary()
         <h1 class="post-title">
-            <span>@Model.Titulo</span>
+            <span>@Model.Title</span>
         </h1>
         <div class="post-meta">
             <p>
                 <span class="post-date">
-                    Em: <span class="date">@Model.CriadoEm</span>
+                    Em: <span class="date">@Model.CreatedOn</span>
                 </span>
                 <span class="space">·</span>
                 <span class="post-owner">
-                    Por: <span class="owner">@Model.CriadoPor</span>
+                    Por: <span class="owner">@Model.CreatedBy</span>
                 </span>
             </p>
         </div>
         <div class="post-summary">
-            @Html.Raw(Model.Corpo)
+            @Html.Raw(Model.Body)
         </div>
     </div>
 </div>

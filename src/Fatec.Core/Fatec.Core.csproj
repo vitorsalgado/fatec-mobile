@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationServices\IWarehouseService.cs" />
     <Compile Include="Common\Extensions\DynamicLibrary.cs" />
     <Compile Include="Common\Helpers\CommonHelper.cs" />
     <Compile Include="Common\Helpers\WebHelper.cs" />
@@ -59,7 +58,7 @@
     <Compile Include="Domain\Fatec\Course.cs" />
     <Compile Include="Domain\Students\Discipline.cs" />
     <Compile Include="Domain\Fatec\TeacherAbsence.cs" />
-    <Compile Include="Domain\Fatec\ClassReplacement.cs" />
+    <Compile Include="Domain\Fatec\Replacement.cs" />
     <Compile Include="Domain\Message\Email.cs" />
     <Compile Include="Domain\Message\EmailAccount.cs" />
     <Compile Include="Domain\Message\EmailPriority.cs" />
@@ -79,7 +78,6 @@
     <Compile Include="Infrastructure\Tasks\TaskManager.cs" />
     <Compile Include="Infrastructure\Web\FatecWorkContext.cs" />
     <Compile Include="Repositories\INewsRepository.cs" />
-    <Compile Include="Repositories\IWarehouseRepository.cs" />
     <Compile Include="Repositories\IDisciplineRepository.cs" />
     <Compile Include="Repositories\ICourseRepository.cs" />
     <Compile Include="Repositories\ILogRepository.cs" />

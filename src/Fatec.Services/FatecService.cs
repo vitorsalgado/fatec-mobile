@@ -70,7 +70,7 @@ namespace Fatec.Services
 			return abscenses;
 		}
 
-		public ICollection<ClassReplacement> GetClassReplacements()
+		public ICollection<Replacement> GetClassReplacements()
 		{
 			var classReplacements = _cacheStrategy.Get(
 				CACHE_CLASS_REPLACEMENT, 90, () =>
@@ -82,6 +82,11 @@ namespace Fatec.Services
 				replacement.Discipline = _disciplineService.GetById(replacement.DisciplineId);
 
 			return classReplacements;
+		}
+
+		public ICollection<KeyMovement> GetKeyMovement()
+		{
+			return _fatecRepository.GetKeyMovement();
 		}
 	}
 }

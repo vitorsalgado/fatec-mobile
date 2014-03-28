@@ -46,6 +46,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
@@ -125,19 +131,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\Configuration\BundleConfig.cs" />
-    <Compile Include="Infrastructure\Configuration\FilterConfig.cs" />
-    <Compile Include="Infrastructure\Configuration\RouteConfig.cs" />
+    <Compile Include="Infrastructure\Configurations\AutoMapperConfig.cs" />
+    <Compile Include="Infrastructure\Configurations\BundleConfig.cs" />
+    <Compile Include="Infrastructure\Configurations\FilterConfig.cs" />
+    <Compile Include="Infrastructure\Configurations\RouteConfig.cs" />
     <Compile Include="Infrastructure\Filters\BackButtonActionAttribute.cs" />
-    <Compile Include="Infrastructure\Filters\SetPageInfoLabelsAttribute.cs" />
-    <Compile Include="Infrastructure\Filters\SetSearchFormActionAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\PageInfoLabelsAttribute.cs" />
+    <Compile Include="Infrastructure\Filters\SearchActionAttribute.cs" />
+    <Compile Include="Infrastructure\Mappings\AproveitamentosMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\CourseMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\EnrollmentsMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\ExamMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\KeyMovementMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\NewsMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\ReplacementsMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\RequirementsMapProfile.cs" />
+    <Compile Include="Infrastructure\Mappings\TeacherAbscenceMapProfile.cs" />
     <Compile Include="Infrastructure\Tasks\CacheTask.cs" />
     <Compile Include="Infrastructure\Web\UrlBuilder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\DeveloperController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\InternshipController.cs" />
+    <Compile Include="Controllers\EstagioController.cs" />
     <Compile Include="Controllers\FatecController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,17 +162,20 @@
     <Compile Include="ViewModels\ExamModel.cs" />
     <Compile Include="ViewModels\KeyMovementModel.cs" />
     <Compile Include="ViewModels\RequirementModel.cs" />
-    <Compile Include="ViewModels\StudiesAdvanceModel.cs" />
+    <Compile Include="ViewModels\AproveitamentoModel.cs" />
     <Compile Include="ViewModels\NewsModel.cs" />
     <Compile Include="ViewModels\CourseModel.cs" />
     <Compile Include="ViewModels\TeacherAbsenceModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\EnrollmentModel.cs" />
-    <Compile Include="ViewModels\ModelMapper.cs" />
-    <Compile Include="ViewModels\ClassReplacementModel.cs" />
+    <Compile Include="ViewModels\ReplacementModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
+      <Link>AutoMapper.Net4.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\content.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -204,15 +223,15 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Fatec\Cursos.cshtml" />
     <Content Include="Views\Fatec\Curso.cshtml" />
-    <Content Include="Views\Home\Social.cshtml" />
     <Content Include="Views\Developer\About.cshtml" />
-    <Content Include="Views\Student\Aproveitamentos.cshtml" />
+    <Content Include="Views\Aluno\Aproveitamentos.cshtml" />
     <Content Include="Views\Fatec\Faltas.cshtml" />
     <Content Include="Views\Fatec\Reposicoes.cshtml" />
-    <Content Include="Views\Student\Avaliacoes.cshtml" />
-    <Content Include="Views\Student\Requerimentos.cshtml" />
+    <Content Include="Views\Aluno\Avaliacoes.cshtml" />
+    <Content Include="Views\Aluno\Requerimentos.cshtml" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Fatec\Busca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -233,10 +252,10 @@
     <Content Include="Views\Fatec\Sobre.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Student\Matriculas.cshtml" />
+    <Content Include="Views\Aluno\Matriculas.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Aluno\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Login.cshtml" />

@@ -8,6 +8,7 @@ namespace Fatec.Core.Services
 		ICollection<Course> GetActivesCourses();
 		Course GetCourseById(int id);
 		ICollection<TeacherAbsence> GetTeachersAbsences();
-		ICollection<ClassReplacement> GetClassReplacements();
+		ICollection<Replacement> GetClassReplacements();
+		ICollection<KeyMovement> GetKeyMovement();
 	}
 }

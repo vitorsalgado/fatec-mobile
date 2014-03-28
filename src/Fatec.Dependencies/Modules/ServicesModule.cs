@@ -12,7 +12,7 @@ namespace Fatec.Dependencies.Modules
 		{
 			if (builder == null) throw new ArgumentNullException("builder");
 
-			builder.RegisterType<NewsServiceFacade>().As<INewsService>().InstancePerHttpRequest();
+			builder.RegisterType<NewsService>().As<INewsService>().InstancePerHttpRequest();
 			builder.RegisterType<FormsAuthenticationService>().As<IAuthenticationService>().InstancePerHttpRequest();
 			builder.RegisterType<ActiveDirectoryUserService>().As<IUserService>().InstancePerHttpRequest();
 			builder.RegisterType<FatecService>().As<IFatecService>().InstancePerHttpRequest();

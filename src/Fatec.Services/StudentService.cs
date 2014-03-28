@@ -30,7 +30,7 @@ namespace Fatec.Services
 			_disciplineService = disciplineService;
 		}
 
-		public Student GetByEnrollment(string enrollment)
+		public Student Get(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
 
@@ -42,7 +42,7 @@ namespace Fatec.Services
 			});
 		}
 
-		public ICollection<EnrolledDiscipline> GetEnrolledDisciplinesByEnrollment(string enrollment)
+		public ICollection<EnrolledDiscipline> GetEnrolledDisciplines(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
 
@@ -59,13 +59,13 @@ namespace Fatec.Services
 			return enrolledDisciplines;
 		}
 
-		public ICollection<StudiesAdvance> GetStudiesAdvanceByEnrollment(string enrollment)
+		public ICollection<StudiesAdvance> GetStudiesAdvance(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
 			return _studentRepository.GetStudiesAdvance(enrollment);
 		}
 
-		public ICollection<Exam> GetExamsByEnrollment(string enrollment)
+		public ICollection<Exam> GetExams(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
 			

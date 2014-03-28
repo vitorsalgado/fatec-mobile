@@ -6,5 +6,6 @@ namespace Fatec.Core
 	{
 		string CurrentUsername { get; }
 		FatecIdentity CurrentUser { get; }
+		FatecPrincipal CurrentPrincipal { get; }
 	}
 }

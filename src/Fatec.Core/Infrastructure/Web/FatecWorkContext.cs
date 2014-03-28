@@ -29,5 +29,11 @@ namespace Fatec.Core.Infrastructure
 		{
 			get { return (_contextUser ?? (_contextUser = _authenticationService.GetAuthenticatedUser())); }
 		}
+
+
+		public FatecPrincipal CurrentPrincipal
+		{
+			get { return (FatecPrincipal)_httpContext.User.Identity; }
+		}
 	}
 }

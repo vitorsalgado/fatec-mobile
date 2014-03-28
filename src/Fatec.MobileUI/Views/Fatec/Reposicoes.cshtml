@@ -1,4 +1,4 @@
-﻿@model List<ClassReplacementModel>
+﻿@model List<ReplacementModel>
 
 @{
 	ViewBag.Title = "Reposições";
@@ -13,18 +13,18 @@
 	<div class="post">
         <div class="inner-post">
             <h1 class="post-title post-title-black">
-                @item.Disciplina
+                @item.Discipline
             </h1>
             <h2 class="post-subtitle">
-                @item.Professor
+                @item.Teacher
             </h2>
             <div class="post-meta">
                 <p>
-                    <span class="post-date">@string.Format("{0} às {1}", @item.Data.ToString("dd/MM/yyyy"), @item.Data.ToString("HH:mm"))</span>
+                    <span class="post-date">@string.Format("{0} às {1}", @item.Date.ToString("dd/MM/yyyy"), @item.Date.ToString("HH:mm"))</span>
                     <span class="space">·</span>
                     <span class="post-owner">
                         Turno: <span class="owner">
-                            @foreach (var turno in item.Turnos)
+                            @foreach (var turno in item.Periods)
                             {
                                 <span class="space">@turno</span>
                             }

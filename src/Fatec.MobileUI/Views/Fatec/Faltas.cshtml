@@ -13,29 +13,29 @@
 	<div class="post">
         <div class="inner-post">
             <h1 class="post-title post-title-black">
-                @item.Professor
+                @item.Teacher
             </h1>
             <h2 class="post-subtitle">
-                @item.Disciplina
+                @item.Discipline
             </h2>
             <div class="post-meta">
                 <p>
-                    <span class="post-date">@item.Data.ToString("dd/MM/yyyy")</span>
+                    <span class="post-date">@item.Date.ToString("dd/MM/yyyy")</span>
                     <span class="space">·</span>
                     <span class="post-owner">
                         Turno: <span class="owner">
-                            @foreach (var turno in item.Turnos)
+                            @foreach (var turno in item.Periods)
                             {
                                 <span class="space">@turno</span>
                             }
                         </span>
                     </span>
                     <br />
-                    <span class="post-date">Motivo<span class="space">·</span><span>@item.Motivo</span></span>
+                    <span class="post-date">Motivo<span class="space">·</span><span>@item.Reason</span></span>
                 </p>
             </div>
             <div class="post-summary">
-                @item.Observacoes
+                @item.Details
             </div>
         </div>
 	</div>

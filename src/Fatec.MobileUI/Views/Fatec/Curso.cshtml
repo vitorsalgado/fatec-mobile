@@ -5,20 +5,20 @@
 
 <div class="post">
     <div class="inner-post">
-        <h1 class="post-title post-title-red">
-            <span>@Model.Nome</span>
+        <h1 class="post-title">
+            <span>@Model.Name</span>
         </h1>
         <div class="post-meta">
             <p>
-                <span class="post-date"><strong>@Model.NivelDeEnsino</strong></span>
+                <span class="post-date"><strong>@Model.TeachingLevel</strong></span>
                 <br /><br />
-                <span class="post-owner"><strong>Duração</strong><span class="space">·</span><span class="owner">@Model.DuracaoEmMeses Meses</span></span>
+                <span class="post-owner"><strong>Duração</strong><span class="space">·</span><span class="owner">@Model.DurationInMonths Meses</span></span>
                 <br />
-                <span class="post-date"><strong>Carga Horário</strong><span class="space">·</span>@Model.CargaHorario Horas</span>
+                <span class="post-date"><strong>Carga Horário</strong><span class="space">·</span>@Model.Workload Horas</span>
                 <br />
                 <span class="post-owner">
                     <strong>Turnos</strong><span class="space">·</span><span class="owner">
-                        @foreach (var turno in Model.Turnos)
+                        @foreach (var turno in Model.Periods)
                         {
                             <span class="space">@turno</span>
                         }
@@ -28,7 +28,7 @@
         </div>
         <div class="post-summary">
             <h2 class="post-subtitle">Perfil Profissional</h2>
-            @Html.Raw(Model.PerfilDeEnsino)
+            @Html.Raw(Model.TeachingProfile)
         </div>
     </div>
 </div>

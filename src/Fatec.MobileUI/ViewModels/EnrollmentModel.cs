@@ -2,12 +2,12 @@
 {
 	public class EnrollmentModel
 	{
-		public string Disciplina { get; set; }
-		public decimal NotaPrimeiroBimestre { get; set; }
-		public int FaltasPrimeiroBimestre { get; set; }
-		public decimal NotaSegundoBimestre { get; set; }
-		public int FaltasSegundoBimestre { get; set; }
-		public decimal Media { get; set; }
-		public string Conceito { get; set; }
+		public string Discipline { get; set; }
+		public decimal GradeP1 { get; set; }
+		public int AbsencesB1 { get; set; }
+		public decimal GradeP2 { get; set; }
+		public int AbsencesB2 { get; set; }
+		public decimal Grade { get; set; }
+		public string Concept { get; set; }
 	}
 }

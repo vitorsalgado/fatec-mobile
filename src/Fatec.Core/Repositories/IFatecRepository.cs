@@ -6,6 +6,7 @@ namespace Fatec.Core.Repositories
 	public interface IFatecRepository
 	{
 		ICollection<TeacherAbsence> GetTeacherAbsences();
-		ICollection<ClassReplacement> GetReplacements();
+		ICollection<Replacement> GetReplacements();
+		ICollection<KeyMovement> GetKeyMovement();
 	}
 }

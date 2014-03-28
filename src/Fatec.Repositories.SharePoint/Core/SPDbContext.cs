@@ -30,10 +30,17 @@ namespace Fatec.Repositories.SharePoint
 			if (String.IsNullOrEmpty(siteRelativePath)) 
 				throw new ArgumentNullException("siteRelativePath");
 
+			SharepointListsService client = null;
+
 			if (_httpContext.Items[HTTPCONTEXT_LISTS_CLIENT_KEY] != null)
-				return (SharepointListsService)_httpContext.Items[HTTPCONTEXT_LISTS_CLIENT_KEY];
+			{
+				client = (SharepointListsService)_httpContext.Items[HTTPCONTEXT_LISTS_CLIENT_KEY];
+				client.Url = string.Concat(_configurationProvider.SharepointDefaultUrl.AbsoluteUri, siteRelativePath, VTI_BIN_LISTS_PATH);
+
+				return client;
+			}
 			
-			var client = new SharepointListsService();
+			client = new SharepointListsService();
 			client.Url = string.Concat(_configurationProvider.SharepointDefaultUrl.AbsoluteUri, siteRelativePath, VTI_BIN_LISTS_PATH);
 
 			if (_configurationProvider.UseDefaultCredentialsForSharepointConnections)

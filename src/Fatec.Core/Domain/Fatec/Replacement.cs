@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Fatec.Core.Domain
 {
-	public class ClassReplacement : AbstractAuditedEntity
+	public class Replacement : AbstractAuditedEntity
 	{
 		public DateTime Date { get; set; }
 		public IEnumerable<string> Periods { get; set; }

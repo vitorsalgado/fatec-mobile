@@ -1,4 +1,6 @@
-﻿using Fatec.Core;
+﻿using AutoMapper;
+using Fatec.Core;
+using Fatec.Core.Domain;
 using Fatec.Core.Services;
 using Fatec.MobileUI.Filters;
 using Fatec.MobileUI.ViewModels;
@@ -14,13 +16,16 @@ namespace Fatec.MobileUI.Controllers
 	{
 		private readonly INewsService _newsService;
 		private readonly IFatecService _fatecService;
+		private readonly IWorkContext _workContext;
 
 		private const string BACK_BUTTON_ACTION_NAME = "BackButtonActionName";
 
-		public FatecController(INewsService newsService, IFatecService fatecService)
+		public FatecController(
+			INewsService newsService, IFatecService fatecService, IWorkContext workContext)
 		{
 			_newsService = newsService;
 			_fatecService = fatecService;
+			_workContext = workContext;
 		}
 
 		[AllowAnonymous]
@@ -30,14 +35,17 @@ namespace Fatec.MobileUI.Controllers
 		}
 
 		[AllowAnonymous]
+		public ActionResult Sobre()
+		{
+			return View();
+		}
+
+		[AllowAnonymous]
 		[BackButtonAction("Index", "Fatec")]
 		public async Task<ActionResult> Cursos()
 		{
-			var model = new List<CourseModel>();
-			var cursos = await Task.Run(() => _fatecService.GetActivesCourses());
-
-			foreach (var curso in cursos)
-				model.Add(curso.ToModel());
+			var courses = await Task.Run(() => _fatecService.GetActivesCourses());
+			IEnumerable<CourseModel> model = Mapper.Map<IEnumerable<Course>, IEnumerable<CourseModel>>(courses);
 
 			return View(model);
 		}
@@ -47,99 +55,95 @@ namespace Fatec.MobileUI.Controllers
 		public async Task<ActionResult> Curso(int id, string nome)
 		{
 			var model = new CourseModel();
-			var curso = await Task.Run(() => _fatecService.GetCourseById(id));
+			var course = await Task.Run(() => _fatecService.GetCourseById(id));
 
-			if (nome != WebHelper.ToSeoFriendly(curso.Name))
-				return RedirectToActionPermanent("Noticia", new { id = id, titulo = WebHelper.ToSeoFriendly(curso.Name) });
+			if (nome != WebHelper.ToSeoFriendly(course.Name))
+				return RedirectToActionPermanent("Noticia", new { id = id, titulo = WebHelper.ToSeoFriendly(course.Name) });
 
-			return View(curso.ToModel());
+			return View(Mapper.Map<Course, CourseModel>(course));
 		}
 
-		[SetSearchFormAction]
+		[SearchAction]
 		[BackButtonAction("Index", "Fatec")]
-		[SetPageInfoLabels("Notícias", "notícias", " da fatec praia grande")]
+		[PageInfoLabels("Notícias", "notícias", " da fatec praia grande")]
 		public async Task<ActionResult> Noticias(string q)
 		{
-			var model = new List<NewsModel>();
-			var avisos = await Task.Run(() => _newsService.GetAllFatecNews());
+			IEnumerable<NewsModel> model = new List<NewsModel>();
+			var newsCollection = new List<News>();
+
+			newsCollection.AddRange(await Task.Run(() => _newsService.GetAllHomeNews()));
+
+			if (_workContext.CurrentUser.IsAuthenticated)
+				newsCollection.AddRange(await Task.Run(() => _newsService.GetAllFatecNews()));
+
+			newsCollection = newsCollection.OrderByDescending(x => x.CreatedOn.Value).ToList();
 
 			if (!string.IsNullOrEmpty(q))
 			{
-				avisos = avisos
+				newsCollection = newsCollection
 					.Where(x => x.Title.IndexOf(q, StringComparison.InvariantCultureIgnoreCase) >= 0)
 					.ToList();
 
 				ViewData[BACK_BUTTON_ACTION_NAME] = "Noticias";
 			}
 
-			if (avisos.Count == 0)
-			{
-				ModelState.AddModelError("", "Não foram encontrados avisos da FATEC.");
-				return View(model);
-			}
-
-			avisos.ToList().ForEach(x => model.Add(x.ToModel()));
+			if (newsCollection.Count == 0)
+				ModelState.AddModelError("", "Não foram encontrados avisos da FATEC :-(");
+			else
+				model = Mapper.Map<IEnumerable<News>, IEnumerable<NewsModel>>(newsCollection);
 
 			return View(model);
 		}
 
-		[SetSearchFormAction("Noticias")]
+		[SearchAction("Noticias")]
 		[BackButtonAction("Noticias", "Fatec")]
-		[SetPageInfoLabels("Notícias", "notícia", " da fatec praia grande")]
-		public async Task<ActionResult> Noticia(int id, string titulo)
+		[PageInfoLabels("Notícias", "notícia", " da fatec praia grande")]
+		public async Task<ActionResult> Noticia(int id, string titulo, string assunto)
 		{
-			var model = new NewsModel();
-			var aviso = await Task.Run(() => _newsService.GetFatecNews(id));
+			var news = new News();
 
-			var seoFriendlyUrl = WebHelper.ToSeoFriendly(aviso.Title);
+			if ("f".Equals(assunto))
+				news = await Task.Run(() => _newsService.GetFatecNews(id));
+			else
+				news = await Task.Run(() => _newsService.GetHomeNews(id));
+
+			var seoFriendlyUrl = WebHelper.ToSeoFriendly(news.Title);
 
 			if (!titulo.Equals(seoFriendlyUrl, StringComparison.InvariantCultureIgnoreCase))
-				return RedirectToActionPermanent("Noticia", new { id = id, titulo = seoFriendlyUrl });
+				return RedirectToActionPermanent("Noticia", new { id = id, titulo = seoFriendlyUrl, assunto = assunto });
 
-			model = aviso.ToModel();
-
-			return View(model);
+			return View(Mapper.Map<News, NewsModel>(news));
 		}
 
-		[AllowAnonymous]
-		public ActionResult Sobre()
-		{
-			return View();
-		}
-
-		[SetSearchFormAction]
+		[SearchAction]
 		[BackButtonAction("Index", "Fatec")]
 		public async Task<ActionResult> Faltas(string q)
 		{
-			var model = new List<TeacherAbsenceModel>();
-			var faltas = await Task.Run(() => _fatecService.GetTeachersAbsences());
+			var abscences = await Task.Run(() => _fatecService.GetTeachersAbsences());
 
 			if (!string.IsNullOrEmpty(q))
 			{
-				faltas = faltas
+				abscences = abscences
 					.Where(x => x.TeacherName != null && x.TeacherName.IndexOf(q, StringComparison.InvariantCultureIgnoreCase) >= 0)
 					.ToList();
 
 				ViewData[BACK_BUTTON_ACTION_NAME] = "Faltas";
 			}
 
-			if (faltas.Count == 0)
-			{
-				ModelState.AddModelError("", "Nenhuma falta de professor encontrada.");
-				return View(model);
-			}
+			IEnumerable<TeacherAbsenceModel> model = new List<TeacherAbsenceModel>();
 
-			foreach (var falta in faltas)
-				model.Add(falta.ToModel());
+			if (abscences.Count == 0)
+				ModelState.AddModelError("", "Nenhuma falta de professor encontrada :-(");
+			else
+				model = Mapper.Map<IEnumerable<TeacherAbsence>, IEnumerable<TeacherAbsenceModel>>(abscences);
 
 			return View(model);
 		}
 
-		[SetSearchFormAction]
+		[SearchAction]
 		[BackButtonAction("Index", "Fatec")]
 		public async Task<ActionResult> Reposicoes(string q)
 		{
-			var model = new List<ClassReplacementModel>();
 			var replacements = await Task.Run(() => _fatecService.GetClassReplacements());
 
 			if (!string.IsNullOrEmpty(q))
@@ -151,14 +155,41 @@ namespace Fatec.MobileUI.Controllers
 				ViewData[BACK_BUTTON_ACTION_NAME] = "Reposicoes";
 			}
 
+			IEnumerable<ReplacementModel> model = new List<ReplacementModel>();
+
 			if (replacements.Count == 0)
+				ModelState.AddModelError("", "Nenhuma reposição encontrada :-(");
+			else
+				model = Mapper.Map<IEnumerable<Replacement>, IEnumerable<ReplacementModel>>(replacements);
+
+			return View(model);
+		}
+
+		[SearchAction]
+		[BackButtonAction("Index", "Fatec")]
+		public async Task<ActionResult> Busca(string q)
+		{
+			var results = await Task.Run(() => _fatecService.GetKeyMovement());
+			IEnumerable<KeyMovementModel> model = new List<KeyMovementModel>();
+
+			if (results.Count == 0)
 			{
-				ModelState.AddModelError("", "Nenhuma reposição encontrada.");
+				ModelState.AddModelError("", string.Format("Nenhum professor encontrado para a consulta \"{0}\" :-(", q));
 				return View(model);
 			}
+			else
+			{
+				if (!string.IsNullOrEmpty(q))
+				{
+					results = results
+						.Where(x => x.Requester != null && x.Requester.IndexOf(q, StringComparison.InvariantCultureIgnoreCase) >= 0)
+						.ToList();
 
-			foreach (var replacement in replacements)
-				model.Add(replacement.ToModel());
+					ViewData[BACK_BUTTON_ACTION_NAME] = "Busca";
+				}
+
+				model = Mapper.Map<IEnumerable<KeyMovement>, IEnumerable<KeyMovementModel>>(results);
+			}
 
 			return View(model);
 		}

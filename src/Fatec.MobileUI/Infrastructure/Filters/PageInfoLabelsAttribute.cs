@@ -2,13 +2,13 @@
 
 namespace Fatec.MobileUI.Filters
 {
-	public class SetPageInfoLabelsAttribute : ActionFilterAttribute
+	public class PageInfoLabelsAttribute : ActionFilterAttribute
 	{
 		private string _title;
 		private string _highLight;
 		private string _additionalPageInfo;
 
-		public SetPageInfoLabelsAttribute(string title, string highLight, string additionalPageInfo)
+		public PageInfoLabelsAttribute(string title, string highLight, string additionalPageInfo)
 		{
 			_title = title;
 			_highLight = highLight;

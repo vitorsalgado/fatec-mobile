@@ -30,9 +30,9 @@ namespace Fatec.Repositories.Mapping
 			return result;
 		};
 
-		public static Func<XElement, ClassReplacement> MapReplacement = xElement =>
+		public static Func<XElement, Replacement> MapReplacement = xElement =>
 		{
-			var reposicao = new ClassReplacement();
+			var reposicao = new Replacement();
 
 			reposicao.Date = xElement.GetAttrValue<DateTime>("ows_Data_x002f_Hora");
 			reposicao.DisciplineId = Convert.ToInt32(xElement.GetAttrValue<string>("ows_Disciplina").Split(';')[0]);

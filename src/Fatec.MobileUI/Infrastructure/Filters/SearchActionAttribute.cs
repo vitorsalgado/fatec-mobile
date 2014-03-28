@@ -2,13 +2,13 @@
 
 namespace Fatec.MobileUI.Filters
 {
-	public class SetSearchFormActionAttribute : ActionFilterAttribute
+	public class SearchActionAttribute : ActionFilterAttribute
 	{
 		private string _actionName;
 
-		public SetSearchFormActionAttribute() { }
+		public SearchActionAttribute() { }
 
-		public SetSearchFormActionAttribute(string actionName)
+		public SearchActionAttribute(string actionName)
 		{
 			_actionName = actionName;
 		}
@@ -17,7 +17,7 @@ namespace Fatec.MobileUI.Filters
 		{
 			if (string.IsNullOrEmpty(_actionName))
 				_actionName = filterContext.ActionDescriptor.ActionName;
-			filterContext.Controller.ViewData["SearchFormActionName"] = _actionName;
+			filterContext.Controller.ViewData["SearchActionName"] = _actionName;
 		}
 
 		public override void OnResultExecuted(ResultExecutedContext filterContext)

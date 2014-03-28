@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace Fatec.Services
 {
-	public class NewsServiceFacade : INewsService
+	public class NewsService : INewsService
 	{
-		private const string CACHE_AVISOS_HOME_ALL = "fatec.avisoshome.all";
-		private const string CACHE_AVISO_HOME_ID = "fatec.avisohome.id-{0}";
-		private const string CACHE_AVISOS_FATEC_ALL = "fatec.avisosfatec.all";
-		private const string CACHE_AVISO_FATEC_ID = "fatec.avisofatec.id-{0}";
-		private const string CACHE_ESTAGIO_ID = "fatec.estagio.id-{0}";
-		private const string CACHE_ESTAGIO_ALL = "fatec.estagio.all";
+		private const string cacheHomeNewsAll = "fatec.core.domain.home.news";
+		private const string cacheHomeNewsId = "fatec.core.domain.home.news.id-{0}";
+		private const string cacheFatecNewsAll = "fatec.core.domain.fatec.news";
+		private const string cacheFatecNewsId = "fatec.core.domain.fatec.news.id-{0}";
+		private const string cacheInternshipAll = "fatec.core.domain.internship";
+		private const string cacheInternshipId = "fatec.core.domain.internship.id-{0}";
 
 		private const int CACHE_MIN_EXPIRATION_TIME = 10;
 		private const int CACHE_MAX_EXPIRATION_TIME = 1440;
@@ -22,7 +22,7 @@ namespace Fatec.Services
 		private readonly INewsRepository _newsRepository;
 		private readonly ICacheManager _cacheStrategy;
 
-		public NewsServiceFacade(
+		public NewsService(
 			INewsRepository newsRepository,
 			ICacheManager cacheStrategy)
 		{
@@ -36,19 +36,27 @@ namespace Fatec.Services
 		{
 			if (id <= 0) throw new ArgumentOutOfRangeException("id", id, "id must be greather than ZERO.");
 
-			var cacheKey = string.Format(CACHE_AVISO_HOME_ID, id);
+			var cacheKey = string.Format(cacheHomeNewsId, id);
+
 			return _cacheStrategy.Get(cacheKey, CACHE_MAX_EXPIRATION_TIME, () =>
 			{
-				return _newsRepository.GetSingleHomeNews(id);
+				var news = _newsRepository.GetSingleHomeNews(id);
+				news.Subject = "h";
+
+				return news;
 			});
 		}
 
 		public ICollection<News> GetAllHomeNews()
 		{
-			var cacheKey = CACHE_AVISOS_HOME_ALL;
+			var cacheKey = cacheHomeNewsAll;
+
 			return _cacheStrategy.Get(cacheKey, CACHE_MIN_EXPIRATION_TIME, () =>
 			{
 				var avisosValidos = _newsRepository.GetAllHomeNews();
+				foreach (var aviso in avisosValidos)
+					aviso.Subject = "h";
+
 				return avisosValidos;
 			});
 		}
@@ -61,19 +69,27 @@ namespace Fatec.Services
 		{
 			if (id <= 0) throw new ArgumentOutOfRangeException("id", id, "id must be greather than ZERO.");
 
-			var cacheKey = string.Format(CACHE_AVISO_FATEC_ID, id);
+			var cacheKey = string.Format(cacheFatecNewsId, id);
+
 			return _cacheStrategy.Get(cacheKey, CACHE_MAX_EXPIRATION_TIME, () =>
 			{
-				return _newsRepository.GetSingleFatecNews(id);
+				var news = _newsRepository.GetSingleFatecNews(id);
+				news.Subject = "f";
+
+				return news;
 			});
 		}
 
 		public ICollection<News> GetAllFatecNews()
 		{
-			var cacheKey = CACHE_AVISOS_FATEC_ALL;
+			var cacheKey = cacheFatecNewsAll;
+
 			return _cacheStrategy.Get(cacheKey, CACHE_MIN_EXPIRATION_TIME, () =>
 			{
 				var avisosValidos = _newsRepository.GetAllFatecNews();
+				foreach (var aviso in avisosValidos)
+					aviso.Subject = "f";
+
 				return avisosValidos;
 			});
 		}
@@ -86,7 +102,8 @@ namespace Fatec.Services
 		{
 			if (id <= 0) throw new ArgumentOutOfRangeException("id", id, "id must be greather than ZERO.");
 
-			string cacheKey = string.Format(CACHE_ESTAGIO_ID, id);
+			string cacheKey = string.Format(cacheInternshipAll, id);
+
 			return _cacheStrategy.Get(cacheKey, CACHE_MIN_EXPIRATION_TIME, () =>
 			{
 				return _newsRepository.GetInternship(id);
@@ -95,7 +112,7 @@ namespace Fatec.Services
 
 		public ICollection<News> GetAllInternships()
 		{
-			return _cacheStrategy.Get(CACHE_ESTAGIO_ALL, CACHE_MIN_EXPIRATION_TIME, () =>
+			return _cacheStrategy.Get(cacheInternshipId, CACHE_MIN_EXPIRATION_TIME, () =>
 			{
 				return _newsRepository.GetAllInternships();
 			});

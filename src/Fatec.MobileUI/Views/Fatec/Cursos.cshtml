@@ -14,13 +14,13 @@
     <div class="post">
         <div class="inner-post">
             <h1 class="post-title post-title-black">
-                @Html.RouteLink(curso.Nome, "cursos-detalhe", new { id = curso.Id, nome = WebHelper.ToSeoFriendly(curso.Nome) })
+                @Html.RouteLink(curso.Name, "cursos-detalhe", new { id = curso.Id, nome = WebHelper.ToSeoFriendly(curso.Name) })
             </h1>
             <div class="post-meta">
                 <p>
-                    <span class="post-date">@curso.NivelDeEnsino</span>
+                    <span class="post-date">@curso.TeachingLevel</span>
                     <span class="space">·</span>
-                    <span class="post-owner">Duração: <span class="owner">@curso.DuracaoEmMeses (meses)</span></span>
+                    <span class="post-owner">Duração: <span class="owner">@curso.DurationInMonths (meses)</span></span>
                 </p>
             </div>
         </div>

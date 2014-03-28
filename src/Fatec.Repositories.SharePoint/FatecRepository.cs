@@ -1,6 +1,7 @@
 ﻿using Fatec.Core.Domain;
 using Fatec.Core.Repositories;
 using Fatec.Repositories.Mapping;
+using Fatec.Repositories.SharePoint.Mapping;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +9,8 @@ namespace Fatec.Repositories.SharePoint
 {
 	public class FatecRepository : IFatecRepository
 	{
-		private const string FATEC_LISTS_SERVICE_PATH = "/fatec";
+		private const string fatecListsPath = "/fatec";
+		private const string ciListsPath = "/tic";
 		private readonly ISPDbContext _context;
 
 		public FatecRepository(ISPDbContext context)
@@ -25,18 +27,31 @@ namespace Fatec.Repositories.SharePoint
 			string viewFields = _context.CreateViewFields("ID", "Title", "Data", "Professor", "Semestre", "Turno", "Disciplina", "Observa_x00e7__x00e3_o");
 
 			return _context.ExecuteQuery<TeacherAbsence>(
-				FATEC_LISTS_SERVICE_PATH, "Faltas", query, viewFields, FatecMap.MapTeacherAbsence);
+				fatecListsPath, "Faltas", query, viewFields, FatecMap.MapTeacherAbsence);
 		}
 
-		public ICollection<ClassReplacement> GetReplacements()
+		public ICollection<Replacement> GetReplacements()
 		{
 			string query =
 				@"<Where><Geq><FieldRef Name='Data_x002f_Hora'/><Value Type='DateTime'><Today /></Value></Geq>
 					</Where><OrderBy><FieldRef Name='Data_x002f_Hora' Ascending='False'/></OrderBy>";
 			string viewFields = _context.CreateViewFields("ID", "Title", "Data_x002f_Hora", "Professor", "Disciplina", "Per_x00ed_odo");
 
-			return _context.ExecuteQuery<ClassReplacement>(
-				FATEC_LISTS_SERVICE_PATH, "Reposições", query, viewFields, FatecMap.MapReplacement);
+			return _context.ExecuteQuery<Replacement>(
+				fatecListsPath, "Reposições", query, viewFields, FatecMap.MapReplacement);
+		}
+
+		public ICollection<KeyMovement> GetKeyMovement()
+		{
+			var viewFields = _context.CreateViewFields(
+				"ID", "Requisitante", "Data_x0020_de_x0020_Retirada", "Chave");
+
+			string query = @"<Where>
+						<IsNull><FieldRef Name='Data_x0020_de_x0020_Devolu_x00e7'/></IsNull>
+					</Where><OrderBy><FieldRef Name='Requisitante' Ascending='True'/></OrderBy>";
+
+			return _context.ExecuteQuery<KeyMovement>(
+				ciListsPath, "Controle de Chaves", query, viewFields, WarehouseMap.Map);
 		}
 	}
 }

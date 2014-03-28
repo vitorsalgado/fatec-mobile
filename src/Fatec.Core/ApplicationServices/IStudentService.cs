@@ -5,10 +5,10 @@ namespace Fatec.Core.Services
 {
 	public interface IStudentService
 	{
-		Student GetByEnrollment(string enrollment);
-		ICollection<EnrolledDiscipline> GetEnrolledDisciplinesByEnrollment(string enrollment);
-		ICollection<StudiesAdvance> GetStudiesAdvanceByEnrollment(string enrollment);
-		ICollection<Exam> GetExamsByEnrollment(string enrollment);
+		Student Get(string enrollment);
+		ICollection<EnrolledDiscipline> GetEnrolledDisciplines(string enrollment);
+		ICollection<StudiesAdvance> GetStudiesAdvance(string enrollment);
+		ICollection<Exam> GetExams(string enrollment);
 		ICollection<Requirement> GetRequirements(string enrollment);
 	}
 }

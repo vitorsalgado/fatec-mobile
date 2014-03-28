@@ -1,5 +1,4 @@
 ﻿using Fatec.Core.Domain;
-using Fatec.Repositories.Dtos;
 using System;
 using System.Xml.Linq;
 
@@ -93,19 +92,6 @@ namespace Fatec.Repositories.Mapping
 			FillDefaultFields(requirement, xElement);
 
 			return requirement;
-		};
-
-		public static Func<XElement, ClassAssignmentDto> MapClassAssigment = xElement =>
-		{
-			var classAssigment = new ClassAssignmentDto();
-
-			classAssigment.TeacherName = xElement.GetAttrValue<string>("ows_Professor").Split('#')[1];
-			classAssigment.Schedule = xElement.GetAttrValue<string>("ows_Hor_x00e1_rio_x0028_s_x0029_");
-			classAssigment.ClassRoom = xElement.GetAttrValue<string>("ows_Sala_x0020_de_x0020_Aula");
-			classAssigment.Period = xElement.GetAttrValue<string>("ows_Turno");
-			classAssigment.Semester = xElement.GetAttrValue<string>("ows_Semestre");
-
-			return classAssigment;
 		};
 	}
 }
