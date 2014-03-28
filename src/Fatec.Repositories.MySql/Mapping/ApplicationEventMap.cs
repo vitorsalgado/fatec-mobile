@@ -10,7 +10,7 @@ namespace Fatec.Repositories.MySql.Mapping
 			this.Property(x => x.Date).IsRequired();
 			this.Property(x => x.Event).IsRequired().IsMaxLength();
 
-			this.ToTable("log_information");
+			this.ToTable("fatec-log-events");
 		}
 	}
 }

@@ -27,7 +27,7 @@ namespace Fatec.Infrastructure.Logger
 
 		public void Warn(string warning)
 		{
-			if (string.IsNullOrEmpty(warning)) throw new ArgumentException("warning");
+			if (string.IsNullOrEmpty(warning)) throw new ArgumentNullException("warning");
 
 			ApplicationEvent evt = new ApplicationEvent();
 			evt.EventType = "WARN";
@@ -38,7 +38,7 @@ namespace Fatec.Infrastructure.Logger
 
 		public void Debug(string debug)
 		{
-			if (string.IsNullOrEmpty(debug)) throw new ArgumentException("debug");
+			if (string.IsNullOrEmpty(debug)) throw new ArgumentNullException("debug");
 
 			ApplicationEvent evt = new ApplicationEvent();
 			evt.EventType = "DEBUG";
@@ -49,7 +49,7 @@ namespace Fatec.Infrastructure.Logger
 
 		public void Inform(string message)
 		{
-			if (string.IsNullOrEmpty(message)) throw new ArgumentException("message");
+			if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
 
 			ApplicationEvent evt = new ApplicationEvent();
 			evt.EventType = "INFORM";

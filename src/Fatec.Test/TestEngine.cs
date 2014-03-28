@@ -18,6 +18,11 @@ namespace Fatec.Test
 			DependencyResolver.SetResolver(resolver);
 		}
 
+		//public static void Wcf()
+		//{
+		//	IoC.Wcf();
+		//}
+
 		public static T Resolve<T>()
 		{
 			return DependencyResolver.Current.GetService<T>();

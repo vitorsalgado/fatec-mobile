@@ -9,6 +9,7 @@ namespace Fatec.Repositories
 	{
 		public static T GetAttrValue<T>(this XElement xElement, string attrName)
 		{
+			if (xElement == null) throw new ArgumentNullException("xElement");
 			if (string.IsNullOrEmpty(attrName)) throw new ArgumentNullException("attrName");
 
 			if (xElement.Attribute(attrName) == null)

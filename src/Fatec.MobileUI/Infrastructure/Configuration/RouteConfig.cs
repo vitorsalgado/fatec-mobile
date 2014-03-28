@@ -23,6 +23,18 @@ namespace Fatec.MobileUI
 			);
 
 			routes.MapRoute(
+				name: "students",
+				url: "aluno/{action}",
+				defaults: new { controller = "Student", action = "Index" }
+			);
+
+			routes.MapRoute(
+				name: "internships",
+				url: "estagio/{action}",
+				defaults: new { controller = "Internship", action = "Noticias" }
+			);
+
+			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

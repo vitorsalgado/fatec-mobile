@@ -12,12 +12,12 @@ namespace Fatec.MobileUI.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IAnnouncementService _avisosService;
+		private readonly INewsService _newsService;
 		private const string BACK_BUTTON_ACTION_NAME = "BackButtonActionName";
 
-		public HomeController(IAnnouncementService avisoService)
+		public HomeController(INewsService avisoService)
 		{
-			_avisosService = avisoService;
+			_newsService = avisoService;
 		}
 
 		public ActionResult Index()
@@ -34,8 +34,8 @@ namespace Fatec.MobileUI.Controllers
 		[SetPageInfoLabels("Notícias", "notícias", "da fatec e etec pg")]
 		public async Task<ActionResult> Noticias(string q)
 		{
-			var model = new List<AnnouncementsModel>();
-			var avisos = await Task.Run(() => _avisosService.GetHomeValidAnnouncements());
+			var model = new List<NewsModel>();
+			var avisos = await Task.Run(() => _newsService.GetAllHomeNews());
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -62,8 +62,8 @@ namespace Fatec.MobileUI.Controllers
 		[SetPageInfoLabels("Notícias", "notícia", "da fatec e etec pg")]
 		public async Task<ActionResult> Noticia(int id, string titulo)
 		{
-			var model = new AnnouncementsModel();
-			var aviso = await Task.Run(() => _avisosService.GetHomeAnnouncementById(id));
+			var model = new NewsModel();
+			var aviso = await Task.Run(() => _newsService.GetHomeNews(id));
 
 			var seoFriendlyUrl = WebHelper.ToSeoFriendly(aviso.Title);
 

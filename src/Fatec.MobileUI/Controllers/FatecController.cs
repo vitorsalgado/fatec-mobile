@@ -12,15 +12,15 @@ namespace Fatec.MobileUI.Controllers
 {
 	public class FatecController : Controller
 	{
-		private readonly IAnnouncementService _avisosService;
-		private readonly IFatecService _fatecServices;
+		private readonly INewsService _newsService;
+		private readonly IFatecService _fatecService;
 
 		private const string BACK_BUTTON_ACTION_NAME = "BackButtonActionName";
 
-		public FatecController(IAnnouncementService avisoService, IFatecService cursoService)
+		public FatecController(INewsService newsService, IFatecService fatecService)
 		{
-			_avisosService = avisoService;
-			_fatecServices = cursoService;
+			_newsService = newsService;
+			_fatecService = fatecService;
 		}
 
 		[AllowAnonymous]
@@ -34,7 +34,7 @@ namespace Fatec.MobileUI.Controllers
 		public async Task<ActionResult> Cursos()
 		{
 			var model = new List<CourseModel>();
-			var cursos = await Task.Run(() => _fatecServices.GetActivesCourses());
+			var cursos = await Task.Run(() => _fatecService.GetActivesCourses());
 
 			foreach (var curso in cursos)
 				model.Add(curso.ToModel());
@@ -47,7 +47,7 @@ namespace Fatec.MobileUI.Controllers
 		public async Task<ActionResult> Curso(int id, string nome)
 		{
 			var model = new CourseModel();
-			var curso = await Task.Run(() => _fatecServices.GetCourseById(id));
+			var curso = await Task.Run(() => _fatecService.GetCourseById(id));
 
 			if (nome != WebHelper.ToSeoFriendly(curso.Name))
 				return RedirectToActionPermanent("Noticia", new { id = id, titulo = WebHelper.ToSeoFriendly(curso.Name) });
@@ -60,8 +60,8 @@ namespace Fatec.MobileUI.Controllers
 		[SetPageInfoLabels("Notícias", "notícias", " da fatec praia grande")]
 		public async Task<ActionResult> Noticias(string q)
 		{
-			var model = new List<AnnouncementsModel>();
-			var avisos = await Task.Run(() => _avisosService.GetFatecValidAnnouncements());
+			var model = new List<NewsModel>();
+			var avisos = await Task.Run(() => _newsService.GetAllFatecNews());
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -88,8 +88,8 @@ namespace Fatec.MobileUI.Controllers
 		[SetPageInfoLabels("Notícias", "notícia", " da fatec praia grande")]
 		public async Task<ActionResult> Noticia(int id, string titulo)
 		{
-			var model = new AnnouncementsModel();
-			var aviso = await Task.Run(() => _avisosService.GetFatecAnnouncementById(id));
+			var model = new NewsModel();
+			var aviso = await Task.Run(() => _newsService.GetFatecNews(id));
 
 			var seoFriendlyUrl = WebHelper.ToSeoFriendly(aviso.Title);
 
@@ -112,7 +112,7 @@ namespace Fatec.MobileUI.Controllers
 		public async Task<ActionResult> Faltas(string q)
 		{
 			var model = new List<TeacherAbsenceModel>();
-			var faltas = await Task.Run(() => _fatecServices.GetTeachersAbsences());
+			var faltas = await Task.Run(() => _fatecService.GetTeachersAbsences());
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -140,7 +140,7 @@ namespace Fatec.MobileUI.Controllers
 		public async Task<ActionResult> Reposicoes(string q)
 		{
 			var model = new List<ClassReplacementModel>();
-			var replacements = await Task.Run(() => _fatecServices.GetClassReplacements());
+			var replacements = await Task.Run(() => _fatecService.GetClassReplacements());
 
 			if (!string.IsNullOrEmpty(q))
 			{

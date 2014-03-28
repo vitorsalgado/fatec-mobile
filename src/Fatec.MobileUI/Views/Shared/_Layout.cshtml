@@ -11,15 +11,15 @@
 </head>
 <body>
     <div class="page">
-        <div class="page-container">
-            @Html.Partial("_Header")
-            <div id="container" class="container wrap">
+        @Html.Partial("_Header")
+        <div id="container" class="container">
+            <div class="wrap">
                 <div class="content-wrapper">
                     @RenderBody()
                 </div>
             </div>
-            @Html.Partial("_Footer")
         </div>
+        @Html.Partial("_Footer")
     </div>
 </body>
 @Scripts.Render("~/bundles/core")

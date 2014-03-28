@@ -6,6 +6,7 @@ namespace Fatec.Repositories.MySql.Mapping
 	{
 		public LogMap()
 		{
+			this.Property(x => x.ApplicationName).IsRequired().HasMaxLength(250);
 			this.Property(x => x.CreatedOn).IsRequired();
 			this.Property(x => x.Details).IsMaxLength();
 			this.Property(x => x.IpAddress);
@@ -13,7 +14,7 @@ namespace Fatec.Repositories.MySql.Mapping
 			this.Property(x => x.Url).IsMaxLength();
 			this.Property(x => x.Username).HasMaxLength(250);
 
-			this.ToTable("log");
+			this.ToTable("fatec-log");
 		}
 	}
 }

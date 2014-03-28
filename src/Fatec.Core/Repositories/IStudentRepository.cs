@@ -5,11 +5,11 @@ namespace Fatec.Core.Repositories
 {
 	public interface IStudentRepository
 	{
-		ICollection<EnrolledDiscipline> GetEnrolledDisciplinesByEnrollment(string enrollment);
-		Student GetByEnrollment(string enrollment);
+		ICollection<EnrolledDiscipline> GetEnrolledDisciplines(string enrollment);
+		Student Get(string enrollment);
 		ICollection<Student> GetAll();
-		ICollection<StudiesAdvance> GetStudiesAdvanceByEnrollment(string enrollment);
-		ICollection<Exam> GetExamsByEnrollment(string enrollment);
-		ICollection<Requirement> GetRequirementsByEnrollment(string enrollment);
+		ICollection<StudiesAdvance> GetStudiesAdvance(string enrollment);
+		ICollection<Exam> GetExams(string enrollment);
+		ICollection<Requirement> GetRequirements(string enrollment);
 	}
 }

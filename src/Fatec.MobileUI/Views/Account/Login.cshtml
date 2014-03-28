@@ -1,4 +1,4 @@
-﻿@model Fatec.MobileUI.ViewModels.LoginModel
+﻿@model LoginModel
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,8 @@
                         @Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "sua senha da rede FATEC" })
                     </li>
                     <li>
-                        <span class="remember-me">Mantenha-me conectado</span> @Html.CheckBoxFor(x => x.Remember)
+                        @Html.LabelFor(m => m.Remember, new { @class = "remember-me" })
+                        @Html.CheckBoxFor(x => x.Remember)
                     </li>
                     <li>
                         <input id="btnLogin" class="app-btn-red flt-r" type="submit" name="Login" value="Entrar" />

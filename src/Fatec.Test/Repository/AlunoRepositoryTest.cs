@@ -30,7 +30,7 @@ namespace Fatec.Test.Repository
 		{
 			string matricula = "1290371413034";
 
-			var aluno = _alunoRepository.GetByEnrollment(matricula);
+			var aluno = _alunoRepository.Get(matricula);
 
 			Assert.IsNotNull(aluno);
 			Assert.AreEqual(matricula, aluno.Enrollment);
@@ -41,7 +41,7 @@ namespace Fatec.Test.Repository
 		{
 			string matricula = "ndksajndksja";
 
-			var aluno = _alunoRepository.GetByEnrollment(matricula);
+			var aluno = _alunoRepository.Get(matricula);
 
 			Assert.IsNull(aluno);
 		}
@@ -51,7 +51,7 @@ namespace Fatec.Test.Repository
 		{
 			string matricula = "1290371313006";
 
-			var disciplinasDoAluno = _alunoRepository.GetEnrolledDisciplinesByEnrollment(matricula);
+			var disciplinasDoAluno = _alunoRepository.GetEnrolledDisciplines(matricula);
 
 			Assert.IsNotNull(disciplinasDoAluno);
 			Assert.IsNotEmpty(disciplinasDoAluno);
@@ -63,7 +63,7 @@ namespace Fatec.Test.Repository
 		{
 			string matricula = "";
 
-			var aproveitamentosDoAluno = _alunoRepository.GetStudiesAdvanceByEnrollment(matricula);
+			var aproveitamentosDoAluno = _alunoRepository.GetStudiesAdvance(matricula);
 
 			Assert.IsNotNull(aproveitamentosDoAluno);
 			Assert.IsNotEmpty(aproveitamentosDoAluno);

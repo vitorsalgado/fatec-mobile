@@ -75,7 +75,7 @@ namespace Fatec.Services
 			var classReplacements = _cacheStrategy.Get(
 				CACHE_CLASS_REPLACEMENT, 90, () =>
 				{
-					return _fatecRepository.GetVigentClassReplacements();
+					return _fatecRepository.GetReplacements();
 				});
 
 			foreach (var replacement in classReplacements)

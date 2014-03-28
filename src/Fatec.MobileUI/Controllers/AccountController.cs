@@ -36,7 +36,7 @@ namespace Fatec.MobileUI.Controllers
 			//{
 				//var user = _userService.GetUserByUsername(model.Username);
 				var user = new FatecIdentity(
-					"1290371313006",
+					"F0713376", //TODO: MUDAR PARA MATRICULA VALIDA
 					"Vitor Hugo Salgado",
 					"vsalgadopb@gmail.com",
 					(new string[]{ "Aluno FATEC" }));

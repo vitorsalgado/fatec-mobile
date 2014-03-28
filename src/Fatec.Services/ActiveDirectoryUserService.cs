@@ -10,30 +10,30 @@ namespace Fatec.Services
 {
 	public class ActiveDirectoryUserService : IUserService
 	{
-		private static string[] DefaultSearchProperties = { "name", "givenName", "sn", "sAMAccountName", "userName", "description", "displayname", "memberOf", "distinguishedname", "userAccountControl" };
+		private static string[] _defaultSearchProperties = { "name", "givenName", "sn", "sAMAccountName", "userName", "description", "displayname", "memberOf", "distinguishedname", "userAccountControl" };
+		private static string _adConnectionStr = string.Empty;
+
 		private readonly IConfigurationProvider _configurationProvider;
 		private const string LDAP_SCHEME = "LDAP://";
 
 		public ActiveDirectoryUserService(IConfigurationProvider configurationProvider)
 		{
-			if (configurationProvider == null) throw new ArgumentNullException("configurationProvider");
-			_configurationProvider = configurationProvider;
-		}
+			if (configurationProvider == null)
+				throw new ArgumentNullException("configurationProvider");
 
-		private DirectoryEntry AdminDirectoryEntry
-		{
-			get { return new DirectoryEntry(LDAP_SCHEME + _configurationProvider.DomainName, _configurationProvider.DomainAdminUsername, _configurationProvider.DomainAdminPassword); }
+			_configurationProvider = configurationProvider;
+
+			if (string.IsNullOrEmpty(_adConnectionStr))
+				_adConnectionStr = string.Concat(LDAP_SCHEME, _configurationProvider.DomainName);
 		}
 
 		public FatecIdentity GetByUsername(string username)
 		{
-			if (string.IsNullOrEmpty(username)) throw new ArgumentException("username");
-
 			using (DirectoryEntry directoryEntry = AdminDirectoryEntry)
 			{
 				using (DirectorySearcher search = CreateSearcher(directoryEntry))
 				{
-					search.PropertiesToLoad.AddRange(DefaultSearchProperties);
+					search.PropertiesToLoad.AddRange(_defaultSearchProperties);
 					search.Filter = "(sAMAccountName=" + username + ")";
 					var result = search.FindOne();
 
@@ -93,7 +93,8 @@ namespace Fatec.Services
 
 		public bool ValidateUser(string username, string password)
 		{
-			if (string.IsNullOrEmpty(username)) throw new ArgumentException("username");
+			if (string.IsNullOrEmpty(username)) throw new ArgumentNullException("username");
+			if (string.IsNullOrEmpty(password)) throw new ArgumentNullException("password");
 
 			bool authenticated = false;
 			DirectoryEntry entry = null;
@@ -120,6 +121,11 @@ namespace Fatec.Services
 		private static DirectorySearcher CreateSearcher(DirectoryEntry directoryEntry)
 		{
 			return new DirectorySearcher(directoryEntry);
+		}
+
+		private DirectoryEntry AdminDirectoryEntry
+		{
+			get { return new DirectoryEntry(_adConnectionStr, _configurationProvider.DomainAdminUsername, _configurationProvider.DomainAdminPassword); }
 		}
 	}
 }

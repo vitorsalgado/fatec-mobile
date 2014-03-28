@@ -5,6 +5,7 @@ namespace Fatec.Core.Domain
 	[Serializable]
 	public class Log : AbstractEntity
 	{
+		public string ApplicationName { get; set; }
 		public string Message { get; set; }
 		public string Url { get; set; }
 		public string IpAddress { get; set; }

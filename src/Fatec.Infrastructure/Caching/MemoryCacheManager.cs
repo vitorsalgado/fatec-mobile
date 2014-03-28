@@ -32,6 +32,9 @@ namespace Fatec.Infrastructure.Caching
 
 		public T Get<T>(string key, int cacheDuration, Func<T> fetchFunction)
 		{
+			if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+			if (fetchFunction == null) throw new ArgumentNullException("fetchFunction");
+
 			if (Contains(key))
 				return Get<T>(key);
 			else

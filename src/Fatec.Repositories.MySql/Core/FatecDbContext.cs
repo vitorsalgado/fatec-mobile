@@ -10,7 +10,7 @@ namespace Fatec.Repositories.MySql
 	public class FatecDbContext : DbContext
 	{
 		public FatecDbContext(string nameOrConnectionString) : base(nameOrConnectionString) { }
-		public FatecDbContext() : this("fatec-mobile") { }
+		public FatecDbContext() : this("fatec-log") { }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

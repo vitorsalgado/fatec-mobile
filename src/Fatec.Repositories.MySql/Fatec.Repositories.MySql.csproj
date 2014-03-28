@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="ApplicationEventRepository.cs" />
     <Compile Include="Core\DbInit.cs" />
-    <Compile Include="Core\DynamicLibrary.cs" />
     <Compile Include="Core\EfTask.cs" />
     <Compile Include="Core\FatecDbContext.cs" />
     <Compile Include="LogRepository.cs" />

@@ -12,8 +12,7 @@ namespace Fatec.Infrastructure.Configuration
 		public WebConfigurationProvider()
 		{
 			_config = ConfigurationManager.GetSection("FatecMobileConfig") as FatecMobileConfig;
-			if (_config == null)
-				throw new FatecException("\"FatecMobileConfig\" configuration section has not been defined.");
+			if (_config == null) throw new FatecException("\"FatecMobileConfig\" configuration section has not been defined.");
 		}
 
 		public string DomainName

@@ -5,9 +5,7 @@ namespace Fatec.Core.Repositories
 {
 	public interface IFatecRepository
 	{
-		Announcement GetAnnouncementById(int id);
-		ICollection<Announcement> GetVigentAnnouncements();
 		ICollection<TeacherAbsence> GetTeacherAbsences();
-		ICollection<ClassReplacement> GetVigentClassReplacements();
+		ICollection<ClassReplacement> GetReplacements();
 	}
 }

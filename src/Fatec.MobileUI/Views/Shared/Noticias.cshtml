@@ -1,6 +1,6 @@
 ﻿@using Fatec.MobileUI;
 @using Fatec.Core;
-@model List<Fatec.MobileUI.ViewModels.AnnouncementsModel>
+@model List<NewsModel>
 
 @Html.ValidationSummary()
 
@@ -8,7 +8,7 @@
 {
     <div class="post">
         <div class="inner-post">
-            <h1 class="post-title post-title-black">
+            <h1 class="post-title">
                 @Html.RouteLink(aviso.Titulo, "noticias-detalhe", new { id = aviso.Id, titulo = WebHelper.ToSeoFriendly(aviso.Titulo) })
             </h1>
             <div class="post-meta">

@@ -134,25 +134,24 @@
     <Compile Include="Infrastructure\Tasks\CacheTask.cs" />
     <Compile Include="Infrastructure\Web\UrlBuilder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AlunoController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\DeveloperController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
-    <Compile Include="Controllers\DAController.cs" />
-    <Compile Include="Controllers\DTICController.cs" />
-    <Compile Include="Controllers\EstagioController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\InternshipController.cs" />
     <Compile Include="Controllers\FatecController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ExamModel.cs" />
+    <Compile Include="ViewModels\KeyMovementModel.cs" />
     <Compile Include="ViewModels\RequirementModel.cs" />
     <Compile Include="ViewModels\StudiesAdvanceModel.cs" />
-    <Compile Include="ViewModels\AnnouncementsModel.cs" />
+    <Compile Include="ViewModels\NewsModel.cs" />
     <Compile Include="ViewModels\CourseModel.cs" />
     <Compile Include="ViewModels\TeacherAbsenceModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
-    <Compile Include="ViewModels\MatriculaModel.cs" />
+    <Compile Include="ViewModels\EnrollmentModel.cs" />
     <Compile Include="ViewModels\ModelMapper.cs" />
     <Compile Include="ViewModels\ClassReplacementModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +168,7 @@
     <Content Include="Content\images\flickr.png" />
     <Content Include="Content\images\header-background.png" />
     <Content Include="Content\images\linkedin.png" />
+    <Content Include="Content\images\title-banner-shadow.png" />
     <Content Include="Content\images\twitter.png" />
     <Content Include="Content\menu.css" />
     <Content Include="Content\misc.css" />
@@ -206,12 +206,13 @@
     <Content Include="Views\Fatec\Curso.cshtml" />
     <Content Include="Views\Home\Social.cshtml" />
     <Content Include="Views\Developer\About.cshtml" />
-    <Content Include="Views\Aluno\Aproveitamentos.cshtml" />
+    <Content Include="Views\Student\Aproveitamentos.cshtml" />
     <Content Include="Views\Fatec\Faltas.cshtml" />
     <Content Include="Views\Fatec\Reposicoes.cshtml" />
-    <Content Include="Views\Aluno\Avaliacoes.cshtml" />
-    <Content Include="Views\Aluno\Requerimentos.cshtml" />
+    <Content Include="Views\Student\Avaliacoes.cshtml" />
+    <Content Include="Views\Student\Requerimentos.cshtml" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -223,9 +224,6 @@
     <Content Include="Views\Fatec\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\DTIC\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\Noticias.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -235,10 +233,10 @@
     <Content Include="Views\Fatec\Sobre.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Aluno\Matriculas.cshtml" />
+    <Content Include="Views\Student\Matriculas.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Aluno\Index.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Login.cshtml" />
@@ -253,6 +251,7 @@
       <Name>Fatec.Dependencies</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

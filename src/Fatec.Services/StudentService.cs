@@ -38,7 +38,7 @@ namespace Fatec.Services
 
 			return _cacheManager.Get(key, CACHE_DURATION, () =>
 			{
-				return _studentRepository.GetByEnrollment(enrollment);
+				return _studentRepository.Get(enrollment);
 			});
 		}
 
@@ -50,7 +50,7 @@ namespace Fatec.Services
 
 			var enrolledDisciplines = _cacheManager.Get(CACHE_STUDENT_DISCIPLINES, CACHE_MIN_DURATION, () =>
 			{
-				return _studentRepository.GetEnrolledDisciplinesByEnrollment(enrollment);
+				return _studentRepository.GetEnrolledDisciplines(enrollment);
 			});
 
 			foreach (var discipline in enrolledDisciplines)
@@ -62,14 +62,14 @@ namespace Fatec.Services
 		public ICollection<StudiesAdvance> GetStudiesAdvanceByEnrollment(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
-			return _studentRepository.GetStudiesAdvanceByEnrollment(enrollment);
+			return _studentRepository.GetStudiesAdvance(enrollment);
 		}
 
 		public ICollection<Exam> GetExamsByEnrollment(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
 			
-			var exams = _studentRepository.GetExamsByEnrollment(enrollment);
+			var exams = _studentRepository.GetExams(enrollment);
 			foreach (var exam in exams)
 				exam.Discipline = _disciplineService.GetById(exam.DisciplineId);
 
@@ -79,7 +79,7 @@ namespace Fatec.Services
 		public ICollection<Requirement> GetRequirements(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
-			return _studentRepository.GetRequirementsByEnrollment(enrollment);
+			return _studentRepository.GetRequirements(enrollment);
 		}
 	}
 }

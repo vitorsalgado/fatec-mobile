@@ -5,9 +5,9 @@ using System.Xml.Linq;
 
 namespace Fatec.Repositories.Mapping
 {
-	internal class StudentMap : BaseMapper
+	public class StudentMap : BaseMapper
 	{
-		internal static Func<XElement, StudiesAdvance> MapStudiesAdvance = xElement =>
+		public static Func<XElement, StudiesAdvance> MapStudiesAdvance = xElement =>
 		{
 			var result = new StudiesAdvance();
 
@@ -25,7 +25,7 @@ namespace Fatec.Repositories.Mapping
 			return result;
 		};
 
-		internal static Func<XElement, Student> Map = xElement =>
+		public static Func<XElement, Student> Map = xElement =>
 		{
 			var result = new Student();
 
@@ -42,7 +42,7 @@ namespace Fatec.Repositories.Mapping
 			return result;
 		};
 
-		internal static Func<XElement, EnrolledDiscipline> MapEnrolledDisciplines = xElement =>
+		public static Func<XElement, EnrolledDiscipline> MapEnrolledDisciplines = xElement =>
 		{
 			var result = new EnrolledDiscipline();
 
@@ -66,7 +66,7 @@ namespace Fatec.Repositories.Mapping
 			return result;
 		};
 
-		internal static Func<XElement, Exam> MapExam = xElement =>
+		public static Func<XElement, Exam> MapExam = xElement =>
 		{
 			var exam = new Exam();
 
@@ -80,7 +80,7 @@ namespace Fatec.Repositories.Mapping
 			return exam;
 		};
 
-		internal static Func<XElement, Requirement> MapRequirement = xElement =>
+		public static Func<XElement, Requirement> MapRequirement = xElement =>
 		{
 			var requirement = new Requirement();
 
@@ -95,7 +95,7 @@ namespace Fatec.Repositories.Mapping
 			return requirement;
 		};
 
-		internal static Func<XElement, ClassAssignmentDto> MapClassAssigment = xElement =>
+		public static Func<XElement, ClassAssignmentDto> MapClassAssigment = xElement =>
 		{
 			var classAssigment = new ClassAssignmentDto();
 

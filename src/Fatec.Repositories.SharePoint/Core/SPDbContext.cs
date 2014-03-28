@@ -49,9 +49,9 @@ namespace Fatec.Repositories.SharePoint
 			return client;
 		}
 
-		public string CreateViewFieldsNode(params string[] fields)
+		public string CreateViewFields(params string[] fields)
 		{
-			if (fields.Length == 0)
+			if (fields == null || fields.Length == 0)
 				return "<ViewFields />";
 
 			StringBuilder viewFields = new StringBuilder();

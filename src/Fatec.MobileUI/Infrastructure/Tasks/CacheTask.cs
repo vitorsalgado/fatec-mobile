@@ -33,16 +33,16 @@ namespace Fatec.MobileUI.Infrastructure.Tasks
 				disciplines = disciplineService.GetAllDisciplines();
 			});
 
-			var announcementsFacade = DependencyResolver.Current.GetService<IAnnouncementService>();
-			ICollection<Announcement> fatecAnnouncements = null;
+			var announcementsFacade = DependencyResolver.Current.GetService<INewsService>();
+			ICollection<News> fatecAnnouncements = null;
 			var fatecAnnouncementsTask = Task.Factory.StartNew(() =>
 			{
-				fatecAnnouncements = announcementsFacade.GetFatecValidAnnouncements();
+				fatecAnnouncements = announcementsFacade.GetAllFatecNews();
 			});
 
-			ICollection<Announcement> homeAnnouncements = null;
+			ICollection<News> homeAnnouncements = null;
 			var homeAnnouncementsTask = Task.Factory.StartNew(() =>{
-				homeAnnouncements = announcementsFacade.GetHomeValidAnnouncements();
+				homeAnnouncements = announcementsFacade.GetAllHomeNews();
 			});
 
 			Task.WaitAll(disciplineTask, fatecAnnouncementsTask, homeAnnouncementsTask);

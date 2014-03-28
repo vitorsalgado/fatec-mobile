@@ -3,10 +3,10 @@ using Fatec.Core.Domain;
 using Fatec.Core.Infrastructure.Configuration;
 using Fatec.Core.Infrastructure.Logger;
 using Fatec.Core.Infrastructure.Mail;
-using Fatec.Core.Infrastructure.Tasks;
 using Fatec.Dependencies;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -29,7 +29,7 @@ namespace Fatec.MobileUI
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			TaskManager.Instance.RunTasks();
+			//TaskManager.Instance.RunTasks();
 
 			LogEvent("START");
 		}
@@ -63,7 +63,7 @@ namespace Fatec.MobileUI
 				return;
 
 			var workContext = DependencyResolver.Current.GetService<IWorkContext>();
-			var principal = new FatecPrincipal(workContext.CurrentUser, workContext.CurrentUser.Roles);
+			var principal = new FatecPrincipal(workContext.CurrentUser, workContext.CurrentUser.Roles.ToArray());
 			HttpContext.Current.User = principal;
 		}
 

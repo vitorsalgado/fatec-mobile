@@ -4,9 +4,9 @@ using System.Xml.Linq;
 
 namespace Fatec.Repositories.Mapping
 {
-	internal class FatecMap : BaseMapper
+	public class FatecMap : BaseMapper
 	{
-		internal static Func<XElement, TeacherAbsence> MapTeacherAbsence = xElement =>
+		public static Func<XElement, TeacherAbsence> MapTeacherAbsence = xElement =>
 		{
 			var result = new TeacherAbsence();
 
@@ -30,7 +30,7 @@ namespace Fatec.Repositories.Mapping
 			return result;
 		};
 
-		internal static Func<XElement, ClassReplacement> MapClassReplacement = xElement =>
+		public static Func<XElement, ClassReplacement> MapReplacement = xElement =>
 		{
 			var reposicao = new ClassReplacement();
 

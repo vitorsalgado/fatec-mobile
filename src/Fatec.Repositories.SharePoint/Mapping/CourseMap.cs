@@ -5,9 +5,9 @@ using System.Xml.Linq;
 
 namespace Fatec.Repositories.Mapping
 {
-	internal class CourseMap : BaseMapper
+	public class CourseMap : BaseMapper
 	{
-		internal static Func<XElement, Course> Map = xElement =>
+		public static Func<XElement, Course> Map = xElement =>
 		{
 			var curso = new Course();
 			curso.EducationLevel = xElement.GetAttrValue<string>("ows_N_x00ed_vel_x0020_de_x0020_Ensin");

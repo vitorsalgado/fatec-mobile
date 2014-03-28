@@ -6,9 +6,9 @@ namespace Fatec.MobileUI.ViewModels
 {
 	public static class ModelMapper
 	{
-		public static AnnouncementsModel ToModel(this Announcement entity)
+		public static NewsModel ToModel(this News entity)
 		{
-			return new AnnouncementsModel()
+			return new NewsModel()
 			{
 				Id = entity.Id,
 				Titulo = entity.Title,
@@ -18,11 +18,11 @@ namespace Fatec.MobileUI.ViewModels
 			};
 		}
 
-		public static MatriculaModel ToModel(this EnrolledDiscipline entity)
+		public static EnrollmentModel ToModel(this EnrolledDiscipline entity)
 		{
-			return new MatriculaModel()
+			return new EnrollmentModel()
 			{
-				Disciplina = entity.Discipline.Name.Shrink(40),
+				Disciplina = CommonHelper.ShrinkText(entity.Discipline.Name, 25, 23),
 				Conceito = entity.Concept,
 				FaltasPrimeiroBimestre = entity.AbsencesFirstTwoMonths,
 				FaltasSegundoBimestre = entity.AbsencesSecondTwoMonths,
