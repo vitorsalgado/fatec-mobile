@@ -4,15 +4,21 @@ using Fatec.Core.Infrastructure.Tasks;
 using Fatec.Core.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Infrastructure.Tasks
 {
 	public class CacheTask : ITask
 	{
-		private const string CACHE_DISCIPLINE_BY_ID = "fatec.domain.disciplina-{0}";
-		private const string CACHE_AVISO_FATEC_ID = "fatec.avisofatec.id-{0}";
-		private const string CACHE_AVISO_HOME_ID = "fatec.avisohome.id-{0}";
+		private const string CACHE_DISCIPLINE_BY_ID = "fatec.domain.discipline-{0}";
+
+		private const string cacheHomeNewsAll = "fatec.core.domain.home.news";
+		private const string cacheHomeNewsId = "fatec.core.domain.home.news.id-{0}";
+		private const string cacheFatecNewsAll = "fatec.core.domain.fatec.news";
+		private const string cacheFatecNewsId = "fatec.core.domain.fatec.news.id-{0}";
+		private const string cacheInternshipAll = "fatec.core.domain.internship";
+		private const string cacheInternshipId = "fatec.core.domain.internship.id-{0}";
 
 		private const int CACHE_LONG_EXPIRATION = 2440;
 		private const int CACHE_MEDIUM_EXPIRATION = 1440;
@@ -24,25 +30,32 @@ namespace Fatec.MobileUI.Infrastructure.Tasks
 
 		public void Run()
 		{
-			var cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
+			if (HttpContext.Current == null)
+				return;
 
+			var cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
 			var disciplineService = DependencyResolver.Current.GetService<IDisciplineService>();
+			var newsService = DependencyResolver.Current.GetService<INewsService>();
+			var studentService = DependencyResolver.Current.GetService<IStudentService>();
+
+			cacheManager.ClearAll();
+
 			ICollection<Discipline> disciplines = null;
 			var disciplineTask = Task.Factory.StartNew(() =>
 			{
 				disciplines = disciplineService.GetAllDisciplines();
 			});
 
-			var announcementsFacade = DependencyResolver.Current.GetService<INewsService>();
 			ICollection<News> fatecAnnouncements = null;
 			var fatecAnnouncementsTask = Task.Factory.StartNew(() =>
 			{
-				fatecAnnouncements = announcementsFacade.GetAllFatecNews();
+				fatecAnnouncements = newsService.GetAllFatecNews();
 			});
 
 			ICollection<News> homeAnnouncements = null;
-			var homeAnnouncementsTask = Task.Factory.StartNew(() =>{
-				homeAnnouncements = announcementsFacade.GetAllHomeNews();
+			var homeAnnouncementsTask = Task.Factory.StartNew(() =>
+			{
+				homeAnnouncements = newsService.GetAllHomeNews();
 			});
 
 			Task.WaitAll(disciplineTask, fatecAnnouncementsTask, homeAnnouncementsTask);
@@ -55,13 +68,13 @@ namespace Fatec.MobileUI.Infrastructure.Tasks
 
 			Parallel.ForEach(fatecAnnouncements, x =>
 			{
-				string key = string.Format(CACHE_AVISO_FATEC_ID, x.Id);
+				string key = string.Format(cacheFatecNewsId, x.Id);
 				cacheManager.Add(key, x, CACHE_MEDIUM_EXPIRATION);
 			});
 
 			Parallel.ForEach(homeAnnouncements, x =>
 			{
-				string key = string.Format(CACHE_AVISO_HOME_ID, x.Id);
+				string key = string.Format(cacheHomeNewsId, x.Id);
 				cacheManager.Add(key, x, CACHE_MEDIUM_EXPIRATION);
 			});
 		}

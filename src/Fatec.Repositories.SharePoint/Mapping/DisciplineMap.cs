@@ -6,17 +6,20 @@ namespace Fatec.Repositories.Mapping
 {
 	public class DisciplineMap : BaseMapper
 	{
-		public static Func<XElement, Discipline> MapDiscipline = xElement =>
+		public static Func<XElement, Discipline> Map = xElement =>
 		{
-			var disciplina = new Discipline();
+			var discipline = new Discipline();
 
-			disciplina.Cycle = xElement.GetAttrValue<string>("ows_C_x00ed_clo");
-			disciplina.Acronym = xElement.GetAttrValue<string>("ows_Sigla");
-			disciplina.Name = xElement.GetAttrValue<string>("ows_Title");
+			discipline.Cycle = xElement.GetAttrValue<string>("ows_C_x00ed_clo");
+			discipline.Acronym = xElement.GetAttrValue<string>("ows_Sigla");
+			discipline.Name = xElement.GetAttrValue<string>("ows_Title");
+			discipline.Workload = xElement.GetAttrValue<decimal>("ows_Carga_x0020_Hor_x00e1_ria_x0020_");
+			discipline.TotalWorkload = xElement.GetAttrValue<decimal>("ows_Carga_x0020_Hor_x00e1_ria_x0020_0");
+			discipline.Credits = xElement.GetAttrValue<decimal>("ows_Cr_x00e9_ditos");
 
-			FillDefaultFields(disciplina, xElement);
+			FillDefaultFields(discipline, xElement);
 
-			return disciplina;
+			return discipline;
 		};
 	}
 }

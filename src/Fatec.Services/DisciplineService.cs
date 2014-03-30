@@ -8,32 +8,32 @@ namespace Fatec.Services
 {
 	public class DisciplineService : IDisciplineService
 	{
-		private readonly IDisciplineRepository _classAssignmentRepository;
-		private readonly ICacheManager _cacheStrategy;
+		private readonly IDisciplineRepository _disciplineRepository;
+		private readonly ICacheManager _cacheManager;
 
-		private const string CACHE_DISCIPLINE_BY_ID = "fatec.domain.disciplina-{0}";
+		private const string CACHE_DISCIPLINE_BY_ID = "fatec.domain.discipline-{0}";
 		private const int CACHE_EXPIRATION_TIME = 2440;
 
 		public DisciplineService(
-			IDisciplineRepository classAssignmentRepository, ICacheManager cacheManager)
+			IDisciplineRepository disciplineRepository, ICacheManager cacheManager)
 		{
-			_classAssignmentRepository = classAssignmentRepository;
-			_cacheStrategy = cacheManager;
+			_disciplineRepository = disciplineRepository;
+			_cacheManager = cacheManager;
 		}
 
 		public Discipline GetById(int id)
 		{
 			var cacheKey = string.Format(CACHE_DISCIPLINE_BY_ID, id);
 
-			return _cacheStrategy.Get(cacheKey, CACHE_EXPIRATION_TIME, () =>
+			return _cacheManager.Get(cacheKey, CACHE_EXPIRATION_TIME, () =>
 			{
-				return _classAssignmentRepository.GetById(id);
+				return _disciplineRepository.GetById(id);
 			});
 		}
 
 		public ICollection<Discipline> GetAllDisciplines()
 		{
-			return _classAssignmentRepository.GetAll();
+			return _disciplineRepository.GetAll();
 		}
 	}
 }

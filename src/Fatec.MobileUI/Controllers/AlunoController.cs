@@ -37,6 +37,13 @@ namespace Fatec.MobileUI.Controllers
 		{
 			string enrollment = _workContext.CurrentUsername;
 			var studentEnrolledDisciplines = await Task.Run(() => _studentService.GetEnrolledDisciplines(enrollment));
+			IEnumerable<EnrollmentModel> model = new List<EnrollmentModel>();
+
+			if (studentEnrolledDisciplines.Count == 0)
+			{
+				ModelState.AddModelError("", "Nenhuma matrícula encontrada :-(");
+				return View(model);
+			}
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -47,12 +54,7 @@ namespace Fatec.MobileUI.Controllers
 				ViewData[BACK_BUTTON_ACTION_NAME] = "Matriculas";
 			}
 
-			IEnumerable<EnrollmentModel> model = new List<EnrollmentModel>();
-
-			if (studentEnrolledDisciplines.Count == 0)
-				ModelState.AddModelError("", "Nenhuma matrícula encontrada :-(");
-			else
-				model = Mapper.Map<IEnumerable<EnrolledDiscipline>, IEnumerable<EnrollmentModel>>(studentEnrolledDisciplines);
+			model = Mapper.Map<IEnumerable<EnrolledDiscipline>, IEnumerable<EnrollmentModel>>(studentEnrolledDisciplines);
 
 			return View(model);
 		}
@@ -80,6 +82,12 @@ namespace Fatec.MobileUI.Controllers
 			IEnumerable<ExamModel> model = new List<ExamModel>();
 			var exams = await Task.Run(() => _studentService.GetExams(_workContext.CurrentUsername));
 
+			if (exams.Count == 0)
+			{
+				ModelState.AddModelError("", "Nenhuma avaliação encontrada :-)");
+				return View(model);
+			}
+
 			if (!string.IsNullOrEmpty(q))
 			{
 				exams = exams
@@ -89,11 +97,7 @@ namespace Fatec.MobileUI.Controllers
 				ViewData[BACK_BUTTON_ACTION_NAME] = "Avaliacoes";
 			}
 
-			if (exams.Count == 0)
-				ModelState.AddModelError("", "Nenhuma avaliação encontrada :-)");
-			else
-				model = Mapper.Map<IEnumerable<Exam>, IEnumerable<ExamModel>>(exams);
-
+			model = Mapper.Map<IEnumerable<Exam>, IEnumerable<ExamModel>>(exams);
 
 			return View(model);
 		}
@@ -102,8 +106,13 @@ namespace Fatec.MobileUI.Controllers
 		[BackButtonAction("Index", "Aluno")]
 		public async Task<ActionResult> Requerimentos(string q)
 		{
-			var model = new List<RequirementModel>();
 			var requirements = await Task.Run(() => _studentService.GetRequirements(_workContext.CurrentUsername));
+
+			if (requirements.Count == 0)
+			{
+				ModelState.AddModelError("", "Nenhum requerimento encontrado :-(");
+				return View(new List<RequirementModel>());
+			}
 
 			if (!string.IsNullOrEmpty(q))
 			{
@@ -114,8 +123,23 @@ namespace Fatec.MobileUI.Controllers
 				ViewData[BACK_BUTTON_ACTION_NAME] = "Requerimentos";
 			}
 
-			if (requirements.Count == 0)
-				ModelState.AddModelError("", "Nenhum requerimento encontrado :-(");
+			return View(Mapper.Map<IEnumerable<Requirement>, IEnumerable<RequirementModel>>(requirements));
+		}
+
+		[BackButtonAction("Index", "Aluno")]
+		public async Task<ActionResult> Historico()
+		{
+			var model = new HistoryModel();
+			var history = await Task.Run(() => _studentService.GetHistory(_workContext.CurrentUsername));
+
+			if (history == null)
+			{
+				ModelState.AddModelError("", "Não encontramos nenhum registro de histórico para a sua matrícula ;-(");
+				return View(model);
+			}
+
+			history.Entries = history.Entries.OrderBy(x => x.Discipline.Cycle).ToList();
+			model.History = history;
 
 			return View(model);
 		}

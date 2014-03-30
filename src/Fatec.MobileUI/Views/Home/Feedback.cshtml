@@ -1,0 +1,42 @@
+﻿@model FeedbackModel
+
+@{
+    ViewBag.Title = "Feedback";
+    ViewBag.Highlight = "feedback";
+    ViewBag.AdditionalPageInfo = ", comentários e sugestões";
+}
+
+<div class="feedback-title">
+    <h3>Olá :-) queremos saber sua opinião sobre este site.</h3>
+</div>
+
+<br />
+
+@using (Html.BeginForm())
+{
+    <div class="feedback-form">
+        <p>
+            @Html.LabelFor(x => x.Rate)
+            <br />
+            <div class=" rate-container">
+                @foreach (var item in Enum.GetValues(typeof(Rating)))
+                {
+                    var id = item.ToString();
+                    @Html.RadioButtonFor(x => x.Rate, item, new { id = @id })
+                    @Html.Label(Model.GetRatingStringValue((Rating)item), new { @for = @id })
+                    <br />
+                }
+            </div>
+        </p>
+
+        <p>
+            @Html.LabelFor(x => x.Comments)
+            <br />
+            @Html.TextAreaFor(x => x.Comments, new { cols = 10, rows = 5 })
+        </p>
+
+        <p>
+            <input id="btnFeedbackSubmit" class="flt-r" type="submit" name="submit" value="Enviar feedback" />
+        </p>
+    </div>
+}

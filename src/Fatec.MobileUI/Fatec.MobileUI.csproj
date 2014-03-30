@@ -151,7 +151,6 @@
     <Compile Include="Infrastructure\Web\UrlBuilder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
-    <Compile Include="Controllers\DeveloperController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EstagioController.cs" />
     <Compile Include="Controllers\FatecController.cs" />
@@ -160,7 +159,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ExamModel.cs" />
+    <Compile Include="ViewModels\FeedbackModel.cs" />
+    <Compile Include="ViewModels\HistoryModel.cs" />
     <Compile Include="ViewModels\KeyMovementModel.cs" />
+    <Compile Include="ViewModels\Rating.cs" />
     <Compile Include="ViewModels\RequirementModel.cs" />
     <Compile Include="ViewModels\AproveitamentoModel.cs" />
     <Compile Include="ViewModels\NewsModel.cs" />
@@ -183,24 +185,24 @@
     <Content Include="Content\images\bg-noise.png" />
     <Content Include="Content\images\bg-sand.png" />
     <Content Include="Content\images\bg.png" />
-    <Content Include="Content\images\facebook.png" />
-    <Content Include="Content\images\flickr.png" />
+    <Content Include="Content\images\facebook-black.png" />
+    <Content Include="Content\images\github-black.png" />
     <Content Include="Content\images\header-background.png" />
-    <Content Include="Content\images\linkedin.png" />
+    <Content Include="Content\images\linkedin-black.png" />
     <Content Include="Content\images\title-banner-shadow.png" />
-    <Content Include="Content\images\twitter.png" />
     <Content Include="Content\menu.css" />
     <Content Include="Content\misc.css" />
     <Content Include="Content\base.css" />
     <Content Include="Content\images\white-texture.jpg" />
-    <Content Include="Content\tile.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\tile.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\core.js" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\fatec-mobile-prod.pubxml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -223,15 +225,18 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Fatec\Cursos.cshtml" />
     <Content Include="Views\Fatec\Curso.cshtml" />
-    <Content Include="Views\Developer\About.cshtml" />
+    <Content Include="Views\Home\Sobre.cshtml" />
     <Content Include="Views\Aluno\Aproveitamentos.cshtml" />
     <Content Include="Views\Fatec\Faltas.cshtml" />
     <Content Include="Views\Fatec\Reposicoes.cshtml" />
     <Content Include="Views\Aluno\Avaliacoes.cshtml" />
     <Content Include="Views\Aluno\Requerimentos.cshtml" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
-    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\404.cshtml" />
     <Content Include="Views\Fatec\Busca.cshtml" />
+    <Content Include="Views\Aluno\Historico.cshtml" />
+    <Content Include="Views\Home\Feedback.cshtml" />
+    <Content Include="Views\Home\FeedbackSentConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -249,7 +254,7 @@
     <Content Include="Views\Shared\Noticia.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Fatec\Sobre.cshtml" />
+    <Content Include="Views\Fatec\QuemSomos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Aluno\Matriculas.cshtml" />

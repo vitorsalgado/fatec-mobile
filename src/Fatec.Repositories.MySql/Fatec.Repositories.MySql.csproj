@@ -63,8 +63,8 @@
     <Compile Include="Core\FatecDbContext.cs" />
     <Compile Include="LogRepository.cs" />
     <Compile Include="Mapping\AbstractMap.cs" />
-    <Compile Include="Mapping\LogMap.cs" />
     <Compile Include="Mapping\ApplicationEventMap.cs" />
+    <Compile Include="Mapping\LogMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

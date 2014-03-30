@@ -14,7 +14,7 @@ namespace Fatec.Repositories.Mapping
 			result.Situation = xElement.GetAttrValue<string>("ows_Situa_x00e7__x00e3_o");
 			result.Semester = xElement.GetAttrValue<string>("ows_Semestre");
 
-			string[] disciplineArray = xElement.GetAttrValue<string>("ows_Disciplina").Split(';', '#');
+			string[] disciplineArray = xElement.GetAttrValue<string>("ows_Disciplina").Split(new char[] { ';', '#' }, StringSplitOptions.RemoveEmptyEntries);
 			result.DisciplineId = Convert.ToInt32(disciplineArray[0]);
 
 			result.TeacherDecision = xElement.GetAttrValue<string>("ows_Parecer_x0020_do_x0020_Professor");
@@ -45,7 +45,7 @@ namespace Fatec.Repositories.Mapping
 		{
 			var result = new EnrolledDiscipline();
 
-			var disciplineSplit = xElement.GetAttrValue<string>("ows_Disciplina").Split(new char[] { ';', '#' });
+			var disciplineSplit = xElement.GetAttrValue<string>("ows_Disciplina").Split(new char[] { ';', '#' }, StringSplitOptions.RemoveEmptyEntries);
 			result.DisciplineId = Convert.ToInt32(disciplineSplit[0]);
 
 			result.History = xElement.GetAttrValue<string>("ows_Hist_x00f3_rico");

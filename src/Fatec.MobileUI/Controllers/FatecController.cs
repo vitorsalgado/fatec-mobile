@@ -35,7 +35,8 @@ namespace Fatec.MobileUI.Controllers
 		}
 
 		[AllowAnonymous]
-		public ActionResult Sobre()
+		[BackButtonAction("Index", "Fatec")]
+		public ActionResult QuemSomos()
 		{
 			return View();
 		}
@@ -166,7 +167,7 @@ namespace Fatec.MobileUI.Controllers
 		}
 
 		[SearchAction]
-		[BackButtonAction("Index", "Fatec")]
+		[BackButtonAction("Index", "Home")]
 		public async Task<ActionResult> Busca(string q)
 		{
 			var results = await Task.Run(() => _fatecService.GetKeyMovement());

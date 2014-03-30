@@ -8,6 +8,9 @@ namespace Fatec.Core.Domain
 		public string Acronym { get; set; }
 		public string Name { get; set; }
 		public string Cycle { get; set; }
+		public decimal Workload { get; set; }
+		public decimal TotalWorkload { get; set; }
+		public decimal Credits { get; set; }
 
 	}
 }

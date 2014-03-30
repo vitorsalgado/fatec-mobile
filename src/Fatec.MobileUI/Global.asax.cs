@@ -3,12 +3,11 @@ using Fatec.Core.Domain;
 using Fatec.Core.Infrastructure.Configuration;
 using Fatec.Core.Infrastructure.Logger;
 using Fatec.Core.Infrastructure.Mail;
+using Fatec.Core.Infrastructure.Tasks;
 using Fatec.Dependencies;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -30,7 +29,7 @@ namespace Fatec.MobileUI
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AutoMapperConfig.SetUp();
 
-			//TaskManager.Instance.RunTasks();
+			TaskManager.Instance.RunTasks();
 
 			LogEvent("START");
 		}
@@ -56,10 +55,6 @@ namespace Fatec.MobileUI
 
 		protected void Application_AuthenticateRequest(object sender, EventArgs e)
 		{
-			var culture = new CultureInfo("pt-BR");
-			Thread.CurrentThread.CurrentCulture = culture;
-			Thread.CurrentThread.CurrentUICulture = culture;
-
 			if (!HttpContext.Current.Request.IsAuthenticated)
 				return;
 
@@ -79,7 +74,12 @@ namespace Fatec.MobileUI
 			log.Message = exception.Message;
 			log.Url = httpContext.Request == null ? string.Empty : httpContext.Request.Url.AbsoluteUri;
 			log.IpAddress = httpContext.Request.UserHostAddress;
-			log.Username = workContext.CurrentUser.Name;
+
+			string username = "anonymous";
+			if (workContext.CurrentUser != null)
+				username = workContext.CurrentUser.Name;
+
+			log.Username = username;
 			log.Details = exception.ToString();
 
 			try

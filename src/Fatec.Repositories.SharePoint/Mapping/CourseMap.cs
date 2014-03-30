@@ -1,6 +1,5 @@
 ﻿using Fatec.Core.Domain;
 using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Fatec.Repositories.Mapping
@@ -20,6 +19,7 @@ namespace Fatec.Repositories.Mapping
 			curso.Periods = FormatPeriod(turnos);
 
 			FillDefaultFields(curso, xElement);
+
 			return curso;
 		};
 	}

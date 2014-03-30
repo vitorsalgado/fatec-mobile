@@ -14,7 +14,7 @@ namespace Fatec.Repositories.MySql.Mapping
 			this.Property(x => x.Url).IsMaxLength();
 			this.Property(x => x.Username).HasMaxLength(250);
 
-			this.ToTable("fatec-log");
+			this.ToTable("log");
 		}
 	}
 }

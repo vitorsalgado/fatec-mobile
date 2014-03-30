@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Autofac.Integration.Wcf;
 using Fatec.Dependencies.Modules;
-using Fatec.Services;
 using System.Web.Mvc;
 
 namespace Fatec.Dependencies
@@ -22,16 +20,6 @@ namespace Fatec.Dependencies
 			
 			return builder.Build();
 		}
-
-		//public static void Wcf()
-		//{
-		//	var builder = new ContainerBuilder();
-
-		//	builder.RegisterType<FatecApi>().AsSelf();
-		//	RegisterModules(builder);
-
-		//	AutofacServiceHostFactory.Container = builder.Build();
-		//}
 
 		private static void RegisterModules(ContainerBuilder builder)
 		{

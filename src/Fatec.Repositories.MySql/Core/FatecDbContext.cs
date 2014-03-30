@@ -16,10 +16,8 @@ namespace Fatec.Repositories.MySql
 		{
 			Type configType = typeof(LogMap);
 
-			var typesToRegister = Assembly.GetAssembly(configType).GetTypes()
-				.Where(type =>
-					type.BaseType != null
-					&& type.BaseType.IsGenericType
+			var typesToRegister = Assembly.GetAssembly(configType).GetTypes().Where(type =>
+					type.BaseType != null && type.BaseType.IsGenericType
 					&& (type.BaseType.GetGenericTypeDefinition() == typeof(AbstractMap<>) || type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>))
 					&& !type.IsAbstract);
 

@@ -1,6 +1,4 @@
-﻿using Fatec.Core.Infrastructure;
-using System.Text;
-using System.Web;
+﻿using System.Web;
 
 namespace Fatec.MobileUI
 {

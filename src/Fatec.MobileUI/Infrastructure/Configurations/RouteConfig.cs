@@ -10,16 +10,42 @@ namespace Fatec.MobileUI
 			routes.IgnoreRoute("favicon.ico");
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.LowercaseUrls = true;
+
 			routes.MapRoute(
 				name: "noticias-detalhe",
 				url: "{controller}/noticias/{id}/{titulo}/{assunto}",
-				defaults: new { controller = "Fatec", action = "Noticia" }
+				defaults: new { controller = "Fatec", action = "Noticia", assunto = UrlParameter.Optional }
 			);
 
 			routes.MapRoute(
 				name: "cursos-detalhe",
 				url: "fatec/cursos/{id}/{nome}",
 				defaults: new { controller = "Fatec", action = "Curso" }
+			);
+
+			routes.MapRoute(
+				name: "Login",
+				url: "Entrar/",
+				defaults: new { controller = "Account", action = "Login" }
+			);
+
+			routes.MapRoute(
+				name: "Sobre",
+				url: "sobre/",
+				defaults: new { controller = "Home", action = "Sobre" }
+			);
+
+			routes.MapRoute(
+				name: "Feedback",
+				url: "feedback/",
+				defaults: new { controller = "Home", action = "Feedback" }
+			);
+
+			routes.MapRoute(
+				name: "404",
+				url: "404/",
+				defaults: new { controller = "Error", action = "NotFound" }
 			);
 
 			routes.MapRoute(

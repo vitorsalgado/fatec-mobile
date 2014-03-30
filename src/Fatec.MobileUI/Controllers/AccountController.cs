@@ -32,8 +32,8 @@ namespace Fatec.MobileUI.Controllers
 		[BackButtonAction("Index", "Home")]
 		public async Task<ActionResult> Login(LoginModel model, string returnUrl)
 		{
-			//if (ModelState.IsValid)// && _userService.ValidateUser(model.Username, model.Password))
-			//{
+			if (ModelState.IsValid)// && _userService.ValidateUser(model.Username, model.Password))
+			{
 				//var user = _userService.GetUserByUsername(model.Username);
 				var user = new FatecIdentity(
 					"F0713376", //TODO: MUDAR PARA MATRICULA VALIDA
@@ -47,7 +47,7 @@ namespace Fatec.MobileUI.Controllers
 					return Redirect(returnUrl);
 				else
 					return RedirectToAction("Index", "Home", null);
-			//}
+			}
 
 			ModelState.AddModelError("", "O usuário ou senha informados estão incorretos.");
 

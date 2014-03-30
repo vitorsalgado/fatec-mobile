@@ -50,9 +50,9 @@
     <Compile Include="Core\SPExtensions.cs" />
     <Compile Include="CourseRepository.cs" />
     <Compile Include="FatecRepository.cs" />
+    <Compile Include="Mapping\HistoryEntryMap.cs" />
     <Compile Include="Mapping\NewsMap.cs" />
     <Compile Include="Mapping\BaseMapper.cs" />
-    <Compile Include="Mapping\WarehouseMap.cs" />
     <Compile Include="Mapping\DisciplineMap.cs" />
     <Compile Include="Mapping\CourseMap.cs" />
     <Compile Include="Mapping\FatecMap.cs" />

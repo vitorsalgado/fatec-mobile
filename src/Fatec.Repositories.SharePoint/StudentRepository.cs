@@ -1,6 +1,7 @@
 ﻿using Fatec.Core.Domain;
 using Fatec.Core.Repositories;
 using Fatec.Repositories.Mapping;
+using Fatec.Repositories.SharePoint.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Fatec.Repositories.SharePoint
 	public class StudentRepository : IStudentRepository
 	{
 		private static readonly string[] _studentsDefaultViewFields = { "Nome_x0020_Completo", "Curso", "Turno", "Registro_x0020_Geral", "Org_x00e3_o_x0020_Emissor_x0020_", "Data_x0020_de_x0020_Emiss_x00e3_", "Data_x0020_de_x0020_Nascimento", "Naturalidade", "Endere_x00e7_o", "Bairro", "Munic_x00ed_pio_x0020_da_x0020_R", "Estado_x0020_de_x0020_Resid_x00e", "Telefone_x0020__x0028_res_x0029_", "Celular", "Email", "Turma_x0020_de_x0020_Ingresso", "Data_x0020_da_x0020_Matr_x00ed_c", "Observa_x00e7__x00f5_es_x0020_pa" };
-		private const string LISTS_SERVICE_RELATIVE_PATH = "/fatec";
+		private const string _listPath = "/fatec";
 		private readonly ISPDbContext _context;
 
 		public StudentRepository(ISPDbContext context)
@@ -31,7 +32,7 @@ namespace Fatec.Repositories.SharePoint
 				"Faltas_x0020__x0028_1_x00ba__x00", "Faltas_x0020__x0028_2_x00ba__x00", "Faltas", "M_x00e9_dia", "Conceito", "NP", "Author", "Created");
 
 			return _context.ExecuteQuery<EnrolledDiscipline>(
-				LISTS_SERVICE_RELATIVE_PATH, "Disciplinas Matriculadas no Semestre", query, viewFields, StudentMap.MapEnrolledDisciplines);
+				_listPath, "Disciplinas Matriculadas no Semestre", query, viewFields, StudentMap.MapEnrolledDisciplines);
 		}
 
 		public Student Get(string enrollment)
@@ -43,7 +44,7 @@ namespace Fatec.Repositories.SharePoint
 			var viewFields = _context.CreateViewFields(_studentsDefaultViewFields);
 
 			return _context.ExecuteQuery<Student>(
-				LISTS_SERVICE_RELATIVE_PATH, "Matrículas", query, viewFields, StudentMap.Map, 1).FirstOrDefault();
+				_listPath, "Matrículas", query, viewFields, StudentMap.Map, 1).FirstOrDefault();
 		}
 
 		public ICollection<Student> GetAll()
@@ -51,7 +52,7 @@ namespace Fatec.Repositories.SharePoint
 			var viewFields = _context.CreateViewFields(_studentsDefaultViewFields);
 
 			return _context.ExecuteQuery<Student>(
-				LISTS_SERVICE_RELATIVE_PATH, "Matrículas", string.Empty, viewFields, StudentMap.Map);
+				_listPath, "Matrículas", string.Empty, viewFields, StudentMap.Map);
 		}
 
 		public ICollection<StudiesAdvance> GetStudiesAdvance(string enrollment)
@@ -66,11 +67,14 @@ namespace Fatec.Repositories.SharePoint
 			string viewFields = _context.CreateViewFields("Semestre", "Disciplina", "Turno", "Situa_x00e7__x00e3_o", "Parecer_x0020_do_x0020_Professor");
 
 			return _context.ExecuteQuery<StudiesAdvance>(
-				LISTS_SERVICE_RELATIVE_PATH, "Aproveitamento de Estudos", query, viewFields, StudentMap.MapStudiesAdvance);
+				_listPath, "Aproveitamento de Estudos", query, viewFields, StudentMap.MapStudiesAdvance);
 		}
 
 		public ICollection<Exam> GetExams(string enrollment)
 		{
+			if (string.IsNullOrEmpty(enrollment))
+				throw new ArgumentNullException("enrollment");
+
 			bool canContinue = true;
 			StringBuilder query = new StringBuilder("<Where>");
 
@@ -116,7 +120,7 @@ namespace Fatec.Repositories.SharePoint
 			var viewFields = _context.CreateViewFields("ID", "Professor", "Disciplina", "Turno", "Data_x0020_P1", "Data_x0020_da_x0020_P2", "Sala_x0020_de_x0020_Aula", "Hor_x00e1_rio_x0028_s_x0029_");
 
 			return _context.ExecuteQuery<Exam>(
-				LISTS_SERVICE_RELATIVE_PATH, "Atribuição de Aulas à Professores", query.ToString(), viewFields, StudentMap.MapExam);
+				_listPath, "Atribuição de Aulas à Professores", query.ToString(), viewFields, StudentMap.MapExam);
 		}
 
 		public ICollection<Requirement> GetRequirements(string enrollment)
@@ -131,68 +135,179 @@ namespace Fatec.Repositories.SharePoint
 			string viewFields = _context.CreateViewFields("Category", "V3Comments", "Title", "DueDate", "Resultado", "Author");
 
 			return _context.ExecuteQuery<Requirement>(
-				LISTS_SERVICE_RELATIVE_PATH, "Requerimentos ON-LINE", query, viewFields, StudentMap.MapRequirement);
+				_listPath, "Requerimentos ON-LINE", query, viewFields, StudentMap.MapRequirement);
 		}
 
-		//public Timetable GetTimetableByEnrollment(string enrollment)
-		//{
-		//	bool canContinue = true;
-		//	StringBuilder query = new StringBuilder("<Where>");
+		public History GetHistory(string enrollment)
+		{
+			if (string.IsNullOrEmpty(enrollment))
+				throw new ArgumentNullException("enrollment");
 
-		//	var disciplines = this.GetEnrolledDisciplinesByEnrollment(enrollment).ToArray();
-		//	if (disciplines.Count() == 0)
-		//		return null;
+			String listName = "Histórico Escolar";
+			string viewFields = _context.CreateViewFields("Semestre", "Disciplina", "Turno", "Conceito");
+			String strQuery = String.Format(
+					@"<OrderBy><FieldRef Name='Semestre' Ascending='True'/><FieldRef Name='Disciplina' Ascending='True'/></OrderBy><Where>
+					<And>
+						<Eq><FieldRef Name='Matr_x00ed_cula'/><Value Type='Text'>{0}</Value></Eq>
+					<Or>
+						<Eq><FieldRef Name='Conceito'/><Value Type='Text'>D</Value></Eq>
+						<Eq><FieldRef Name='Conceito'/><Value Type='Text'>A</Value></Eq>
+					</Or>
+					</And>
+					</Where>", enrollment);
 
-		//	for (int i = 0; i < disciplines.Length; i++)
-		//	{
-		//		var discipline = disciplines[i];
+			var historyEntries = _context.ExecuteQuery<HistoryEntry>(
+				_listPath, listName, strQuery, viewFields, HistoryEntryMap.Map)
+				.OrderBy(x => x.Discipline.Id)
+				.ToList();
 
-		//		if (canContinue)
-		//		{
-		//			canContinue = false;
+			StringBuilder disciplineQueryBuilder = new StringBuilder();
+			disciplineQueryBuilder.Append("<Where>");
 
-		//			query.Append("<And>");
+			for (int i = 0; i < historyEntries.Count; i++)
+			{
+				HistoryEntry objHistory = historyEntries[i];
 
-		//			for (var x = 0; x < disciplines.Length - 1; x++)
-		//				query.Append("<Or>");
+				if (i == 0)
+				{
+					for (int x = 0; x < historyEntries.Count - 1; x++)
+						disciplineQueryBuilder.Append("<Or>");
 
-		//			query
-		//				.Append("<And>")
-		//					.Append("<Eq><FieldRef Name='Disciplina' LookupId='True'/><Value Type='Lookup'>").Append(discipline.Id).Append("</Value></Eq>")
-		//					.Append("<Eq><FieldRef Name='Turno'/><Value Type='Text'>").Append(discipline.Period).Append("</Value></Eq>")
-		//				.Append("</And>");
-		//		}
-		//		else
-		//		{
-		//			query
-		//				.Append("<And>")
-		//					.Append("<Eq><FieldRef Name='Disciplina' LookupId='True'/><Value Type='Lookup'>").Append(discipline.Id).Append("</Value></Eq>")
-		//					.Append("<Eq><FieldRef Name='Turno'/><Value Type='Text'>").Append(discipline.Period).Append("</Value></Eq>")
-		//				.Append("</And>")
-		//			.Append("</Or>");
-		//		}
-		//	}
+					disciplineQueryBuilder.Append(String.Format("<Eq><FieldRef Name='ID'/><Value Type='Number'>{0}</Value></Eq>", objHistory.Discipline.Id));
+				}
+				else
+				{
+					disciplineQueryBuilder.Append(String.Format("<Eq><FieldRef Name='ID'/><Value Type='Number'>{0}</Value></Eq>", objHistory.Discipline.Id));
+					disciplineQueryBuilder.Append("</Or>");
+				}
+			}
 
-		//	query.Append("<Eq><FieldRef Name='Vigente_x003f_'/><Value Type='Integer'>1</Value></Eq>")
-		//		.Append("</And>")
-		//	.Append("</Where>")
-		//	.Append("<OrderBy><FieldRef Name='Disciplina' Ascending='True'/></OrderBy>");
+			disciplineQueryBuilder.Append("</Where>");
 
-		//	var viewFields = SPDb.CreateViewFieldsNode("ID", "Professor", "Disciplina", "Turno", "Data_x0020_P1", "Data_x0020_da_x0020_P2", "Sala_x0020_de_x0020_Aula", "Hor_x00e1_rio_x0028_s_x0029_");
+			string disciplinesListName = "Disciplinas";
+			string disciplineViewFields = _context.CreateViewFields(
+					"ID", "Title", "C_x00ed_clo", "Curso", "Carga_x0020_Hor_x00e1_ria_x0020_", "Carga_x0020_Hor_x00e1_ria_x0020_0", "Cr_x00e9_ditos");
 
-		//	var classAssignments = SPDb.ExecuteQuery<ClassAssignmentDto>(LISTS_SERVICE_RELATIVE_PATH, "Atribuição de Aulas à Professores", query.ToString(), viewFields, StudentMap.MapClassAssigment)
-		//		.AsQueryable();
+			var listDisciplines = _context.ExecuteQuery<Discipline>(
+				_listPath, disciplinesListName, disciplineQueryBuilder.ToString(), disciplineViewFields, DisciplineMap.Map)
+				.ToList();
 
-		//	Timetable timetable = new Timetable();
+			foreach (HistoryEntry objHistoryEntry in historyEntries)
+			{
+				for (int i = 0; i < listDisciplines.Count; i++)
+				{
+					var discipline = listDisciplines[i];
 
-		//	var timetableQuery =	from classAssignment in classAssignments
-		//							group classAssignment by classAssignment.Period into byPeriod
-		//							select new
-		//							{
-		//								Period = byPeriod.Key,
-		//								Schedules = from schedule in byPeriod
-		//											group schedule by schedule.Schedule.Substring(
-		//							};
-		//}
+					if (objHistoryEntry.Discipline.Id != discipline.Id)
+						continue;
+
+					objHistoryEntry.Discipline.Cycle = discipline.Cycle;
+					objHistoryEntry.Discipline.Name = discipline.Name;
+					objHistoryEntry.Discipline.Workload = discipline.Workload;
+					objHistoryEntry.Discipline.Credits = discipline.Credits;
+					objHistoryEntry.Discipline.TotalWorkload = discipline.TotalWorkload;
+				}
+			}
+
+			History history = new History();
+			history.Enrollment = enrollment;
+			history.Entries = historyEntries;
+			history.EfficiencyPercent = GetEfficiencyPercent(enrollment);
+
+			return history;
+		}
+
+		private decimal GetEfficiencyPercent(string enrollment)
+		{
+			List<HistoryEntry> historyEntries = GetHistoryEntriesForEfficiencyCalculation(enrollment);
+			historyEntries = GetDisciplinesForEfficiencyCalculation(historyEntries);
+
+			decimal grade = 0;
+			decimal workload = 0;
+			decimal efficiencyPercent = 0;
+
+			for (int i = 0; i < historyEntries.Count; i++)
+			{
+				HistoryEntry historyEntry = historyEntries[i];
+
+				grade += historyEntry.Average * historyEntry.Discipline.TotalWorkload;
+				workload += historyEntry.Discipline.TotalWorkload;
+			}
+
+			efficiencyPercent = ((grade * 10) / workload);
+
+			return efficiencyPercent;
+		}
+
+		private List<HistoryEntry> GetHistoryEntriesForEfficiencyCalculation(string enrollment)
+		{
+			string listName = "Histórico Escolar";
+			string viewFields = _context.CreateViewFields("Disciplina", "M_x00e9_dia");
+			string strQuery = string.Format(@"<OrderBy><FieldRef Name='Disciplina' Ascending='True'/></OrderBy><Where>
+					<And>
+						<Eq><FieldRef Name='Matr_x00ed_cula'/><Value Type='Text'>{0}</Value></Eq>
+					<Or>
+						<Eq><FieldRef Name='Conceito'/><Value Type='Text'>A</Value></Eq>
+						<Eq><FieldRef Name='Conceito'/><Value Type='Text'>F</Value></Eq>
+					</Or>
+					</And>
+					</Where>", enrollment);
+
+			var historyEntries = _context.ExecuteQuery<HistoryEntry>(
+				_listPath, listName, strQuery, viewFields, HistoryEntryMap.Map);
+
+			return historyEntries.OrderBy(x => x.Discipline.Id).ToList();
+		}
+
+		private List<HistoryEntry> GetDisciplinesForEfficiencyCalculation(List<HistoryEntry> historyEntries)
+		{
+			StringBuilder disciplineQueryBuilder = new StringBuilder();
+			disciplineQueryBuilder.Append("<Where>");
+
+			for (int i = 0; i < historyEntries.Count; i++)
+			{
+				HistoryEntry objHistory = historyEntries[i];
+
+				if (i == 0)
+				{
+					for (int x = 0; x < historyEntries.Count - 1; x++)
+						disciplineQueryBuilder.Append("<Or>");
+
+					disciplineQueryBuilder.Append(string.Format("<Eq><FieldRef Name='ID'/><Value Type='Number'>{0}</Value></Eq>", objHistory.Discipline.Id));
+				}
+				else
+				{
+					disciplineQueryBuilder.Append(string.Format("<Eq><FieldRef Name='ID'/><Value Type='Number'>{0}</Value></Eq>", objHistory.Discipline.Id));
+					disciplineQueryBuilder.Append("</Or>");
+				}
+			}
+
+			disciplineQueryBuilder.Append("</Where>");
+
+			string disciplinesListName = "Disciplinas";
+			string disciplineViewFields = _context.CreateViewFields(
+					"ID", "Title", "Carga_x0020_Hor_x00e1_ria_x0020_", "Carga_x0020_Hor_x00e1_ria_x0020_0");
+
+			var listDisciplines =
+				_context.ExecuteQuery<Discipline>(_listPath, disciplinesListName, disciplineQueryBuilder.ToString(),
+				disciplineViewFields, DisciplineMap.Map).ToList();
+
+			foreach (var objHistoryEntry in historyEntries)
+			{
+				for (int i = 0; i < listDisciplines.Count; i++)
+				{
+					var discipline = listDisciplines[i];
+
+					if (objHistoryEntry.Discipline.Id != discipline.Id)
+						continue;
+
+					objHistoryEntry.Discipline.Name = discipline.Name;
+					objHistoryEntry.Discipline.Workload = discipline.Workload;
+					objHistoryEntry.Discipline.TotalWorkload = discipline.TotalWorkload;
+				}
+			}
+
+			return historyEntries;
+		}
 	}
 }

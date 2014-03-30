@@ -3,19 +3,19 @@ using System.Data.Entity;
 
 namespace Fatec.Repositories.MySql.Core
 {
-	public class EfTask : ITask
-	{
-		public string Description
-		{
-			get { return "Task to start mysql database."; }
-		}
+	//public class EfTask : ITask
+	//{
+	//	public string Description
+	//	{
+	//		get { return "Task to start mysql database."; }
+	//	}
 
-		public void Run()
-		{
-			Database.SetInitializer<FatecDbContext>(new DbInit<FatecDbContext>());
+	//	public void Run()
+	//	{
+	//		Database.SetInitializer<FatecDbContext>(new DbInit<FatecDbContext>());
 
-			using (var startContext = new FatecDbContext())
-				startContext.Database.Initialize(true);
-		}
-	}
+	//		using (var startContext = new FatecDbContext())
+	//			startContext.Database.Initialize(true);
+	//	}
+	//}
 }

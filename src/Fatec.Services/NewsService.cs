@@ -18,6 +18,7 @@ namespace Fatec.Services
 
 		private const int CACHE_MIN_EXPIRATION_TIME = 10;
 		private const int CACHE_MAX_EXPIRATION_TIME = 1440;
+		private const int CACHE_MEDIUM_DURATION = 120;
 
 		private readonly INewsRepository _newsRepository;
 		private readonly ICacheManager _cacheStrategy;
@@ -104,7 +105,7 @@ namespace Fatec.Services
 
 			string cacheKey = string.Format(cacheInternshipAll, id);
 
-			return _cacheStrategy.Get(cacheKey, CACHE_MIN_EXPIRATION_TIME, () =>
+			return _cacheStrategy.Get(cacheKey, CACHE_MAX_EXPIRATION_TIME, () =>
 			{
 				return _newsRepository.GetInternship(id);
 			});
@@ -112,7 +113,7 @@ namespace Fatec.Services
 
 		public ICollection<News> GetAllInternships()
 		{
-			return _cacheStrategy.Get(cacheInternshipId, CACHE_MIN_EXPIRATION_TIME, () =>
+			return _cacheStrategy.Get(cacheInternshipId, CACHE_MEDIUM_DURATION, () =>
 			{
 				return _newsRepository.GetAllInternships();
 			});

@@ -11,5 +11,6 @@ namespace Fatec.Core.Repositories
 		ICollection<StudiesAdvance> GetStudiesAdvance(string enrollment);
 		ICollection<Exam> GetExams(string enrollment);
 		ICollection<Requirement> GetRequirements(string enrollment);
+		History GetHistory(string enrollment);
 	}
 }

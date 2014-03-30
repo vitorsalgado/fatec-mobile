@@ -1,0 +1,45 @@
+﻿@model HistoryModel
+
+@{
+    ViewBag.Title = "Histórico";
+    ViewBag.Highlight = "histórico";
+    ViewBag.AdditionalPageInfo = " completo";
+}
+
+@Html.ValidationSummary()
+
+<div class="history-container">
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>Ciclo</th>
+                <th class="text-left">Disciplina</th>
+                <th>Créditos</th>
+                <th>Carga Horária</th>
+                <th>Média</th>
+                <th>Conceito</th>
+                <th>Semestre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.History.Entries)
+            {
+                <tr>
+                    <td>@entry.Discipline.Cycle °</td>
+                    <td class="text-left">@entry.Discipline.Name</td>
+                    <td>@entry.Discipline.Credits.ToString("n0")</td>
+                    <td>@entry.Discipline.TotalWorkload.ToString("n0")</td>
+                    <td>@entry.Average.ToString("n1")</td>
+                    <td>@entry.Concept</td>
+                    <td>@entry.Semester</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p class="grid-detail-label"><b>Legenda</b><br /> <b>A</b>- Aprovado, <b>D</b>- Dispensado (Aproveitamento de Estudos)</p>
+    <ul class="grid-detail large-grid-detail">
+        <li><a href="javascript:void(0);">Carga Horária Total <b>@Model.History.TotalWorkload.ToString("n0")</b></a></li>
+        <li><a href="javascript:void(0);">Total de Créditos <b>@Model.History.TotalCredits.ToString("n0")</b></a></li>
+        <li><a href="javascript:void(0);">Percentual de Rendimento <b>@Model.History.EfficiencyPercent.ToString("n2") %</b></a></li>
+    </ul>
+</div>

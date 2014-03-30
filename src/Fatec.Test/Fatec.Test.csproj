@@ -100,16 +100,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Api\ApiTest.cs" />
     <Compile Include="Domain\StudentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AlunoRepositoryTest.cs" />
     <Compile Include="Repository\AvisosRepositoryTest.cs" />
-    <Compile Include="Service References\FatecApi\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="TestEngine.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,43 +117,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Service References\FatecApi\FATEC-PG-Api.wsdl" />
-    <None Include="Service References\FatecApi\Fatec.Test.FatecApi.LoginResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\FatecApi\FatecApi.wsdl" />
-    <None Include="Service References\FatecApi\FatecApi.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FatecApi\FatecApi1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FatecApi\FatecApi2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\FatecApi\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FatecApi\FatecApi.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FatecApi\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FatecApi\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FatecApi\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

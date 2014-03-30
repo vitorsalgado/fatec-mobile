@@ -11,7 +11,7 @@
 				}	
 			</div>
 		} else {
-			<div class="username-line username-line-annonymous">@Html.ActionLink("Olá. Faça seu login aqui.", "Login", "Account")</div>
+			<div class="username-line username-line-annonymous">@Html.RouteLink("Olá. Faça seu login aqui.", "Login")</div>
 		}
 		<h1 class="current-page-info-line">@ViewBag.Highlight <span class="light-text">@ViewBag.AdditionalPageInfo</span></h1>
 	</div>

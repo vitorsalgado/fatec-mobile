@@ -11,7 +11,7 @@ namespace Fatec.Repositories.SharePoint
 	{
 		private const string _listPath = "/fatec";
 		private const string _listName = "Disciplinas";
-		private static readonly string[] _viewFields = { "Title", "C_x00ed_clo" };
+		private static readonly string[] _viewFields = { "Title", "C_x00ed_clo", "ows_Cr_x00e9_ditos", "ows_Carga_x0020_Hor_x00e1_ria_x0020_0", "ows_Carga_x0020_Hor_x00e1_ria_x0020_" };
 
 		private readonly ISPDbContext _context;
 
@@ -27,7 +27,7 @@ namespace Fatec.Repositories.SharePoint
 			string viewFields = _context.CreateViewFields(_viewFields);
 
 			return _context.ExecuteQuery<Discipline>(
-				_listPath, _listName, query, viewFields, DisciplineMap.MapDiscipline, 1).FirstOrDefault();
+				_listPath, _listName, query, viewFields, DisciplineMap.Map, 1).FirstOrDefault();
 		}
 
 		public ICollection<Discipline> GetAll()
@@ -36,7 +36,7 @@ namespace Fatec.Repositories.SharePoint
 			string viewFields = _context.CreateViewFields(_viewFields);
 
 			return _context.ExecuteQuery<Discipline>(
-				_listPath, _listName, query, viewFields, DisciplineMap.MapDiscipline);
+				_listPath, _listName, query, viewFields, DisciplineMap.Map);
 		}
 	}
 }

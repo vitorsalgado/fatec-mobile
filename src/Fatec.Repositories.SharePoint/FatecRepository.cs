@@ -1,7 +1,6 @@
 ﻿using Fatec.Core.Domain;
 using Fatec.Core.Repositories;
 using Fatec.Repositories.Mapping;
-using Fatec.Repositories.SharePoint.Mapping;
 using System;
 using System.Collections.Generic;
 
@@ -51,7 +50,7 @@ namespace Fatec.Repositories.SharePoint
 					</Where><OrderBy><FieldRef Name='Requisitante' Ascending='True'/></OrderBy>";
 
 			return _context.ExecuteQuery<KeyMovement>(
-				ciListsPath, "Controle de Chaves", query, viewFields, WarehouseMap.Map);
+				ciListsPath, "Controle de Chaves", query, viewFields, FatecMap.MapKeyMovement);
 		}
 	}
 }

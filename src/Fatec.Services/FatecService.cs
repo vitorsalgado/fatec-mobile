@@ -9,16 +9,16 @@ namespace Fatec.Services
 {
 	public class FatecService : IFatecService
 	{
-		private readonly ICourseRepository _cursoRepository;
+		private readonly ICourseRepository _courseRepository;
 		private readonly IFatecRepository _fatecRepository;
-		private readonly ICacheManager _cacheStrategy;
+		private readonly ICacheManager _cacheManager;
 
 		private readonly IDisciplineService _disciplineService;
 
-		private const string CACHE_CURSO_BY_ID = "fatec.domain.curso.id-{0}";
-		private const string CACHE_CURSOS = "fatec.domain.cursoss";
-		private const string CACHE_PROFESSORES = "fatec.domain.professores";
-		private const string CACHE_CLASS_REPLACEMENT = "fatec.domain.atribuicoes";
+		private const string CACHE_COURSE_BY_ID = "fatec.core.domain.course-{0}";
+		private const string COURSES = "fatec.core.domain.courses";
+		private const string CACHE_TEACHERS = "fatec.core.domain.teachers";
+		private const string CACHE_REPLACEMENTS = "fatec.core.domain.replacements";
 
 		private const int CACHE_LONG_DURATION = int.MaxValue;
 		private const int CACHE_MIN_DURATION = 10;
@@ -29,17 +29,17 @@ namespace Fatec.Services
 			ICacheManager cacheStrategy,
 			IDisciplineService disciplineService)
 		{
-			_cursoRepository = cursoRepository;
+			_courseRepository = cursoRepository;
 			_fatecRepository = fatecRepository;
-			_cacheStrategy = cacheStrategy;
+			_cacheManager = cacheStrategy;
 			_disciplineService = disciplineService;
 		}
 
 		public ICollection<Course> GetActivesCourses()
 		{
-			return _cacheStrategy.Get(CACHE_CURSOS, CACHE_LONG_DURATION, () =>
+			return _cacheManager.Get(COURSES, CACHE_LONG_DURATION, () =>
 			{
-				return _cursoRepository.GetAllActive();
+				return _courseRepository.GetAllActive();
 			});
 		}
 
@@ -47,41 +47,44 @@ namespace Fatec.Services
 		{
 			if (id <= 0) throw new ArgumentOutOfRangeException("id", id, "Parameter \"id\" must be greather or equal than zero.");
 
-			var cacheKey = string.Format(CACHE_CURSO_BY_ID, id);
-			return _cacheStrategy.Get(cacheKey, CACHE_LONG_DURATION, () =>
+			var cacheKey = string.Format(CACHE_COURSE_BY_ID, id);
+
+			return _cacheManager.Get(cacheKey, CACHE_LONG_DURATION, () =>
 			{
-				var curso = _cursoRepository.GetById(id);
-				return curso;
+				return _courseRepository.GetById(id);
 			});
 		}
 
 		public ICollection<TeacherAbsence> GetTeachersAbsences()
 		{
-			var key = string.Format(CACHE_PROFESSORES);
+			ICollection<TeacherAbsence> abscenses = _cacheManager.Get<ICollection<TeacherAbsence>>(CACHE_TEACHERS);
+			if (abscenses != null)
+				return abscenses;
 
-			var abscenses = _cacheStrategy.Get(key, CACHE_MIN_DURATION, () =>
-			{
-				return _fatecRepository.GetTeacherAbsences();
-			});
+			abscenses = _fatecRepository.GetTeacherAbsences();
 
 			foreach (var abscense in abscenses)
 				abscense.Discipline = _disciplineService.GetById(abscense.DisciplineId);
+
+			_cacheManager.Add(CACHE_TEACHERS, abscenses, CACHE_MIN_DURATION);
 
 			return abscenses;
 		}
 
 		public ICollection<Replacement> GetClassReplacements()
 		{
-			var classReplacements = _cacheStrategy.Get(
-				CACHE_CLASS_REPLACEMENT, 90, () =>
-				{
-					return _fatecRepository.GetReplacements();
-				});
+			ICollection<Replacement> replacements = _cacheManager.Get<ICollection<Replacement>>(CACHE_REPLACEMENTS);
+			if (replacements != null)
+				return replacements;
 
-			foreach (var replacement in classReplacements)
+			replacements = _fatecRepository.GetReplacements();
+
+			foreach (var replacement in replacements)
 				replacement.Discipline = _disciplineService.GetById(replacement.DisciplineId);
 
-			return classReplacements;
+			_cacheManager.Add(CACHE_REPLACEMENTS, replacements, 90);
+
+			return replacements;
 		}
 
 		public ICollection<KeyMovement> GetKeyMovement()
