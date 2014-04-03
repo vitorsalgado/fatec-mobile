@@ -1,25 +1,29 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Filters
 {
-	public class PageInfoLabelsAttribute : ActionFilterAttribute
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+	public sealed class PageInfoLabelsAttribute : ActionFilterAttribute
 	{
-		private string _title;
-		private string _highLight;
-		private string _additionalPageInfo;
+		public string Title { get; private set; }
+		public string HighLight { get; private set; }
+		public string AdditionalPageInfo { get; private set; }
 
 		public PageInfoLabelsAttribute(string title, string highLight, string additionalPageInfo)
 		{
-			_title = title;
-			_highLight = highLight;
-			_additionalPageInfo = additionalPageInfo;
+			Title = title;
+			HighLight = highLight;
+			AdditionalPageInfo = additionalPageInfo;
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			filterContext.Controller.ViewBag.Title = _title;
-			filterContext.Controller.ViewBag.Highlight = _highLight;
-			filterContext.Controller.ViewBag.AdditionalPageInfo = _additionalPageInfo;
+			if (filterContext == null) throw new ArgumentNullException("filterContext");
+
+			filterContext.Controller.ViewBag.Title = Title;
+			filterContext.Controller.ViewBag.Highlight = HighLight;
+			filterContext.Controller.ViewBag.AdditionalPageInfo = AdditionalPageInfo;
 		}
 	}
 }

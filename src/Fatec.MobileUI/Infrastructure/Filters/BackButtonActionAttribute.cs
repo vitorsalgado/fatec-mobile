@@ -1,22 +1,29 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Filters
 {
-	public class BackButtonActionAttribute : ActionFilterAttribute
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+	public sealed class BackButtonActionAttribute : ActionFilterAttribute
 	{
-		private string _actionName;
-		private string _controllerName;
+		public string ActionName { get; private set; }
+		public string ControllerName { get; private set; }
 
 		public BackButtonActionAttribute(string actionName, string controllerName)
 		{
-			_actionName = actionName;
-			_controllerName = controllerName;
+			if (string.IsNullOrEmpty(actionName)) throw new ArgumentNullException("actionName");
+			if (string.IsNullOrEmpty(controllerName)) throw new ArgumentNullException("controllerName");
+
+			ActionName = actionName;
+			ControllerName = controllerName;
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			filterContext.Controller.ViewData["BackButtonActionName"] = _actionName;
-			filterContext.Controller.ViewData["BackButtonControllerName"] = _controllerName;
+			if (filterContext == null) throw new ArgumentNullException("filterContext");
+
+			filterContext.Controller.ViewData["BackButtonActionName"] = ActionName;
+			filterContext.Controller.ViewData["BackButtonControllerName"] = ControllerName;
 		}
 	}
 }

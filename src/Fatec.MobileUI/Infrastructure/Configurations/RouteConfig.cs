@@ -26,7 +26,7 @@ namespace Fatec.MobileUI
 
 			routes.MapRoute(
 				name: "Login",
-				url: "Entrar/",
+				url: "entrar/",
 				defaults: new { controller = "Account", action = "Login" }
 			);
 

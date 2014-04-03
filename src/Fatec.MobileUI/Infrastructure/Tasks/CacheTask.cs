@@ -36,7 +36,6 @@ namespace Fatec.MobileUI.Infrastructure.Tasks
 			var cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
 			var disciplineService = DependencyResolver.Current.GetService<IDisciplineService>();
 			var newsService = DependencyResolver.Current.GetService<INewsService>();
-			var studentService = DependencyResolver.Current.GetService<IStudentService>();
 
 			cacheManager.ClearAll();
 

@@ -1,44 +1,46 @@
-﻿@model List<Fatec.MobileUI.ViewModels.EnrollmentModel>
+﻿@using Fatec.Core
+@model List<EnrollmentModel>
 @{
-	ViewBag.Title = "Matrículas - FATEC PG - Mobile";
-	ViewBag.Highlight = "matrículas";
-	ViewBag.AdditionalPageInfo = " no semestre";
+    ViewBag.Title = "Matrículas - FATEC PG - Mobile";
+    ViewBag.Highlight = "notas";
+    ViewBag.AdditionalPageInfo = " e faltas no semestre";
 }
 
 @Html.ValidationSummary()
 <div class="wrap">
-	@foreach (var matricula in Model) {
-		<div class="content-box">
-			<div class="entry-container post conceito conceito-@matricula.Concept">
-				<div class="entry-container-inner">
-					<h1 class="post-title-white">
-						<span>
-							@matricula.Discipline
-						</span>
-					</h1>
-					<table class="grid-notas" id="tbBimestres">
-						<tr class="centeral bold">
-							<td colspan="2">1°Bim.</td>
-							<td colspan="2">2°Bim</td>
-						</tr>
-						<tr class="centeral bold">
-							<td>Nota</td>
-							<td>Faltas</td>
-							<td>Nota</td>
-							<td>Faltas</td>
-						</tr>
-						<tr class="centeral">
-							<td>@matricula.GradeP1.ToString("0.##")</td>
-							<td>@matricula.AbsencesB1</td>
-							<td>@matricula.GradeP2.ToString("0.##")</td>
-							<td>@matricula.AbsencesB2</td>
-						</tr>
-					</table>
-					<h1 class="entry-footer">
-						<span><b>Média</b></span><span class="large-space">·</span><span>@matricula.Grade.ToString("0.##")</span>
-					</h1>
-				</div>
-			</div>
-		</div>
- }
+    @foreach (var matricula in Model)
+    {
+        <div class="content-box">
+            <div class="entry-container post conceito conceito-@matricula.Concept">
+                <div class="entry-container-inner">
+                    <h1 class="post-title-white">
+                        <span>
+                            @CommonHelper.ShrinkText(@matricula.Discipline, 28, 26)
+                        </span>
+                    </h1>
+                    <table class="grid-notas" id="tbBimestres">
+                        <tr class="centeral bold">
+                            <td colspan="2">1°Bim.</td>
+                            <td colspan="2">2°Bim</td>
+                        </tr>
+                        <tr class="centeral bold">
+                            <td>Nota</td>
+                            <td>Faltas</td>
+                            <td>Nota</td>
+                            <td>Faltas</td>
+                        </tr>
+                        <tr class="centeral">
+                            <td>@matricula.GradeP1.ToString("0.##")</td>
+                            <td>@matricula.AbsencesB1</td>
+                            <td>@matricula.GradeP2.ToString("0.##")</td>
+                            <td>@matricula.AbsencesB2</td>
+                        </tr>
+                    </table>
+                    <h1 class="entry-footer">
+                        <span><b>Média</b></span><span class="large-space">·</span><span>@matricula.Grade.ToString("0.##")</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    }
 </div>

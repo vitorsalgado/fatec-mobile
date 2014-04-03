@@ -17,7 +17,7 @@ namespace Fatec.MobileUI.Infrastructure.Mappings
 
 			domainToModelMap
 				.ForMember(x => x.Concept, o => o.MapFrom(m => m.Concept))
-				.ForMember(x => x.Discipline, o => o.MapFrom(m => m.Discipline))
+				.ForMember(x => x.Discipline, o => o.MapFrom(m => m.Discipline.Name))
 				.ForMember(x => x.AbsencesB1, o => o.MapFrom(m => m.AbsencesFirstTwoMonths))
 				.ForMember(x => x.AbsencesB2, o => o.MapFrom(m => m.AbsencesSecondTwoMonths))
 				.ForMember(x => x.Grade, o => o.MapFrom(m => m.Grade))

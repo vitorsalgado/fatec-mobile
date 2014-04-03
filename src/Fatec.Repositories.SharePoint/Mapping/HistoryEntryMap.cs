@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace Fatec.Repositories.SharePoint.Mapping
 {
-	public class HistoryEntryMap
+	public static class HistoryEntryMap
 	{
 		public static Func<XElement, HistoryEntry> Map = xElement =>
 		{

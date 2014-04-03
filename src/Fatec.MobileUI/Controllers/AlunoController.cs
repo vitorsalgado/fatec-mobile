@@ -41,7 +41,7 @@ namespace Fatec.MobileUI.Controllers
 
 			if (studentEnrolledDisciplines.Count == 0)
 			{
-				ModelState.AddModelError("", "Nenhuma matrícula encontrada :-(");
+				ModelState.AddModelError("", "Não encontramos nenhum registro de notas ou faltas :-(");
 				return View(model);
 			}
 
@@ -134,7 +134,7 @@ namespace Fatec.MobileUI.Controllers
 
 			if (history == null)
 			{
-				ModelState.AddModelError("", "Não encontramos nenhum registro de histórico para a sua matrícula ;-(");
+				ModelState.AddModelError("", "Não encontramos nenhum registro de histórico para a sua matrícula :-(");
 				return View(model);
 			}
 

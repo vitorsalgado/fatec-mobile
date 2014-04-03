@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -24,6 +25,8 @@ namespace Fatec.Core
 
 		public static string SerializeToXml(object obj)
 		{
+			if (obj == null) throw new ArgumentNullException("obj");
+
 			var xmlS = new XmlSerializer(obj.GetType());
 			var sb = new StringBuilder();
 

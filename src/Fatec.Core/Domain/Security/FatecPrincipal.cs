@@ -12,6 +12,7 @@ namespace Fatec.Core.Domain
 		public FatecPrincipal(IIdentity identity, string[] roles)
 		{
 			if (identity == null) throw new ArgumentNullException("identity");
+			if (roles == null) throw new ArgumentNullException("roles");
 
 			_identity = identity;
 			_roles = new string[roles.Length];
@@ -31,6 +32,8 @@ namespace Fatec.Core.Domain
 
 		public bool IsInAllRoles(params string[] roles)
 		{
+			if (roles == null) throw new ArgumentNullException("roles");
+
 			foreach (string searchrole in roles)
 				if (Array.BinarySearch(_roles, searchrole) < 0)
 					return false;

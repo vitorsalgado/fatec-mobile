@@ -29,7 +29,7 @@ namespace Fatec.MobileUI
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AutoMapperConfig.SetUp();
 
-			TaskManager.Instance.RunTasks();
+			RunStartupTasks();
 
 			LogEvent("START");
 		}
@@ -134,6 +134,15 @@ namespace Fatec.MobileUI
 			{
 				var logService = DependencyResolver.Current.GetService<ILogService>();
 				logService.Inform(eventDescription);
+			}
+			catch { }
+		}
+
+		private static void RunStartupTasks()
+		{
+			try
+			{
+				TaskManager.Instance.RunTasks();
 			}
 			catch { }
 		}

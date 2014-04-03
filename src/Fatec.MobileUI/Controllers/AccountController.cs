@@ -1,5 +1,4 @@
-﻿using Fatec.Core.Domain;
-using Fatec.Core.Services;
+﻿using Fatec.Core.Services;
 using Fatec.MobileUI.Filters;
 using Fatec.MobileUI.ViewModels;
 using System.Threading.Tasks;
@@ -7,8 +6,8 @@ using System.Web.Mvc;
 
 namespace Fatec.MobileUI.Controllers
 {
-    public class AccountController : Controller
-    {
+	public class AccountController : Controller
+	{
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserService _userService;
 
@@ -20,11 +19,11 @@ namespace Fatec.MobileUI.Controllers
 
 		[AllowAnonymous]
 		[BackButtonAction("Index", "Home")]
-        public ActionResult Login(string returnUrl)
-        {
+		public ActionResult Login(string returnUrl)
+		{
 			ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
+			return View();
+		}
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -32,15 +31,9 @@ namespace Fatec.MobileUI.Controllers
 		[BackButtonAction("Index", "Home")]
 		public async Task<ActionResult> Login(LoginModel model, string returnUrl)
 		{
-			if (ModelState.IsValid)// && _userService.ValidateUser(model.Username, model.Password))
+			if (ModelState.IsValid && _userService.ValidateUser(model.Username, model.Password))
 			{
-				//var user = _userService.GetUserByUsername(model.Username);
-				var user = new FatecIdentity(
-					"F0713376", //TODO: MUDAR PARA MATRICULA VALIDA
-					"Vitor Hugo Salgado",
-					"vsalgadopb@gmail.com",
-					(new string[]{ "Aluno FATEC" }));
-
+				var user = _userService.GetByUsername(model.Username);
 				await Task.Run(() => _authenticationService.SignIn(user, model.Remember));
 
 				if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -61,5 +54,5 @@ namespace Fatec.MobileUI.Controllers
 			_authenticationService.SignOut();
 			return RedirectToAction("Index", "Home");
 		}
-    }
+	}
 }

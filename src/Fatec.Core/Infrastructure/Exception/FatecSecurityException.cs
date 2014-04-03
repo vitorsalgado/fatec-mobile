@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Fatec.Core.Infrastructure
 {
+	[Serializable]
 	public class FatecSecurityException : Exception
 	{
 		public FatecSecurityException() { }

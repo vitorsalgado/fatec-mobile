@@ -179,7 +179,7 @@ conceito-f {
 	width: 98%;
 }
 
-#login input[type=submit]{
+#login input[type=submit] {
 	margin: 35px 0 0;
 	line-height: 50px;
 }
@@ -221,7 +221,7 @@ conceito-f {
 	.grid th {
 		background-color: #667686;
 		color: #fff;
-		padding: 10px;
+		padding: 5px;
 		font-family: ProximaNova-SemiBold, helvetica, arial, sans-serif;
 		font-weight: normal;
 		border-top: none;
@@ -235,7 +235,7 @@ conceito-f {
 
 	.grid td {
 		border-top: 1px solid #E0E0E0;
-		padding: 10px;
+		padding: 5px;
 		text-align: center;
 		vertical-align: middle;
 		color: #666;
@@ -334,13 +334,13 @@ conceito-f {
 		font-size: 110%;
 	}
 
-	.feedback-form input[type=radio]{
-		cursor:pointer;
+	.feedback-form input[type=radio] {
+		cursor: pointer;
 	}
 
-	.feedback-form .rate-container label{
+	.feedback-form .rate-container label {
 		margin-left: 5px;
-		cursor:pointer;
+		cursor: pointer;
 	}
 
 	.feedback-form textarea {

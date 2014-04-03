@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Fatec.Core.Domain
 {
@@ -28,13 +27,5 @@ namespace Fatec.Core.Domain
 		public int CourseId { get; set; }
 
 		public virtual Course Course { get; set; }
-
-		public virtual ICollection<Exam> Exams { get; set; }
-
-		public virtual ICollection<EnrolledDiscipline> EnrolledDisciplines { get; set; }
-
-		public virtual ICollection<StudiesAdvance> StudiesAdvances { get; set; }
-
-		public virtual ICollection<Requirement> Requirements { get; set; }
 	}
 }

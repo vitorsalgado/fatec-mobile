@@ -20,15 +20,13 @@ namespace Fatec.Services
 
 		private readonly IStudentRepository _studentRepository;
 		private readonly ICacheManager _cacheManager;
-		private readonly IFatecService _fatecService;
 		private readonly IDisciplineService _disciplineService;
 
 		public StudentService(
-			IStudentRepository studentRepository, ICacheManager cacheManager, IFatecService fatecService, IDisciplineService disciplineService)
+			IStudentRepository studentRepository, ICacheManager cacheManager, IDisciplineService disciplineService)
 		{
 			_studentRepository = studentRepository;
 			_cacheManager = cacheManager;
-			_fatecService = fatecService;
 			_disciplineService = disciplineService;
 		}
 
@@ -72,7 +70,7 @@ namespace Fatec.Services
 		public ICollection<Exam> GetExams(string enrollment)
 		{
 			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
-			
+
 			var exams = _studentRepository.GetExams(enrollment);
 			foreach (var exam in exams)
 				exam.Discipline = _disciplineService.GetById(exam.DisciplineId);
@@ -89,7 +87,7 @@ namespace Fatec.Services
 
 		public History GetHistory(string enrollment)
 		{
-			if(string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
+			if (string.IsNullOrEmpty(enrollment)) throw new ArgumentNullException("enrollment");
 
 			var key = string.Format(CACHE_STUDENT_HISTORY, enrollment);
 			Func<History> fetchFunction = () => _studentRepository.GetHistory(enrollment);

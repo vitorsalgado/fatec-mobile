@@ -5,7 +5,6 @@ using Fatec.MobileUI.ViewModels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI;
 
 namespace Fatec.MobileUI.Controllers
 {
@@ -69,7 +68,7 @@ namespace Fatec.MobileUI.Controllers
 				return View("FeedbackSentConfirmation");
 			}
 
-			return View();
+			return View(model);
 		}
 	}
 }

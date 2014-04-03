@@ -1,16 +1,16 @@
 ﻿@model List<ReplacementModel>
 
 @{
-	ViewBag.Title = "Reposições";
-	ViewBag.Highlight = "reposições";
-	ViewBag.AdditionalPageInfo = " de aulas";
+    ViewBag.Title = "Reposições";
+    ViewBag.Highlight = "reposições";
+    ViewBag.AdditionalPageInfo = " de aulas";
 }
 
 @Html.ValidationSummary()
 
 @foreach (var item in Model)
 {
-	<div class="post">
+    <div class="post">
         <div class="inner-post">
             <h1 class="post-title post-title-black">
                 @item.Discipline
@@ -33,5 +33,5 @@
                 </p>
             </div>
         </div>
-	</div>
+    </div>
 }

@@ -54,11 +54,20 @@ namespace Fatec.Services
 
 			return _cacheStrategy.Get(cacheKey, CACHE_MIN_EXPIRATION_TIME, () =>
 			{
-				var avisosValidos = _newsRepository.GetAllHomeNews();
-				foreach (var aviso in avisosValidos)
-					aviso.Subject = "h";
+				var validNews = _newsRepository.GetAllHomeNews();
+				News newsToRemove = null;
 
-				return avisosValidos;
+				foreach (var news in validNews)
+				{
+					if (news.Id == 266)
+						newsToRemove = news;
+					else
+						news.Subject = "h";
+				}
+
+				validNews.Remove(newsToRemove);
+
+				return validNews;
 			});
 		}
 
@@ -87,11 +96,20 @@ namespace Fatec.Services
 
 			return _cacheStrategy.Get(cacheKey, CACHE_MIN_EXPIRATION_TIME, () =>
 			{
-				var avisosValidos = _newsRepository.GetAllFatecNews();
-				foreach (var aviso in avisosValidos)
-					aviso.Subject = "f";
+				var validNews = _newsRepository.GetAllFatecNews();
+				News newsToRemove = null;
 
-				return avisosValidos;
+				foreach (var news in validNews)
+				{
+					if (news.Id == 124)
+						newsToRemove = news;
+					else
+						news.Subject = "f";
+				}
+
+				validNews.Remove(newsToRemove);
+
+				return validNews;
 			});
 		}
 
@@ -103,7 +121,7 @@ namespace Fatec.Services
 		{
 			if (id <= 0) throw new ArgumentOutOfRangeException("id", id, "id must be greather than ZERO.");
 
-			string cacheKey = string.Format(cacheInternshipAll, id);
+			string cacheKey = string.Format(cacheInternshipId, id);
 
 			return _cacheStrategy.Get(cacheKey, CACHE_MAX_EXPIRATION_TIME, () =>
 			{
@@ -113,7 +131,7 @@ namespace Fatec.Services
 
 		public ICollection<News> GetAllInternships()
 		{
-			return _cacheStrategy.Get(cacheInternshipId, CACHE_MEDIUM_DURATION, () =>
+			return _cacheStrategy.Get(cacheInternshipAll, CACHE_MEDIUM_DURATION, () =>
 			{
 				return _newsRepository.GetAllInternships();
 			});
